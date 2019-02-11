@@ -40,12 +40,12 @@ namespace WizardsCastle.Logic.Tests.Situations
         [Test]
         public void UnexploredRoomBecomesExplored()
         {
-            _data.Map.SetLocationInfo(_location, MapCodes.UnexploredPrefix + MapCodes.EmptyRoom);
+            _data.Map.SetLocationInfo(_location, MapCodes.Unexplored(MapCodes.EmptyRoom));
 
             _situation.PlayThrough(_data, _tools);
 
             var info = _data.Map.GetLocationInfo(_location);
-            Assert.That(info, Is.EqualTo(MapCodes.EmptyRoom));
+            Assert.That(info, Is.EqualTo(MapCodes.EmptyRoom.ToString()));
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace WizardsCastle.Logic.Tests.Situations
             TestDescribeAndMoveRoom(MapCodes.Entrance, NavigationOptions.Entrance, Messages.EntranceDescription);
         }
 
-        private void TestDescribeAndMoveRoom(string roomCode, UserOption[] expectedOptions, string expectedDescription)
+        private void TestDescribeAndMoveRoom(char roomCode, UserOption[] expectedOptions, string expectedDescription)
         {
             _data.Map.SetLocationInfo(_location, roomCode);
             var next = Mock.Of<ISituation>();

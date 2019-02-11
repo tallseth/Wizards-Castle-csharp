@@ -2,12 +2,15 @@
 {
     public static class MapCodes
     {
-        public const string Entrance = "E";
-        public const string EmptyRoom = ".";
-        public const string UnexploredPrefix = "?";
-        public const string Gold = "G";
-        public const string Vendor = "V";
-        public const string CurseOfLethargy = ".CL";
+        public const char Entrance = 'E';
+        public const char EmptyRoom = '.';
+        public const char UnexploredPrefix = '?';
+        public const char Gold = 'G';
+        public const char Vendor = 'V';
 
+        public static string Unexplored(char roomCode)
+        {
+            return $"{UnexploredPrefix}{roomCode}";
+        }
     }
 }

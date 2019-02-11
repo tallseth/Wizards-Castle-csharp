@@ -17,7 +17,7 @@ namespace WizardsCastle.Logic.Data
         {
             var val = _map[location.Floor][location.X, location.Y];
             if (val == null)
-                return MapCodes.UnexploredPrefix + MapCodes.EmptyRoom;
+                return MapCodes.Unexplored(MapCodes.EmptyRoom);
 
             return val;
         }
@@ -25,6 +25,11 @@ namespace WizardsCastle.Logic.Data
         public void SetLocationInfo(Location location, string info)
         {
             _map[location.Floor][location.X, location.Y] = info;
+        }
+
+        public void SetLocationInfo(Location location, char code)
+        {
+            SetLocationInfo(location, code.ToString());
         }
     }
 }
