@@ -18,3 +18,31 @@ For Example:
 - `dotnet test`
 - `dotnet run` (from the WizardsCastle project folder)
 
+# To Do
+These things are all pretty easy to find on the [spec page](https://github.com/beejjorgensen/Wizards-Castle-Info/blob/master/doc/wizards_castle_spec.md).
+* Display the map
+* Complete player creation impl
+  * Allocate bonus stat points
+  * Buy weapon, armor, lamp/flares
+  * Choose Gender
+* Populate map and handle room effects for the following
+  * Stairs
+  * Pool
+  * Chest
+  * Gold Pieces
+  * Warp
+  * Sinkhole
+  * Crystal Orb
+  * Books
+  * Treasure
+* Lamp effects
+* Flare effects, place them on the map
+* Combat, monsters on the map
+* Vendors
+  * Trade
+  * Combat
+* Curses
+* Runestaff
+* Recipes
+* Random messages
+* Orb of Zot
