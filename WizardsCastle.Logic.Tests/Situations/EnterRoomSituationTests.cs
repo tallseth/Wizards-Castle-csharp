@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Moq;
 using NUnit.Framework;
 using WizardsCastle.Logic.Data;
@@ -66,6 +67,18 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void EntranceMessageThenNavigation()
         {
             TestDescribeAndMoveRoom(MapCodes.Entrance, NavigationOptions.Entrance, Messages.EntranceDescription);
+        }
+
+        [Test]
+        public void StairsDownMessageThenNavigation()
+        {
+            TestDescribeAndMoveRoom(MapCodes.StairsDown, NavigationOptions.Standard.Union(new []{NavigationOptions.StairsDown}).ToArray(), Messages.StairsDown);
+        }
+
+        [Test]
+        public void StairsUpMessageThenNavigation()
+        {
+            TestDescribeAndMoveRoom(MapCodes.StairsUp, NavigationOptions.Standard.Union(new []{NavigationOptions.StairsUp}).ToArray(), Messages.StairsUp);
         }
 
         private void TestDescribeAndMoveRoom(char roomCode, UserOption[] expectedOptions, string expectedDescription)

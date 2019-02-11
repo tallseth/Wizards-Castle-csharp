@@ -34,6 +34,10 @@ namespace WizardsCastle.Logic.Situations
                     return SimpleNavigationCase(tools, Messages.EntranceDescription, NavigationOptions.Entrance);
                 case MapCodes.EmptyRoom:
                     return SimpleNavigationCase(tools, Messages.EmptyRoomDescription, NavigationOptions.Standard);
+                case MapCodes.StairsUp:
+                    return SimpleNavigationCase(tools, Messages.StairsUp, NavigationOptions.Standard.Add(NavigationOptions.StairsUp));
+                case MapCodes.StairsDown:
+                    return SimpleNavigationCase(tools, Messages.StairsDown, NavigationOptions.Standard.Add(NavigationOptions.StairsDown));
             }
 
             throw new ArgumentException($"Unknown room code: {roomInfo}");
