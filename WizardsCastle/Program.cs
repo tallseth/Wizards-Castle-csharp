@@ -10,7 +10,7 @@ namespace WizardsCastle
         {
             try
             {
-                var game = new Game(GameConfig.Standard);
+                var game = new Game(GameConfig.Small);
                 game.Play();
             }
             catch (Exception ex)
