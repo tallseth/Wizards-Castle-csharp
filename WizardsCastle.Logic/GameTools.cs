@@ -11,6 +11,7 @@ namespace WizardsCastle.Logic
         internal IGameDataBuilder DataBuilder { get; set; }
         internal ISituationBuilder SituationBuilder { get; set; }
         internal IMoveInterpreter MoveInterpreter { get; set; }
+        internal IRandomizer Randomizer { get; set; }
 
 
         internal static GameTools Create(GameConfig gameConfig)
@@ -18,6 +19,7 @@ namespace WizardsCastle.Logic
             var gameTools = new GameTools
             {
                 UI = new GameUI(),
+                Randomizer = new Randomizer()
             };
 
             gameTools.DataBuilder = new GameDataBuilder(gameConfig, gameTools);
@@ -26,6 +28,5 @@ namespace WizardsCastle.Logic
 
             return gameTools;
         }
-
     }
 }

@@ -11,6 +11,7 @@ namespace WizardsCastle.Logic.Tests.Helpers
         public Mock<IGameDataBuilder> GameDataBuilderMock { get; }
         public Mock<ISituationBuilder> SituationBuilderMock { get; }
         public Mock<IMoveInterpreter> MoveInterpreterMock { get; }
+        public Mock<IRandomizer> RandomizerMock { get; }
 
         public MockGameTools()
         {
@@ -25,6 +26,9 @@ namespace WizardsCastle.Logic.Tests.Helpers
 
             MoveInterpreterMock = new Mock<IMoveInterpreter>();
             MoveInterpreter = MoveInterpreterMock.Object;
+
+            RandomizerMock = new Mock<IRandomizer>();
+            Randomizer = RandomizerMock.Object;
         }
     }
 }
