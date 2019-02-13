@@ -20,29 +20,33 @@ For Example:
 
 # To Do
 These things are all pretty easy to find on the [spec page](https://github.com/beejjorgensen/Wizards-Castle-Info/blob/master/doc/wizards_castle_spec.md).
-* Display the map
+
+MVP of the game
+* Player has weapon and armor
+* Combat, monsters on the map
+* Warps
+* Runestaff
+* Orb of Zot
+
+Additional work to complete the game
 * Complete player creation impl
   * Allocate bonus stat points
-  * Buy weapon, armor, lamp/flares
+  * Option to Buy lamp
   * Choose Gender
 * Populate map and handle room effects for the following
-  * Stairs
   * Pool
   * Chest
   * Gold Pieces
-  * Warp
   * Sinkhole
   * Crystal Orb
   * Books
   * Treasure
 * Lamp effects
 * Flare effects, place them on the map
-* Combat, monsters on the map
 * Vendors
   * Trade
   * Combat
 * Curses
-* Runestaff
 * Recipes
 * Random messages
-* Orb of Zot
+
