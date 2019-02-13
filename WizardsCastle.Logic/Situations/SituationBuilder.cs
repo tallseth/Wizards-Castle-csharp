@@ -1,4 +1,5 @@
-﻿using WizardsCastle.Logic.Data;
+﻿using WizardsCastle.Logic.Combat;
+using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
 
 namespace WizardsCastle.Logic.Situations
@@ -12,6 +13,10 @@ namespace WizardsCastle.Logic.Situations
         ISituation GameOver(string exitMessage);
         ISituation ShowMap();
         ISituation LeaveRoom();
+        ISituation EnterCombat();
+        ISituation PlayerAttack();
+        ISituation EnemyAttack();
+        ISituation CombatVictory();
     }
 
     internal class SituationBuilder : ISituationBuilder
@@ -49,6 +54,27 @@ namespace WizardsCastle.Logic.Situations
         public ISituation LeaveRoom()
         {
             return new LeaveRoomSituation();
+        }
+
+        public ISituation EnterCombat()
+        {
+            return new EnterCombatSituation();
+        }
+
+        public ISituation PlayerAttack()
+        {
+            return null;
+        }
+
+        public ISituation EnemyAttack()
+        {
+            return null;
+        }
+
+        public ISituation CombatVictory()
+        {
+            //clears map and gives reward
+            return null;
         }
     }
 }

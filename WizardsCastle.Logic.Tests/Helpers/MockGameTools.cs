@@ -12,6 +12,8 @@ namespace WizardsCastle.Logic.Tests.Helpers
         public Mock<ISituationBuilder> SituationBuilderMock { get; }
         public Mock<IMoveInterpreter> MoveInterpreterMock { get; }
         public Mock<IRandomizer> RandomizerMock { get; }
+        public Mock<ICombatService> CombatServiceMock { get; }
+        public Mock<IEnemyProvider> EnemyProviderMock { get; }
 
         public MockGameTools()
         {
@@ -29,6 +31,12 @@ namespace WizardsCastle.Logic.Tests.Helpers
 
             RandomizerMock = new Mock<IRandomizer>();
             Randomizer = RandomizerMock.Object;
+
+            CombatServiceMock = new Mock<ICombatService>();
+            CombatService = CombatServiceMock.Object;
+
+            EnemyProviderMock = new Mock<IEnemyProvider>();
+            EnemyProvider = EnemyProviderMock.Object;
         }
     }
 }
