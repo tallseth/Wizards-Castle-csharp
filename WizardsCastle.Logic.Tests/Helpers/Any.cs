@@ -71,7 +71,7 @@ namespace WizardsCastle.Logic.Tests
 
         public static Move InsideMove()
         {
-            return Of(Enum.GetValues(typeof(Move)).Cast<Move>().Where(m => m != Move.Exit));
+            return Of(Enum.GetValues(typeof(Move)).Cast<Move>().Where(m => m != Move.Exit && m != Move.ShowMap));
         }
 
         public static UserOption UserOptionWithValue(object obj)
