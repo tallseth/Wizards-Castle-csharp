@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace WizardsCastle.Logic.Data
 {
@@ -47,6 +49,27 @@ namespace WizardsCastle.Logic.Data
                         yield return new Location(x, y, floorNumber);
                 }
             }
+        }
+
+        public string GetDisplayMap(Location currentLocation)
+        {
+            const string currentLocationFormat = "<{0}>";
+            const string locationFormat = " {0} ";
+            const string separator = "  ";
+
+            var sb = new StringBuilder();
+            for (byte y = 0; y < _config.FloorHeight; y++)
+            {
+                for (byte x = 0; x < _config.FloorWidth; x++)
+                {
+                    var location = new Location(x,y,currentLocation.Floor);
+                    var format = location.Equals(currentLocation) ? currentLocationFormat : locationFormat;
+                    sb.AppendFormat(format, GetLocationInfo(location).First()).Append(separator);
+                }
+
+                sb.AppendLine().AppendLine();
+            }
+            return sb.ToString();
         }
     }
 }

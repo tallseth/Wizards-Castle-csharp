@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Linq;
 using Moq;
 using NUnit.Framework;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.Situations;
 using WizardsCastle.Logic.Tests.Helpers;
-using WizardsCastle.Logic.UI;
 
 namespace WizardsCastle.Logic.Tests.Situations
 {
@@ -60,32 +58,32 @@ namespace WizardsCastle.Logic.Tests.Situations
         [Test]
         public void EmptyRoomMessageThenNavigation()
         {
-            TestDescribeAndMoveRoom(MapCodes.EmptyRoom, NavigationOptions.Standard, Messages.EmptyRoomDescription);
+            TestDescribeAndLeaveRoom(MapCodes.EmptyRoom, Messages.EmptyRoomDescription);
         }
 
         [Test]
         public void EntranceMessageThenNavigation()
         {
-            TestDescribeAndMoveRoom(MapCodes.Entrance, NavigationOptions.Entrance, Messages.EntranceDescription);
+            TestDescribeAndLeaveRoom(MapCodes.Entrance, Messages.EntranceDescription);
         }
 
         [Test]
         public void StairsDownMessageThenNavigation()
         {
-            TestDescribeAndMoveRoom(MapCodes.StairsDown, NavigationOptions.Standard.Union(new []{NavigationOptions.StairsDown}).ToArray(), Messages.StairsDown);
+            TestDescribeAndLeaveRoom(MapCodes.StairsDown, Messages.StairsDown);
         }
 
         [Test]
         public void StairsUpMessageThenNavigation()
         {
-            TestDescribeAndMoveRoom(MapCodes.StairsUp, NavigationOptions.Standard.Union(new []{NavigationOptions.StairsUp}).ToArray(), Messages.StairsUp);
+            TestDescribeAndLeaveRoom(MapCodes.StairsUp, Messages.StairsUp);
         }
 
-        private void TestDescribeAndMoveRoom(char roomCode, UserOption[] expectedOptions, string expectedDescription)
+        private void TestDescribeAndLeaveRoom(char roomCode, string expectedDescription)
         {
             _data.Map.SetLocationInfo(_location, roomCode);
             var next = Mock.Of<ISituation>();
-            _tools.SituationBuilderMock.Setup(b => b.Navigate(expectedOptions)).Returns(next);
+            _tools.SituationBuilderMock.Setup(b => b.LeaveRoom()).Returns(next);
 
             var actual = _situation.PlayThrough(_data, _tools);
 

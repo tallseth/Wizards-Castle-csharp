@@ -31,22 +31,20 @@ namespace WizardsCastle.Logic.Situations
             switch (roomInfo[0])
             {
                 case MapCodes.Entrance:
-                    return SimpleNavigationCase(tools, Messages.EntranceDescription, NavigationOptions.Entrance);
+                    tools.UI.DisplayMessage(Messages.EntranceDescription);
+                    return tools.SituationBuilder.LeaveRoom();
                 case MapCodes.EmptyRoom:
-                    return SimpleNavigationCase(tools, Messages.EmptyRoomDescription, NavigationOptions.Standard);
+                    tools.UI.DisplayMessage(Messages.EmptyRoomDescription);
+                    return tools.SituationBuilder.LeaveRoom();
                 case MapCodes.StairsUp:
-                    return SimpleNavigationCase(tools, Messages.StairsUp, NavigationOptions.Standard.Add(NavigationOptions.StairsUp));
+                    tools.UI.DisplayMessage(Messages.StairsUp);
+                    return tools.SituationBuilder.LeaveRoom();
                 case MapCodes.StairsDown:
-                    return SimpleNavigationCase(tools, Messages.StairsDown, NavigationOptions.Standard.Add(NavigationOptions.StairsDown));
+                    tools.UI.DisplayMessage(Messages.StairsDown);
+                    return tools.SituationBuilder.LeaveRoom();
             }
 
             throw new ArgumentException($"Unknown room code: {roomInfo}");
-        }
-
-        private static ISituation SimpleNavigationCase(GameTools tools, string roomDescription, UserOption[] moveOptions)
-        {
-            tools.UI.DisplayMessage(roomDescription);
-            return tools.SituationBuilder.Navigate(moveOptions);
         }
     }
 }

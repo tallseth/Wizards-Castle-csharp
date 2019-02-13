@@ -42,6 +42,7 @@ namespace WizardsCastle.Logic.Tests
             {
                 Player = Player(),
                 TurnCounter = Number(),
+                CurrentLocation = Any.Location(),
                 Map = new Map(new GameConfig{ Floors = byte.MaxValue, FloorWidth = byte.MaxValue, FloorHeight = byte.MaxValue})
             };
         }

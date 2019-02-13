@@ -10,6 +10,8 @@ namespace WizardsCastle.Logic.Situations
         ISituation EnterRoom(Location location);
         ISituation Navigate(UserOption[] entrance);
         ISituation GameOver(string exitMessage);
+        ISituation ShowMap();
+        ISituation LeaveRoom();
     }
 
     internal class SituationBuilder : ISituationBuilder
@@ -37,6 +39,16 @@ namespace WizardsCastle.Logic.Situations
         public ISituation GameOver(string exitMessage)
         {
             return new GameOverSituation(exitMessage);
+        }
+
+        public ISituation ShowMap()
+        {
+            return new ShowMapSituation();
+        }
+
+        public ISituation LeaveRoom()
+        {
+            return new LeaveRoomSituation();
         }
     }
 }

@@ -16,12 +16,15 @@ namespace WizardsCastle.Logic.Situations
         {
             var move = tools.UI.PromptUserChoice(_movementOptions).GetData<Move>();
 
-            if (move == Move.Exit)
+            switch (move)
             {
-                var exitMessage = data.Player.HasOrbOfZot
-                    ? Messages.WinTheGame
-                    : Messages.LostByRetreat;
-                return tools.SituationBuilder.GameOver(exitMessage);
+                case Move.Exit:
+                    var exitMessage = data.Player.HasOrbOfZot
+                        ? Messages.WinTheGame
+                        : Messages.LostByRetreat;
+                    return tools.SituationBuilder.GameOver(exitMessage);
+                case Move.ShowMap:
+                    return tools.SituationBuilder.ShowMap();
             }
 
             var newLocation = tools.MoveInterpreter.GetTargetLocation(data.CurrentLocation, move);

@@ -8,6 +8,7 @@
         Right,
         Upstairs,
         Downstairs,
-        Exit
+        Exit,
+        ShowMap
     }
 }
