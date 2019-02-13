@@ -22,7 +22,6 @@ For Example:
 These things are all pretty easy to find on the [spec page](https://github.com/beejjorgensen/Wizards-Castle-Info/blob/master/doc/wizards_castle_spec.md).
 
 MVP of the game
-* Player has weapon and armor
 * Combat, monsters on the map
 * Warps
 * Runestaff
@@ -31,6 +30,7 @@ MVP of the game
 Additional work to complete the game
 * Complete player creation impl
   * Allocate bonus stat points
+  * Buy Weapon and armor on player creation
   * Option to Buy lamp
   * Choose Gender
 * Populate map and handle room effects for the following
