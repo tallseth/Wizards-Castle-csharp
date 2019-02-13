@@ -26,14 +26,23 @@ namespace WizardsCastle.Logic.Tests.Situations
         }
 
         [Test]
-        public void SetsLocationAndIncrementsTurnCounter()
+        public void UpdatesGameDataAndDisplaysStatus()
         {
+            _data.Map.SetLocationInfo(_location, MapCodes.Unexplored(MapCodes.EmptyRoom));
+
             var expectedCounter = _data.TurnCounter + 1;
-            _data.Map.SetLocationInfo(_location, MapCodes.Entrance);
+            _tools.UIMock.Setup(ui=>ui.DisplayMessage(It.IsAny<string>()))
+                .Callback(() =>
+                {
+                    Assert.That(_data.TurnCounter, Is.EqualTo(expectedCounter));
+                    Assert.That(_data.CurrentLocation, Is.EqualTo(_location));
+
+                    _tools.UIMock.Verify(ui=>ui.ClearActionLog());
+                });
 
             _situation.PlayThrough(_data, _tools);
 
-            Assert.That(_data.TurnCounter, Is.EqualTo(expectedCounter));
+            _tools.UIMock.Verify(ui=>ui.DisplayMessage(_data.ToString()));
         }
 
         [Test]

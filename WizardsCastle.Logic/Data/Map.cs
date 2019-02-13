@@ -67,7 +67,7 @@ namespace WizardsCastle.Logic.Data
                     sb.AppendFormat(format, GetLocationInfo(location).First()).Append(separator);
                 }
 
-                sb.AppendLine().AppendLine();
+                sb.AppendLine();
             }
             return sb.ToString();
         }

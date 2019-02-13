@@ -15,8 +15,13 @@ namespace WizardsCastle.Logic.Situations
 
         public ISituation PlayThrough(GameData data, GameTools tools)
         {
+            tools.UI.ClearActionLog();
+
             data.TurnCounter++;
             data.CurrentLocation = _location;
+
+            tools.UI.DisplayMessage(data.ToString());
+
             var roomInfo = data.Map.GetLocationInfo(data.CurrentLocation);
 
             if (roomInfo[0] == MapCodes.UnexploredPrefix)

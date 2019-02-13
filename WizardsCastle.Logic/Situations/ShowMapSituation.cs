@@ -6,6 +6,7 @@ namespace WizardsCastle.Logic.Situations
     {
         public ISituation PlayThrough(GameData data, GameTools tools)
         {
+            tools.UI.ClearActionLog();
             tools.UI.DisplayMessage(data.Map.GetDisplayMap(data.CurrentLocation));
             return tools.SituationBuilder.LeaveRoom();
         }

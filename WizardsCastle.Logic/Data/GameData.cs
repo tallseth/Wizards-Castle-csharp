@@ -1,4 +1,6 @@
-﻿namespace WizardsCastle.Logic.Data
+﻿using System;
+
+namespace WizardsCastle.Logic.Data
 {
     internal class GameData
     {
@@ -6,5 +8,10 @@
         internal Map Map { get; set; }
         internal Player Player { get; set; }
         internal Location CurrentLocation { get; set; }
+
+        public override string ToString()
+        {
+            return $"Turn: {TurnCounter} Location: {CurrentLocation}{Environment.NewLine}{Player}";
+        }
     }
 }

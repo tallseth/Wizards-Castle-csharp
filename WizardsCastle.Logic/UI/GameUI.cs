@@ -27,7 +27,7 @@ namespace WizardsCastle.Logic.UI
             while (true)
             {
                 var displayString = string.Join(", ", dictionary.Values.Select(option => option.Name));
-                WriteStringWithHotKeysHighlighted(displayString);
+                Console.WriteLine(displayString);
 
                 var result = Console.ReadKey(true);
 
@@ -38,14 +38,8 @@ namespace WizardsCastle.Logic.UI
             }
         }
 
-        private void WriteStringWithHotKeysHighlighted(string displayString)
-        {
-            Console.WriteLine(displayString);
-        }
-
         public void PromptUserAcknowledgement()
         {
-            Console.WriteLine("Press any key to continue...");
             Console.ReadKey(true);
         }
 
