@@ -35,7 +35,7 @@ namespace WizardsCastle.Logic.Services
                     x = Adjust(x, -1, _config.FloorWidth);
                     break;
                 case Move.Right:
-                    x = Adjust(z, 1, _config.FloorWidth);
+                    x = Adjust(x, 1, _config.FloorWidth);
                     break;
                 case Move.Upstairs:
                     z = Adjust(z, 1, _config.Floors);
