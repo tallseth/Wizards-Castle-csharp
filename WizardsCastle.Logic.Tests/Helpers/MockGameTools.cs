@@ -14,6 +14,7 @@ namespace WizardsCastle.Logic.Tests.Helpers
         public Mock<IRandomizer> RandomizerMock { get; }
         public Mock<ICombatService> CombatServiceMock { get; }
         public Mock<IEnemyProvider> EnemyProviderMock { get; }
+        public Mock<ICurseEvaluator> CurseEvaluatorMock { get; }
 
         public MockGameTools()
         {
@@ -37,6 +38,9 @@ namespace WizardsCastle.Logic.Tests.Helpers
 
             EnemyProviderMock = new Mock<IEnemyProvider>();
             EnemyProvider = EnemyProviderMock.Object;
+
+            CurseEvaluatorMock = new Mock<ICurseEvaluator>();
+            CurseEvaluator = CurseEvaluatorMock.Object;
         }
     }
 }

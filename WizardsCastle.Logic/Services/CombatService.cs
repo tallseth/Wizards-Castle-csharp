@@ -18,7 +18,10 @@ namespace WizardsCastle.Logic.Services
 
         public bool PlayerGoesFirst(Player player)
         {
-            return false;
+            if (player.IsBlind || _tools.CurseEvaluator.IsEffectedByCurse(player, Curses.CurseOfLethargy))
+                return false;
+
+            return player.Dexterity >= _tools.Randomizer.RollDice(2, 9);
         }
     }
 }

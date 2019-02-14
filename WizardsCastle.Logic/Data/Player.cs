@@ -27,7 +27,11 @@
         internal Armor Armor { get; set; }
 
         internal bool IsBlind { get; set; }
+        internal Curses Curses { get; set; }
+
+
         internal bool HasOrbOfZot { get; set; }
+        internal bool HasRuneStaff { get; set; }
 
         public override string ToString()
         {

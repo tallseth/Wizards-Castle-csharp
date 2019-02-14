@@ -16,13 +16,15 @@ namespace WizardsCastle.Logic
         internal IRandomizer Randomizer { get; set; }
         internal ICombatService CombatService { get; set; }
         internal IEnemyProvider EnemyProvider { get; set; }
+        internal ICurseEvaluator CurseEvaluator { get; set; }
 
         internal static GameTools Create(GameConfig gameConfig)
         {
             var gameTools = new GameTools
             {
                 UI = new GameUI(),
-                Randomizer = new Randomizer()
+                Randomizer = new Randomizer(),
+                CurseEvaluator = new CurseEvaluator()
             };
 
             gameTools.DataBuilder = new GameDataBuilder(gameConfig, gameTools);
@@ -34,5 +36,4 @@ namespace WizardsCastle.Logic
             return gameTools;
         }
     }
-
 }
