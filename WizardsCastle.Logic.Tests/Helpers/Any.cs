@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WizardsCastle.Logic.Combat;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
 
@@ -87,6 +88,11 @@ namespace WizardsCastle.Logic.Tests
         public static byte Byte()
         {
             return (byte) _random.Next(byte.MaxValue);
+        }
+
+        public static Enemy Monster()
+        {
+            return Enemy.CreateMonster(EnumValue<Monster>());
         }
     }
 }
