@@ -37,7 +37,7 @@ namespace WizardsCastle.Logic.Tests.Data
         {
             var player = Any.Player();
 
-            Assert.That(player.ToString().Trim(), Is.EqualTo("ST: " + player.Strength + " DE: " + player.Dexterity + " IQ: " + player.Intelligence + " GP: " + player.GoldPieces));
+            Assert.That(player.ToString().Trim(), Does.StartWith("ST: " + player.Strength + " DE: " + player.Dexterity + " IQ: " + player.Intelligence + " GP: " + player.GoldPieces));
         }
     }
 }

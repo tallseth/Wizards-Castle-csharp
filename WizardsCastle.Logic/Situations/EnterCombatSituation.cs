@@ -7,7 +7,7 @@ namespace WizardsCastle.Logic.Situations
         public ISituation PlayThrough(GameData data, GameTools tools)
         {
             if(tools.CombatService.PlayerGoesFirst(data.Player))
-                return tools.SituationBuilder.PlayerAttack();
+                return tools.SituationBuilder.CombatOptions();
 
             return tools.SituationBuilder.EnemyAttack();
         }

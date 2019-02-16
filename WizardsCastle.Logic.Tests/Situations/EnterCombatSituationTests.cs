@@ -27,7 +27,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         {
             var expected = Mock.Of<ISituation>();
             _tools.CombatServiceMock.Setup(cs => cs.PlayerGoesFirst(_data.Player)).Returns(true);
-            _tools.SituationBuilderMock.Setup(sb => sb.PlayerAttack()).Returns(expected);
+            _tools.SituationBuilderMock.Setup(sb => sb.CombatOptions()).Returns(expected);
 
             var actual = _situation.PlayThrough(_data, _tools);
 
@@ -39,7 +39,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         {
             var expected = Mock.Of<ISituation>();
             _tools.CombatServiceMock.Setup(cs => cs.PlayerGoesFirst(_data.Player)).Returns(true);
-            _tools.SituationBuilderMock.Setup(sb => sb.PlayerAttack()).Returns(expected);
+            _tools.SituationBuilderMock.Setup(sb => sb.CombatOptions()).Returns(expected);
 
             var actual = _situation.PlayThrough(_data, _tools);
 

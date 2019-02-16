@@ -1,4 +1,8 @@
-﻿using Moq;
+﻿using System;
+using System.Linq.Expressions;
+using Moq;
+using WizardsCastle.Logic.Combat;
+using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.Services;
 using WizardsCastle.Logic.Situations;
 using WizardsCastle.Logic.UI;
@@ -41,6 +45,20 @@ namespace WizardsCastle.Logic.Tests.Helpers
 
             CurseEvaluatorMock = new Mock<ICurseEvaluator>();
             CurseEvaluator = CurseEvaluatorMock.Object;
+        }
+
+        public ISituation SetupNextSituation(Expression<Func<ISituationBuilder, ISituation>> expression)
+        {
+            var situation = Mock.Of<ISituation>();
+            SituationBuilderMock.Setup(expression).Returns(situation);
+            return situation;
+        }
+
+        public Enemy SetupEnemyAtCurrentLocation(GameData data)
+        {
+            var enemy = Any.Monster();
+            EnemyProviderMock.Setup(p => p.GetEnemy(data.Map, data.CurrentLocation)).Returns(enemy);
+            return enemy;
         }
     }
 }

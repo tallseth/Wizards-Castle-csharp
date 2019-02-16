@@ -14,9 +14,10 @@ namespace WizardsCastle.Logic.Situations
         ISituation ShowMap();
         ISituation LeaveRoom();
         ISituation EnterCombat();
-        ISituation PlayerAttack();
+        ISituation CombatOptions();
         ISituation EnemyAttack();
         ISituation CombatVictory();
+        ISituation PlayerAttack();
     }
 
     internal class SituationBuilder : ISituationBuilder
@@ -61,7 +62,7 @@ namespace WizardsCastle.Logic.Situations
             return new EnterCombatSituation();
         }
 
-        public ISituation PlayerAttack()
+        public ISituation CombatOptions()
         {
             return null;
         }
@@ -74,6 +75,11 @@ namespace WizardsCastle.Logic.Situations
         public ISituation CombatVictory()
         {
             //clears map and gives reward
+            return null;
+        }
+
+        public ISituation PlayerAttack()
+        {
             return null;
         }
     }

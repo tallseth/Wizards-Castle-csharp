@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Constraints;
 using WizardsCastle.Logic.Combat;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
@@ -56,8 +57,14 @@ namespace WizardsCastle.Logic.Tests
                 Intelligence = Number(),
                 Strength = Number(),
                 Dexterity = Number(),
-                UnallocatedStats = Number()
+                UnallocatedStats = Number(),
+                Weapon = Weapon()
             };
+        }
+
+        private static Weapon Weapon()
+        {
+            return new Weapon(String(),Number());
         }
 
         public static UserOption[] UserOptions()
