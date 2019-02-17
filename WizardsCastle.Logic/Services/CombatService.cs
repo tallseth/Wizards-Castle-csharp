@@ -23,29 +23,31 @@ namespace WizardsCastle.Logic.Services
     internal class CombatService : ICombatService
     {
         private readonly GameTools _tools;
+        private readonly ICombatDice _dice;
 
         public CombatService(GameTools tools)
         {
             _tools = tools;
+            _dice = _tools.CombatDice;
         }
 
         public bool PlayerGoesFirst(Player player)
         {
-            if (player.IsBlind || _tools.CurseEvaluator.IsEffectedByCurse(player, Curses.CurseOfLethargy))
+            if (_tools.CurseEvaluator.IsEffectedByCurse(player, Curses.CurseOfLethargy))
                 return false;
 
-            return player.Dexterity >= _tools.Randomizer.RollDice(2, 9);
+            return _dice.RollToGoFirst(player);
         }
 
         public CombatResult PlayerAttacks(Player player, Enemy enemy)
         {
-            if(player.Dexterity < _tools.Randomizer.RollDie(20))
+            if(_dice.RollToHit(player))
                 return new CombatResult { AttackerMissed = true};
 
             var damage = player.Weapon.Damage;
             enemy.HitPoints -= damage;
 
-            var weaponBroke = enemy.StoneSkin && _tools.Randomizer.OneChanceIn(8);
+            var weaponBroke = _dice.RollForWeaponBreakage(enemy);
             if (weaponBroke)
                 player.Weapon = null;
 
@@ -59,7 +61,7 @@ namespace WizardsCastle.Logic.Services
 
         public CombatResult EnemyAttacks(Player player, Enemy enemy)
         {
-            if(player.Dexterity >= _tools.Randomizer.RollDice(3,7))
+            if(_dice.RollToDodge(player))
                 return new CombatResult { AttackerMissed = true};
 
             var armorDestroyed = false;
@@ -83,6 +85,44 @@ namespace WizardsCastle.Logic.Services
                 ArmorDestroyed = armorDestroyed,
                 DefenderDied = player.Strength < 1
             };
+        }
+    }
+
+    internal interface ICombatDice
+    {
+        bool RollToGoFirst(Player player);
+        bool RollToHit(Player player);
+        bool RollToDodge(Player player);
+        bool RollForWeaponBreakage(Enemy enemy);
+    }
+
+    internal class CombatDice : ICombatDice
+    {
+        private readonly IRandomizer _randomizer;
+
+        public CombatDice(IRandomizer randomizer)
+        {
+            _randomizer = randomizer;
+        }
+
+        public bool RollToGoFirst(Player player)
+        {
+            return !player.IsBlind && player.Dexterity >= _randomizer.RollDice(2, 9);;
+        }
+
+        public bool RollToHit(Player player)
+        {
+            return player.Dexterity < _randomizer.RollDie(20);
+        }
+
+        public bool RollToDodge(Player player)
+        {
+            return player.Dexterity >= _randomizer.RollDice(3,7);
+        }
+
+        public bool RollForWeaponBreakage(Enemy enemy)
+        {
+            return enemy.StoneSkin && _randomizer.OneChanceIn(8);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace WizardsCastle.Logic
         internal ICombatService CombatService { get; set; }
         internal IEnemyProvider EnemyProvider { get; set; }
         internal ICurseEvaluator CurseEvaluator { get; set; }
+        internal ICombatDice CombatDice { get; set; }
 
         internal static GameTools Create(GameConfig gameConfig)
         {
@@ -32,6 +33,7 @@ namespace WizardsCastle.Logic
             gameTools.MoveInterpreter = new MoveInterpreter(gameConfig);
             gameTools.CombatService = new CombatService(gameTools);
             gameTools.EnemyProvider = new EnemyProvider();
+            gameTools.CombatDice = new CombatDice(gameTools.Randomizer);
 
             return gameTools;
         }

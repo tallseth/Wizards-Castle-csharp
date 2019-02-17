@@ -45,6 +45,8 @@ namespace WizardsCastle.Logic.Tests.Helpers
 
             CurseEvaluatorMock = new Mock<ICurseEvaluator>();
             CurseEvaluator = CurseEvaluatorMock.Object;
+
+            CombatDice = new CombatDice(Randomizer);
         }
 
         public ISituation SetupNextSituation(Expression<Func<ISituationBuilder, ISituation>> expression)
