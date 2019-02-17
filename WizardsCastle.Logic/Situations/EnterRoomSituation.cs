@@ -47,6 +47,8 @@ namespace WizardsCastle.Logic.Situations
                 case MapCodes.StairsDown:
                     tools.UI.DisplayMessage(Messages.StairsDown);
                     return tools.SituationBuilder.LeaveRoom();
+                case MapCodes.MonsterPrefix:
+                    return tools.SituationBuilder.EnterCombat();
             }
 
             throw new ArgumentException($"Unknown room code: {roomInfo}");

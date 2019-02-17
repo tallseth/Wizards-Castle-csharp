@@ -20,6 +20,7 @@ namespace WizardsCastle.Logic.Tests.Helpers
         public Mock<IEnemyProvider> EnemyProviderMock { get; }
         public Mock<ICurseEvaluator> CurseEvaluatorMock { get; }
         public Mock<ICombatDice> CombatDiceMock { get; }
+        public Mock<IRoomEnumerator> RoomEnumeratorMock { get; }
 
         public MockGameTools()
         {
@@ -49,6 +50,9 @@ namespace WizardsCastle.Logic.Tests.Helpers
 
             CombatDiceMock = new Mock<ICombatDice>();
             CombatDice = CombatDiceMock.Object;
+
+            RoomEnumeratorMock = new Mock<IRoomEnumerator>();
+            RoomEnumerator = RoomEnumeratorMock.Object;
         }
 
         public ISituation SetupNextSituation(Expression<Func<ISituationBuilder, ISituation>> expression)

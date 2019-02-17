@@ -68,16 +68,25 @@ namespace WizardsCastle.Logic.Tests.Services
         }
 
         [Test]
-        public void StairsArePlacedFirst()
+        public void RoomsArePlaced()
         {
+            _tools.RoomEnumeratorMock.Setup(r => r.GetRoomContents(0)).Returns(new[] {"a", "b"});
+            _tools.RoomEnumeratorMock.Setup(r => r.GetRoomContents(1)).Returns(new[] {"c", "d"});
+
             var data = _builder.CreateGameData();
 
             AssertLocationValue(data.Map, new Location(7, 7, 0), "?U");
             AssertLocationValue(data.Map, new Location(6, 7, 0), "?U");
+            AssertLocationValue(data.Map, new Location(5, 7, 0), "?a");
+            AssertLocationValue(data.Map, new Location(4, 7, 0), "?b");
             AssertLocationValue(data.Map, new Location(7, 7, 1), "?D");
             AssertLocationValue(data.Map, new Location(6, 7, 1), "?D");
+            AssertLocationValue(data.Map, new Location(5, 7, 1), "?U");
+            AssertLocationValue(data.Map, new Location(4, 7, 1), "?U");
+            AssertLocationValue(data.Map, new Location(3, 7, 1), "?c");
+            AssertLocationValue(data.Map, new Location(2, 7, 1), "?d");
         }
-
+        
         private void AssertLocationValue(Map map, Location location, string expected)
         {
             Assert.That(map.GetLocationInfo(location), Is.EqualTo(expected));

@@ -88,6 +88,17 @@ namespace WizardsCastle.Logic.Tests.Situations
             TestDescribeAndLeaveRoom(MapCodes.StairsUp, Messages.StairsUp);
         }
 
+        [Test]
+        public void MonsterRoomEntersCombat()
+        {
+            var next = _tools.SetupNextSituation(sb => sb.EnterCombat());
+            _data.Map.SetLocationInfo(_location, MapCodes.MonsterPrefix + Any.String());
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+        }
+
         private void TestDescribeAndLeaveRoom(char roomCode, string expectedDescription)
         {
             _data.Map.SetLocationInfo(_location, roomCode);

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using WizardsCastle.Logic.Combat;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.Services;
@@ -18,6 +19,7 @@ namespace WizardsCastle.Logic
         internal IEnemyProvider EnemyProvider { get; set; }
         internal ICurseEvaluator CurseEvaluator { get; set; }
         internal ICombatDice CombatDice { get; set; }
+        internal IRoomEnumerator RoomEnumerator { get; set; }
 
         internal static GameTools Create(GameConfig gameConfig)
         {
@@ -34,6 +36,7 @@ namespace WizardsCastle.Logic
             gameTools.CombatService = new CombatService(gameTools);
             gameTools.EnemyProvider = new CachingEnemyProvider(new EnemyProvider());
             gameTools.CombatDice = new CombatDice(gameTools.Randomizer);
+            gameTools.RoomEnumerator = new RoomEnumerator(gameConfig, gameTools);
 
             return gameTools;
         }

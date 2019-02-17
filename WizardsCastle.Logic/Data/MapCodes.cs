@@ -13,6 +13,11 @@
 
         public static string Unexplored(char roomCode)
         {
+            return Unexplored(roomCode.ToString());
+        }
+
+        public static string Unexplored(string roomCode)
+        {
             return $"{UnexploredPrefix}{roomCode}";
         }
     }
