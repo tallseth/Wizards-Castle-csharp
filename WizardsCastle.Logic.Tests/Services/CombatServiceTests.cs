@@ -21,36 +21,24 @@ namespace WizardsCastle.Logic.Tests.Services
             _service = new CombatService(_tools);
 
             _player = Any.Player();
-            _player.Dexterity = 10;
 
             _enemy = Enemy.CreateMonster(Monster.Minotaur);
-            _enemy.StoneSkin = false;
         }
-
-        [TestCase(2)]
-        [TestCase(9)]
-        [TestCase(10)]
-        public void PlayerGoesFirstIfInitiativeRollSucceeds(int initiativeRoll)
+        
+        [Test]
+        public void PlayerGoesFirstIfRollSucceeds()
         {
-            _tools.RandomizerMock.Setup(r => r.RollDice(2, 9)).Returns(initiativeRoll);
-
-            Assert.That(_service.PlayerGoesFirst(_player), Is.True);
-        }
-
-        [TestCase(11)]
-        [TestCase(18)]
-        public void PlayerGoesSecondIfInitiativeRollFails(int initiativeRoll)
-        {
-            _tools.RandomizerMock.Setup(r => r.RollDice(2, 9)).Returns(initiativeRoll);
+            _player.IsBlind = true;
+            _tools.CombatDiceMock.Setup(d => d.RollToDodge(_player)).Returns(true);
 
             Assert.That(_service.PlayerGoesFirst(_player), Is.False);
         }
 
         [Test]
-        public void PlayerDoesNotGoFirstIfBlind()
+        public void PlayerDoesNotGoFirstIfRollFails()
         {
             _player.IsBlind = true;
-            _tools.RandomizerMock.Setup(r => r.RollDice(2, 9)).Returns(1);
+            _tools.CombatDiceMock.Setup(d => d.RollToDodge(_player)).Returns(false);
 
             Assert.That(_service.PlayerGoesFirst(_player), Is.False);
         }
@@ -65,20 +53,19 @@ namespace WizardsCastle.Logic.Tests.Services
         }
 
         [Test]
-        public void PlayerAttackMissesIfDexterityLessThanRoll()
+        public void PlayerAttackMissesIfRollFails()
         {
-            _tools.RandomizerMock.Setup(r => r.RollDie(20)).Returns(_player.Dexterity + 1);
+            _tools.CombatDiceMock.Setup(d => d.RollToHit(_player)).Returns(false);
 
             var result = _service.PlayerAttacks(_player, _enemy);
 
             Assert.That(result.AttackerMissed, Is.True);
         }
 
-        [TestCase(0)]
-        [TestCase(1)]
-        public void PlayerAttackHitsIfDexterityEqualsOrLessThanRoll(int rollLessThanDexByAmount)
+        [Test]
+        public void PlayerAttackHitsIfRollSucceeds()
         {
-            _tools.RandomizerMock.Setup(r => r.RollDie(20)).Returns(_player.Dexterity - rollLessThanDexByAmount);
+            _tools.CombatDiceMock.Setup(d => d.RollToHit(_player)).Returns(true);
 
             var result = _service.PlayerAttacks(_player, _enemy);
 
@@ -89,7 +76,7 @@ namespace WizardsCastle.Logic.Tests.Services
         public void PlayerAttackDoesWeaponDamageIfHit()
         {
             _enemy.HitPoints = _player.Weapon.Damage + 1;
-            _tools.RandomizerMock.Setup(r => r.RollDie(20)).Returns(_player.Dexterity - 1);
+            _tools.CombatDiceMock.Setup(d => d.RollToHit(_player)).Returns(true);
 
             var result = _service.PlayerAttacks(_player, _enemy);
 
@@ -104,7 +91,7 @@ namespace WizardsCastle.Logic.Tests.Services
         public void PlayerAttackKillsEnemyIfHitHardEnough()
         {
             _enemy.HitPoints = _player.Weapon.Damage;
-            _tools.RandomizerMock.Setup(r => r.RollDie(20)).Returns(_player.Dexterity - 1);
+            _tools.CombatDiceMock.Setup(d => d.RollToHit(_player)).Returns(true);
 
             var result = _service.PlayerAttacks(_player, _enemy);
 
@@ -117,20 +104,20 @@ namespace WizardsCastle.Logic.Tests.Services
 
 
         [Test]
-        public void EnemyAttackHitsIfDexterityLessThanRoll()
+        public void EnemyAttackHitsIfRollToDodgeFails()
         {
-            _tools.RandomizerMock.Setup(r => r.RollDice(3,7)).Returns(_player.Dexterity + 1);
+            _tools.CombatDiceMock.Setup(d => d.RollToDodge(_player)).Returns(false);
 
             var result = _service.EnemyAttacks(_player, _enemy);
 
             Assert.That(result.AttackerMissed, Is.False);
         }
 
-        [TestCase(0)]
-        [TestCase(1)]
-        public void EnemyAttackMissesIfDexterityEqualsOrGreaterThanRoll(int rollLessThanDexByAmount)
+        [Test]
+        public void EnemyAttackMissesIfRollToDodgeSucceeds()
         {
-            _tools.RandomizerMock.Setup(r => r.RollDice(3,7)).Returns(_player.Dexterity - rollLessThanDexByAmount);
+
+            _tools.CombatDiceMock.Setup(d => d.RollToDodge(_player)).Returns(true);
 
             var result = _service.EnemyAttacks(_player, _enemy);
 
@@ -143,7 +130,7 @@ namespace WizardsCastle.Logic.Tests.Services
             var originalStrength = _player.Strength;
             var originalDurability = _enemy.Damage + 1;
             _player.Armor = new Armor(Any.String(),_enemy.Damage * 2, originalDurability);
-            _tools.RandomizerMock.Setup(r => r.RollDice(3,7)).Returns(_player.Dexterity + 1);
+            _tools.CombatDiceMock.Setup(d => d.RollToDodge(_player)).Returns(false);
 
             var result = _service.EnemyAttacks(_player, _enemy);
 
@@ -162,7 +149,7 @@ namespace WizardsCastle.Logic.Tests.Services
             var originalDurability = _enemy.Damage + 1;
             
             _player.Armor = new Armor(Any.String(), _enemy.Damage - 3, originalDurability);
-            _tools.RandomizerMock.Setup(r => r.RollDice(3,7)).Returns(_player.Dexterity + 1);
+            _tools.CombatDiceMock.Setup(d => d.RollToDodge(_player)).Returns(false);
 
             var result = _service.EnemyAttacks(_player, _enemy);
 
@@ -180,7 +167,7 @@ namespace WizardsCastle.Logic.Tests.Services
             _player.Strength = _enemy.Damage - 1;
             
             _player.Armor = new Armor(Any.String(), 1, Any.Number());
-            _tools.RandomizerMock.Setup(r => r.RollDice(3,7)).Returns(_player.Dexterity + 1);
+            _tools.CombatDiceMock.Setup(d => d.RollToDodge(_player)).Returns(false);
 
             var result = _service.EnemyAttacks(_player, _enemy);
 
@@ -194,7 +181,7 @@ namespace WizardsCastle.Logic.Tests.Services
             var originalDurability = _enemy.Damage;
             
             _player.Armor = new Armor(Any.String(), _enemy.Damage, originalDurability);
-            _tools.RandomizerMock.Setup(r => r.RollDice(3,7)).Returns(_player.Dexterity + 1);
+            _tools.CombatDiceMock.Setup(d => d.RollToDodge(_player)).Returns(false);
 
             var result = _service.EnemyAttacks(_player, _enemy);
 
@@ -208,7 +195,7 @@ namespace WizardsCastle.Logic.Tests.Services
             _player.Strength = _enemy.Damage + 1;
             var originalStrength = _player.Strength;
             _player.Armor = null;
-            _tools.RandomizerMock.Setup(r => r.RollDice(3,7)).Returns(_player.Dexterity + 1);
+            _tools.CombatDiceMock.Setup(d => d.RollToDodge(_player)).Returns(false);
 
             var result = _service.EnemyAttacks(_player, _enemy);
 
@@ -223,9 +210,8 @@ namespace WizardsCastle.Logic.Tests.Services
         [Test]
         public void PlayerAttackBreaksPlayerWeaponAgainstSpecificEnemiesIfUnlucky()
         {
-            _enemy.StoneSkin = true;
-            _tools.RandomizerMock.Setup(r => r.RollDie(20)).Returns(_player.Dexterity - 1);
-            _tools.RandomizerMock.Setup(r => r.OneChanceIn(8)).Returns(true);
+            _tools.CombatDiceMock.Setup(c => c.RollToHit(_player)).Returns(true);
+            _tools.CombatDiceMock.Setup(c => c.RollForWeaponBreakage(_enemy)).Returns(true);
             var expectedDamage = _player.Weapon.Damage;
 
             var result = _service.PlayerAttacks(_player, _enemy);

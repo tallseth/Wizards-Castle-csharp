@@ -23,12 +23,10 @@ namespace WizardsCastle.Logic.Services
     internal class CombatService : ICombatService
     {
         private readonly GameTools _tools;
-        private readonly ICombatDice _dice;
 
         public CombatService(GameTools tools)
         {
             _tools = tools;
-            _dice = _tools.CombatDice;
         }
 
         public bool PlayerGoesFirst(Player player)
@@ -36,18 +34,19 @@ namespace WizardsCastle.Logic.Services
             if (_tools.CurseEvaluator.IsEffectedByCurse(player, Curses.CurseOfLethargy))
                 return false;
 
-            return _dice.RollToGoFirst(player);
+            return _tools.CombatDice.RollToGoFirst(player);
         }
 
         public CombatResult PlayerAttacks(Player player, Enemy enemy)
         {
-            if(!_dice.RollToHit(player))
+            var dice = _tools.CombatDice;
+            if(!dice.RollToHit(player))
                 return new CombatResult { AttackerMissed = true};
 
             var damage = player.Weapon.Damage;
             enemy.HitPoints -= damage;
 
-            var weaponBroke = _dice.RollForWeaponBreakage(enemy);
+            var weaponBroke = dice.RollForWeaponBreakage(enemy);
             if (weaponBroke)
                 player.Weapon = null;
 
@@ -61,7 +60,7 @@ namespace WizardsCastle.Logic.Services
 
         public CombatResult EnemyAttacks(Player player, Enemy enemy)
         {
-            if(_dice.RollToDodge(player))
+            if(_tools.CombatDice.RollToDodge(player))
                 return new CombatResult { AttackerMissed = true};
 
             var armorDestroyed = false;
