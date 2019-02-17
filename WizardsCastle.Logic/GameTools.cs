@@ -32,7 +32,7 @@ namespace WizardsCastle.Logic
             gameTools.SituationBuilder = new SituationBuilder();
             gameTools.MoveInterpreter = new MoveInterpreter(gameConfig);
             gameTools.CombatService = new CombatService(gameTools);
-            gameTools.EnemyProvider = new EnemyProvider();
+            gameTools.EnemyProvider = new CachingEnemyProvider(new EnemyProvider());
             gameTools.CombatDice = new CombatDice(gameTools.Randomizer);
 
             return gameTools;

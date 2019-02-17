@@ -27,5 +27,10 @@ namespace WizardsCastle.Logic.Combat
         public int Damage { get; set; }
         public string Name { get; set; }
         public bool StoneSkin { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} HP: {HitPoints}";
+        }
     }
 }
