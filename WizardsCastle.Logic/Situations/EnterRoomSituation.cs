@@ -48,6 +48,9 @@ namespace WizardsCastle.Logic.Situations
                     tools.UI.DisplayMessage(Messages.StairsDown);
                     return tools.SituationBuilder.LeaveRoom();
                 case MapCodes.MonsterPrefix:
+                    var enemy = tools.EnemyProvider.GetEnemy(data.Map, data.CurrentLocation);
+                    tools.UI.ClearActionLog();
+                    tools.UI.DisplayMessage($"You have encountered a {enemy.Name}");
                     return tools.SituationBuilder.EnterCombat();
             }
 

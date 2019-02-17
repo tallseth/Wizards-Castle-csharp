@@ -6,6 +6,8 @@ namespace WizardsCastle.Logic.Situations
     {
         public ISituation PlayThrough(GameData data, GameTools tools)
         {
+            tools.UI.DisplayMessage("You attack.");
+
             var enemy = tools.EnemyProvider.GetEnemy(data.Map, data.CurrentLocation);
             var result = tools.CombatService.PlayerAttacks(data.Player, enemy);
 

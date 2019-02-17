@@ -16,6 +16,9 @@ namespace WizardsCastle.Logic.Situations
             var enemy = tools.EnemyProvider.GetEnemy(data.Map, data.CurrentLocation);
             var result = tools.CombatService.EnemyAttacks(data.Player, enemy);
 
+            var suffix = _playerRetreating ? " one last time as you retreat" : "";
+            tools.UI.DisplayMessage($"The {enemy.Name} attacks{suffix}.");
+
             if (result.AttackerMissed)
             {
                 tools.UI.DisplayMessage($"The {enemy.Name} misses!");

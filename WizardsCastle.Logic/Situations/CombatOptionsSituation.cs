@@ -16,6 +16,8 @@ namespace WizardsCastle.Logic.Situations
 
             var choice = tools.UI.PromptUserChoice(CombatOptions.All).GetData<char>();
 
+            tools.UI.ClearActionLog();
+
             switch (choice)
             {
                 case 'A':

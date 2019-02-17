@@ -72,5 +72,15 @@ namespace WizardsCastle.Logic.Tests.Situations
 
             Assert.That(actual, Is.SameAs(next));
         }
+
+        [Test]
+        public void ClearsLogAfterChoiceMade()
+        {
+            _tools.UIMock.Setup(ui => ui.ClearActionLog())
+                .Callback(() =>
+                {
+                    _tools.UIMock.Verify(ui=>ui.PromptUserChoice(CombatOptions.All), Times.Once());
+                });
+        }
     }
 }

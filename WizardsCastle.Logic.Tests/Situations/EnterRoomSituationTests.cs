@@ -91,12 +91,15 @@ namespace WizardsCastle.Logic.Tests.Situations
         [Test]
         public void MonsterRoomEntersCombat()
         {
+            _data.CurrentLocation = _location;
+            var enemy = _tools.SetupEnemyAtCurrentLocation(_data);
             var next = _tools.SetupNextSituation(sb => sb.EnterCombat());
             _data.Map.SetLocationInfo(_location, MapCodes.MonsterPrefix + Any.String());
 
             var actual = _situation.PlayThrough(_data, _tools);
 
             Assert.That(actual, Is.SameAs(next));
+            _tools.UIMock.Verify(ui => ui.DisplayMessage("You have encountered a " + enemy.Name));
         }
 
         private void TestDescribeAndLeaveRoom(char roomCode, string expectedDescription)
