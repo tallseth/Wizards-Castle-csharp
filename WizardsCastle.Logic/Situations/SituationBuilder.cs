@@ -64,7 +64,7 @@ namespace WizardsCastle.Logic.Situations
 
         public ISituation CombatOptions()
         {
-            return null;
+            return new CombatOptionsSituation();
         }
 
         public ISituation EnemyAttack(bool playerRetreating)

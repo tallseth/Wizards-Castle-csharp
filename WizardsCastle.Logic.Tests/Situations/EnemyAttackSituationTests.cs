@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using WizardsCastle.Logic.Combat;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.Services;
