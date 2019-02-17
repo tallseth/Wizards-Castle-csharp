@@ -12,14 +12,14 @@ namespace WizardsCastle.Logic.Situations
             if (result.AttackerMissed)
             {
                 tools.UI.DisplayMessage("You miss!");
-                return tools.SituationBuilder.EnemyAttack();
+                return tools.SituationBuilder.EnemyAttack(false);
             }
 
             tools.UI.DisplayMessage($"You hit the {enemy.Name} with your {data.Player.Weapon.Name} for {result.DamageToDefender}!");
 
             return result.DefenderDied
                 ? tools.SituationBuilder.CombatVictory() 
-                : tools.SituationBuilder.EnemyAttack();
+                : tools.SituationBuilder.EnemyAttack(false);
         }
     }
 }

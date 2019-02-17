@@ -112,5 +112,10 @@ namespace WizardsCastle.Logic.Tests
         {
             return Enemy.CreateMonster(EnumValue<Monster>());
         }
+
+        public static bool Bool()
+        {
+            return _random.Next(0, 2) == 1;
+        }
     }
 }

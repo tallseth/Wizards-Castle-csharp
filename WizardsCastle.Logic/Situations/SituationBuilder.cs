@@ -15,7 +15,7 @@ namespace WizardsCastle.Logic.Situations
         ISituation LeaveRoom();
         ISituation EnterCombat();
         ISituation CombatOptions();
-        ISituation EnemyAttack();
+        ISituation EnemyAttack(bool playerRetreating);
         ISituation CombatVictory();
         ISituation PlayerAttack();
     }
@@ -67,20 +67,19 @@ namespace WizardsCastle.Logic.Situations
             return null;
         }
 
-        public ISituation EnemyAttack()
+        public ISituation EnemyAttack(bool playerRetreating)
         {
-            return null;
+            return new EnemyAttackSituation(playerRetreating);
         }
 
         public ISituation CombatVictory()
         {
-            //clears map and gives reward
-            return null;
+            return new CombatVictorySituation();
         }
 
         public ISituation PlayerAttack()
         {
-            return null;
+            return new PlayerAttackSituation();
         }
     }
 }

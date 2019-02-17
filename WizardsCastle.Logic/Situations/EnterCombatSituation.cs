@@ -9,7 +9,7 @@ namespace WizardsCastle.Logic.Situations
             if(tools.CombatService.PlayerGoesFirst(data.Player))
                 return tools.SituationBuilder.CombatOptions();
 
-            return tools.SituationBuilder.EnemyAttack();
+            return tools.SituationBuilder.EnemyAttack(false);
         }
     }
 }

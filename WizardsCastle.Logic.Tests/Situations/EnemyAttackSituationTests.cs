@@ -19,7 +19,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [SetUp]
         public void Setup()
         {
-            _situation = new EnemyAttackSituation();
+            _situation = new EnemyAttackSituation(Any.Bool());
 
             _tools = new MockGameTools();
             _data = Any.GameData();
@@ -40,11 +40,11 @@ namespace WizardsCastle.Logic.Tests.Situations
         }
 
         [Test]
-        public void EnemyHitsReportsDamageAndGoesToPlayersTurn()
+        public void EnemyHitsAndKillsPlayerGoesToGameOver()
         {
-            var result = new CombatResult { DefenderDied = false, DamageToDefender = Any.Number()};
+            var result = new CombatResult { DefenderDied = true, DamageToDefender = Any.Number()};
             _tools.CombatServiceMock.Setup(c => c.EnemyAttacks(_data.Player, _enemy)).Returns(result);
-            var next = _tools.SetupNextSituation(sb => sb.CombatOptions());
+            var next = _tools.SetupNextSituation(sb => sb.GameOver("You have been defeated by the " + _enemy.Name + "."));
 
             var actual =_situation.PlayThrough(_data, _tools);
 
@@ -52,13 +52,19 @@ namespace WizardsCastle.Logic.Tests.Situations
             _tools.UIMock.Verify(ui=>ui.DisplayMessage("The " + _enemy.Name + " hit you for " + result.DamageToDefender  +  " damage!"));
         }
 
-        [Test]
-        public void EnemyHitsAndKillsPlayerGoesToGameOver()
+        
+        [TestCase(true)]
+        [TestCase(false)]
+        public void EnemyHitsReportsDamageAndGoesToNextSituation(bool retreating)
         {
-            var result = new CombatResult { DefenderDied = true, DamageToDefender = Any.Number()};
-            _tools.CombatServiceMock.Setup(c => c.EnemyAttacks(_data.Player, _enemy)).Returns(result);
-            var next = _tools.SetupNextSituation(sb => sb.GameOver("You have been defeated by the " + _enemy.Name + "."));
+            _situation = new EnemyAttackSituation(retreating);
+            var next = retreating 
+                ? _tools.SetupNextSituation(sb=>sb.LeaveRoom()) 
+                : _tools.SetupNextSituation(sb => sb.CombatOptions());
 
+            var result = new CombatResult { DefenderDied = false, DamageToDefender = Any.Number()};
+            _tools.CombatServiceMock.Setup(c => c.EnemyAttacks(_data.Player, _enemy)).Returns(result);
+            
             var actual =_situation.PlayThrough(_data, _tools);
 
             Assert.That(actual, Is.SameAs(next));

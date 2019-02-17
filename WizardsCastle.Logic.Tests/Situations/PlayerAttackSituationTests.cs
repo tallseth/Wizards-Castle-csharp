@@ -29,7 +29,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [Test]
         public void PlayerMissesShowsMessageAndGoesToMonsterTurn()
         {
-            var next = _tools.SetupNextSituation(sb => sb.EnemyAttack());
+            var next = _tools.SetupNextSituation(sb => sb.EnemyAttack(false));
             _tools.CombatServiceMock.Setup(c => c.PlayerAttacks(_data.Player, _enemy)).Returns(new CombatResult { AttackerMissed = true});
 
             var actual = _situation.PlayThrough(_data, _tools);
@@ -41,7 +41,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [Test]
         public void PlayerHitsShowsMessageAppliesDamageAndGoesToMonsterTurn()
         {
-            var next = _tools.SetupNextSituation(sb => sb.EnemyAttack());
+            var next = _tools.SetupNextSituation(sb => sb.EnemyAttack(false));
             var combatResult = new CombatResult { DamageToDefender = Any.Number()};
             _tools.CombatServiceMock.Setup(c => c.PlayerAttacks(_data.Player, _enemy)).Returns(combatResult);
 

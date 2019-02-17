@@ -4,6 +4,13 @@ namespace WizardsCastle.Logic.Situations
 {
     internal class EnemyAttackSituation : ISituation
     {
+        private readonly bool _playerRetreating;
+
+        public EnemyAttackSituation(bool playerRetreating)
+        {
+            _playerRetreating = playerRetreating;
+        }
+
         public ISituation PlayThrough(GameData data, GameTools tools)
         {
             var enemy = tools.EnemyProvider.GetEnemy(data.Map, data.CurrentLocation);
@@ -18,9 +25,13 @@ namespace WizardsCastle.Logic.Situations
 
             tools.UI.DisplayMessage($"The {enemy.Name} hit you for {result.DamageToDefender} damage!");
 
-            return result.DefenderDied 
-                ? tools.SituationBuilder.GameOver($"You have been defeated by the {enemy.Name}.") 
-                : tools.SituationBuilder.CombatOptions();
+            if (result.DefenderDied)
+                return tools.SituationBuilder.GameOver($"You have been defeated by the {enemy.Name}.");
+
+            if (_playerRetreating)
+                return tools.SituationBuilder.LeaveRoom();
+
+            return tools.SituationBuilder.CombatOptions();
         }
     }
 }
