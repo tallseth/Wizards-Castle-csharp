@@ -18,10 +18,9 @@ namespace WizardsCastle
                 Console.WriteLine("==========================================");
                 Console.WriteLine("*************CRASH************************");
                 Console.WriteLine(ex.ToString());
+                Console.ReadKey();
                 Environment.Exit(101);
             }
-
-            
         }
     }
 }

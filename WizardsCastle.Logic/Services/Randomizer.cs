@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WizardsCastle.Logic.Data;
 
 namespace WizardsCastle.Logic.Services
 {
@@ -10,11 +11,18 @@ namespace WizardsCastle.Logic.Services
         bool OneChanceIn(int n);
         int RollDice(int numDice, int numSides);
         int RollDie(int numSides);
+        Location RandomLocation();
     }
 
     internal class Randomizer : IRandomizer
     {
+        private readonly GameConfig _config;
         private static readonly Random _random = new Random();
+
+        public Randomizer(GameConfig config)
+        {
+            _config = config;
+        }
 
         public Stack<T> Shuffle<T>(IEnumerable<T> toShuffle)
         {
@@ -38,6 +46,16 @@ namespace WizardsCastle.Logic.Services
         public int RollDie(int numSides)
         {
             return _random.Next(1, numSides + 1);
+        }
+
+        public Location RandomLocation()
+        {
+            return new Location(RandomByte(_config.FloorWidth), RandomByte(_config.FloorHeight), RandomByte(_config.Floors));
+        }
+
+        private byte RandomByte(byte max)
+        {
+            return (byte) _random.Next(max);
         }
     }
 }

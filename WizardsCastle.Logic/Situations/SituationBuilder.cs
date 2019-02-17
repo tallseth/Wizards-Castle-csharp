@@ -19,6 +19,7 @@ namespace WizardsCastle.Logic.Situations
         ISituation CombatVictory();
         ISituation PlayerAttack();
         ISituation AllocateStats();
+        ISituation WarpRoom();
     }
 
     internal class SituationBuilder : ISituationBuilder
@@ -86,6 +87,29 @@ namespace WizardsCastle.Logic.Situations
         public ISituation AllocateStats()
         {
             return new AllocatePlayerStatsSituation();
+        }
+
+        public ISituation WarpRoom()
+        {
+            return new WarpRoomSituation();
+        }
+    }
+
+    internal class WarpRoomSituation : ISituation
+    {
+        public ISituation PlayThrough(GameData data, GameTools tools)
+        {
+            var newLocation = tools.Randomizer.RandomLocation();
+
+            tools.UI.ClearActionLog();
+            tools.UI.DisplayMessage("You have entered a Warp.");
+            tools.UI.DisplayMessage(newLocation.ToString());
+            tools.UI.PromptUserAcknowledgement();
+
+            
+
+
+            return tools.SituationBuilder.EnterRoom(newLocation);
         }
     }
 }

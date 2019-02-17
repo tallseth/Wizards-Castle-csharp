@@ -26,7 +26,7 @@ namespace WizardsCastle.Logic
             var gameTools = new GameTools
             {
                 UI = new GameUI(),
-                Randomizer = new Randomizer(),
+                Randomizer = new Randomizer(gameConfig),
                 CurseEvaluator = new CurseEvaluator()
             };
 

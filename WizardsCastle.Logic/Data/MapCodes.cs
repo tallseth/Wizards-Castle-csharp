@@ -10,6 +10,7 @@
         public const char Gold = 'G';
         public const char Vendor = 'V';
         public const char MonsterPrefix = 'M';
+        public const char Warp = 'W';
 
         public static string Unexplored(char roomCode)
         {

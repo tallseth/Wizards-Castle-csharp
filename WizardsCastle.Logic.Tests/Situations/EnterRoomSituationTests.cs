@@ -102,6 +102,18 @@ namespace WizardsCastle.Logic.Tests.Situations
             _tools.UIMock.Verify(ui => ui.DisplayMessage("You have encountered a " + enemy.Name));
         }
 
+        [Test]
+        public void WarpRoomEntersWarp()
+        {
+            _data.Map.SetLocationInfo(_location, MapCodes.Warp);
+            var next = Mock.Of<ISituation>();
+            _tools.SituationBuilderMock.Setup(b => b.WarpRoom()).Returns(next);
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+        }
+
         private void TestDescribeAndLeaveRoom(char roomCode, string expectedDescription)
         {
             _data.Map.SetLocationInfo(_location, roomCode);

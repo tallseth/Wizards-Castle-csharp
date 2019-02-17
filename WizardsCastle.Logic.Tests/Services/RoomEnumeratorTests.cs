@@ -24,10 +24,18 @@ namespace WizardsCastle.Logic.Tests.Services
         [Test]
         public void EnumeratesMonsters()
         {
-            var result = _enumerator.GetRoomContents(1).ToArray();
+            var result = _enumerator.GetRoomContents(1).Where(r=>r.StartsWith(MapCodes.MonsterPrefix)).ToArray();
             var expected = Enumerable.Range(1, 12).Select(i => "M" + i).ToArray();
 
             Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void EnumeratesWarp()
+        {
+            var result = _enumerator.GetRoomContents(1).Count(r => r == MapCodes.Warp.ToString());
+
+            Assert.That(result, Is.EqualTo(1));
         }
     }
 }

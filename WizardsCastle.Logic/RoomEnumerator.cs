@@ -22,6 +22,14 @@ namespace WizardsCastle.Logic
         }
         public IEnumerable<string> GetRoomContents(byte floor)
         {
+            foreach (var room in GetMonsters())
+                yield return room;
+
+            yield return MapCodes.Warp.ToString();
+        }
+
+        private IEnumerable<string> GetMonsters()
+        {
             return Enum.GetValues(typeof(Monster)).Cast<int>().Where(i=> i <= _config.MonstersPerFloor).Select(m => $"M{m}");
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using WizardsCastle.Logic.Data;
-using WizardsCastle.Logic.UI;
 
 namespace WizardsCastle.Logic.Situations
 {
@@ -52,6 +51,8 @@ namespace WizardsCastle.Logic.Situations
                     tools.UI.ClearActionLog();
                     tools.UI.DisplayMessage($"You have encountered a {enemy.Name}");
                     return tools.SituationBuilder.EnterCombat();
+                case MapCodes.Warp:
+                    return tools.SituationBuilder.WarpRoom();
             }
 
             throw new ArgumentException($"Unknown room code: {roomInfo}");
