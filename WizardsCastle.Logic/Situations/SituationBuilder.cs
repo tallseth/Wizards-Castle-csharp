@@ -20,6 +20,7 @@ namespace WizardsCastle.Logic.Situations
         ISituation PlayerAttack();
         ISituation AllocateStats();
         ISituation WarpRoom();
+        ISituation Sinkhole();
     }
 
     internal class SituationBuilder : ISituationBuilder
@@ -93,23 +94,10 @@ namespace WizardsCastle.Logic.Situations
         {
             return new WarpRoomSituation();
         }
-    }
 
-    internal class WarpRoomSituation : ISituation
-    {
-        public ISituation PlayThrough(GameData data, GameTools tools)
+        public ISituation Sinkhole()
         {
-            var newLocation = tools.Randomizer.RandomLocation();
-
-            tools.UI.ClearActionLog();
-            tools.UI.DisplayMessage("You have entered a Warp.");
-            tools.UI.DisplayMessage(newLocation.ToString());
-            tools.UI.PromptUserAcknowledgement();
-
-            
-
-
-            return tools.SituationBuilder.EnterRoom(newLocation);
+            return new SinkholeSituation();
         }
     }
 }

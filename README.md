@@ -34,7 +34,6 @@ Additional work to complete the game
   * Pool
   * Chest
   * Gold Pieces
-  * Sinkhole
   * Crystal Orb
   * Books
   * Treasure

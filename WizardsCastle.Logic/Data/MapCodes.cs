@@ -11,6 +11,7 @@
         public const char Vendor = 'V';
         public const char MonsterPrefix = 'M';
         public const char Warp = 'W';
+        public const char Sinkhole = 'S';
 
         public static string Unexplored(char roomCode)
         {

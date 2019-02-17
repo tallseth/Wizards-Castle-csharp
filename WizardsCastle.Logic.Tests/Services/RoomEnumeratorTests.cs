@@ -37,5 +37,13 @@ namespace WizardsCastle.Logic.Tests.Services
 
             Assert.That(result, Is.EqualTo(1));
         }
+
+        [Test]
+        public void EnumeratesSinkhole()
+        {
+            var result = _enumerator.GetRoomContents(1).Count(r => r == MapCodes.Sinkhole.ToString());
+
+            Assert.That(result, Is.EqualTo(1));
+        }
     }
 }

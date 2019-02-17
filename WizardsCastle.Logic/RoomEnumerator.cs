@@ -26,6 +26,8 @@ namespace WizardsCastle.Logic
                 yield return room;
 
             yield return MapCodes.Warp.ToString();
+
+            yield return MapCodes.Sinkhole.ToString();
         }
 
         private IEnumerable<string> GetMonsters()

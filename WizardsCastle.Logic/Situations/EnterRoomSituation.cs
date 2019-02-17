@@ -53,6 +53,8 @@ namespace WizardsCastle.Logic.Situations
                     return tools.SituationBuilder.EnterCombat();
                 case MapCodes.Warp:
                     return tools.SituationBuilder.WarpRoom();
+                case MapCodes.Sinkhole:
+                    return tools.SituationBuilder.Sinkhole();
             }
 
             throw new ArgumentException($"Unknown room code: {roomInfo}");
