@@ -28,17 +28,22 @@ namespace WizardsCastle.Logic.Services
 
         public bool RollToHit(Player player)
         {
-            return player.Dexterity >= _randomizer.RollDie(20);
+            return player.Dexterity >= _randomizer.RollDie(20) + GetBlindnessOffset(player);
         }
 
         public bool RollToDodge(Player player)
         {
-            return player.Dexterity >= _randomizer.RollDice(3,7);
+            return player.Dexterity >= _randomizer.RollDice(3,7) + GetBlindnessOffset(player);
         }
 
         public bool RollForWeaponBreakage(Enemy enemy)
         {
             return enemy.StoneSkin && _randomizer.OneChanceIn(8);
+        }
+
+        private static int GetBlindnessOffset(Player player)
+        {
+            return player.IsBlind ? 3 : 0;
         }
     }
 }

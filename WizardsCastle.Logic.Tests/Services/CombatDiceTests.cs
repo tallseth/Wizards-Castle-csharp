@@ -37,6 +37,18 @@ namespace WizardsCastle.Logic.Tests.Services
             Assert.That(_dice.RollToHit(_player), Is.False);
         }
 
+        [TestCase(0, false)]
+        [TestCase(1, false)]
+        [TestCase(2, false)]
+        [TestCase(3, true)]
+        public void RollToHitHarderIfBlind(int dexterityOffset, bool expectedHit)
+        {
+            _player.IsBlind = true;
+            _randomizer.Setup(r => r.RollDie(20)).Returns(_player.Dexterity - dexterityOffset);
+
+            Assert.That(_dice.RollToHit(_player), Is.EqualTo(expectedHit));
+        }
+
         [Test]
         public void RollToDodgeSuccess()
         {
@@ -51,6 +63,18 @@ namespace WizardsCastle.Logic.Tests.Services
             _randomizer.Setup(r => r.RollDice(3, 7)).Returns(_player.Dexterity + 1);
 
             Assert.That(_dice.RollToDodge(_player), Is.False);
+        }
+
+        [TestCase(0, false)]
+        [TestCase(1, false)]
+        [TestCase(2, false)]
+        [TestCase(3, true)]
+        public void RollTDodgeHarderIfBlind(int dexterityOffset, bool expectedDodge)
+        {
+            _player.IsBlind = true;
+            _randomizer.Setup(r => r.RollDice(3,7)).Returns(_player.Dexterity - dexterityOffset);
+
+            Assert.That(_dice.RollToDodge(_player), Is.EqualTo(expectedDodge));
         }
 
         [Test]
