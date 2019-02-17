@@ -41,7 +41,7 @@ namespace WizardsCastle.Logic.Services
 
         public CombatResult PlayerAttacks(Player player, Enemy enemy)
         {
-            if(_dice.RollToHit(player))
+            if(!_dice.RollToHit(player))
                 return new CombatResult { AttackerMissed = true};
 
             var damage = player.Weapon.Damage;
@@ -85,44 +85,6 @@ namespace WizardsCastle.Logic.Services
                 ArmorDestroyed = armorDestroyed,
                 DefenderDied = player.Strength < 1
             };
-        }
-    }
-
-    internal interface ICombatDice
-    {
-        bool RollToGoFirst(Player player);
-        bool RollToHit(Player player);
-        bool RollToDodge(Player player);
-        bool RollForWeaponBreakage(Enemy enemy);
-    }
-
-    internal class CombatDice : ICombatDice
-    {
-        private readonly IRandomizer _randomizer;
-
-        public CombatDice(IRandomizer randomizer)
-        {
-            _randomizer = randomizer;
-        }
-
-        public bool RollToGoFirst(Player player)
-        {
-            return !player.IsBlind && player.Dexterity >= _randomizer.RollDice(2, 9);;
-        }
-
-        public bool RollToHit(Player player)
-        {
-            return player.Dexterity < _randomizer.RollDie(20);
-        }
-
-        public bool RollToDodge(Player player)
-        {
-            return player.Dexterity >= _randomizer.RollDice(3,7);
-        }
-
-        public bool RollForWeaponBreakage(Enemy enemy)
-        {
-            return enemy.StoneSkin && _randomizer.OneChanceIn(8);
         }
     }
 }
