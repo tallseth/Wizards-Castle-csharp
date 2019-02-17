@@ -28,7 +28,6 @@ MVP of the game
 
 Additional work to complete the game
 * Complete player creation impl
-  * Allocate bonus stat points
   * Buy Weapon and armor on player creation
   * Option to Buy lamp
   * Choose Gender

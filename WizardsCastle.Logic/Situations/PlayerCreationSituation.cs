@@ -17,7 +17,7 @@ namespace WizardsCastle.Logic.Situations
             data.Player.Armor = new Armor("Chainmail", 2, 14);
             tools.UI.DisplayMessage(data.Player.ToString());
 
-            return tools.SituationBuilder.EnterRoom(data.CurrentLocation);
+            return tools.SituationBuilder.AllocateStats();
         }
     }
 }

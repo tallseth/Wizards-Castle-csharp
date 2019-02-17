@@ -55,4 +55,13 @@ namespace WizardsCastle.Logic.UI
 
         public static UserOption[] All => new[] {Attack, Retreat};
     }
+
+    internal static class StatsOptions
+    {
+        public static readonly UserOption Strength = new UserOption("(S)trength", ConsoleKey.S, 'S');
+        public static readonly UserOption Dexterity = new UserOption("(D)exterity", ConsoleKey.D, 'D');
+        public static readonly UserOption Intelligence = new UserOption("(I)ntelligence", ConsoleKey.I, 'I');
+
+        public static UserOption[] All => new[] {Strength, Dexterity, Intelligence};
+    }
 }

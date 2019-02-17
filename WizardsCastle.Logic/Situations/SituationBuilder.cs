@@ -18,6 +18,7 @@ namespace WizardsCastle.Logic.Situations
         ISituation EnemyAttack(bool playerRetreating);
         ISituation CombatVictory();
         ISituation PlayerAttack();
+        ISituation AllocateStats();
     }
 
     internal class SituationBuilder : ISituationBuilder
@@ -80,6 +81,11 @@ namespace WizardsCastle.Logic.Situations
         public ISituation PlayerAttack()
         {
             return new PlayerAttackSituation();
+        }
+
+        public ISituation AllocateStats()
+        {
+            return new AllocatePlayerStatsSituation();
         }
     }
 }
