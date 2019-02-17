@@ -58,8 +58,14 @@ namespace WizardsCastle.Logic.Tests
                 Strength = Number(),
                 Dexterity = Number(),
                 UnallocatedStats = Number(),
-                Weapon = Weapon()
+                Weapon = Weapon(),
+                Armor = Armor()
             };
+        }
+
+        private static Armor Armor()
+        {
+            return new Armor(String(), Number(), Number());
         }
 
         private static Weapon Weapon()

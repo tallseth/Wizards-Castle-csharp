@@ -35,7 +35,7 @@
 
         public override string ToString()
         {
-            return $"ST: {Strength} DE: {Dexterity} IQ: {Intelligence} GP: {GoldPieces} {Weapon} {Armor}";
+            return $"ST: {Strength} DE: {Dexterity} IQ: {Intelligence} GP: {GoldPieces} {Weapon?.ToString() ?? "[No Weapon]"} {Armor?.ToString() ?? "[No Armor]"}";
         }
     }
 }

@@ -11,7 +11,7 @@
 
         public string Name { get; }
         public int Protection { get; }
-        public int Durability { get; }
+        public int Durability { get; set; }
 
         public override string ToString()
         {

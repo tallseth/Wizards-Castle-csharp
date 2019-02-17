@@ -15,17 +15,18 @@ namespace WizardsCastle.Logic.Tests.Combat
         [TestCase(Monster.Troll, 8, 4)]
         [TestCase(Monster.Bear, 9, 4)]
         [TestCase(Monster.Minotaur, 10, 5)]
-        [TestCase(Monster.Gargoyle, 11, 5)]
+        [TestCase(Monster.Gargoyle, 11, 5, true)]
         [TestCase(Monster.Chimera, 12, 6)]
         [TestCase(Monster.Balrog, 13, 6)]
-        [TestCase(Monster.Dragon, 14, 7)]
-        public void CreateMonsterWithCorrectStats(Monster type, int expectedHP, int expectedDmg)
+        [TestCase(Monster.Dragon, 14, 7, true)]
+        public void CreateMonsterWithCorrectStats(Monster type, int expectedHP, int expectedDmg, bool stoneSkin = false)
         {
             var monster = Enemy.CreateMonster(type);
 
             Assert.That(monster.Name, Is.EqualTo(type.ToString()));
             Assert.That(monster.HitPoints, Is.EqualTo(expectedHP));
             Assert.That(monster.Damage, Is.EqualTo(expectedDmg));
+            Assert.That(monster.StoneSkin, Is.EqualTo(stoneSkin));
         }
 
         [Test]
@@ -36,6 +37,7 @@ namespace WizardsCastle.Logic.Tests.Combat
             Assert.That(vendor.Name, Is.EqualTo("Vendor"));
             Assert.That(vendor.HitPoints, Is.EqualTo(15));
             Assert.That(vendor.Damage, Is.EqualTo(7));
+            Assert.That(vendor.StoneSkin, Is.False);
         }
     }
 }
