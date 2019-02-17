@@ -23,12 +23,19 @@
 
         internal int GoldPieces { get; set; }
 
+        internal Weapon Weapon { get; set; }
+        internal Armor Armor { get; set; }
+
         internal bool IsBlind { get; set; }
+        internal Curses Curses { get; set; }
+
+
         internal bool HasOrbOfZot { get; set; }
+        internal bool HasRuneStaff { get; set; }
 
         public override string ToString()
         {
-            return $"ST: {Strength} DE: {Dexterity} IQ: {Intelligence} GP: {GoldPieces}";
+            return $"ST: {Strength} DE: {Dexterity} IQ: {Intelligence} GP: {GoldPieces} {Weapon?.ToString() ?? "[No Weapon]"} {Armor?.ToString() ?? "[No Armor]"}";
         }
     }
 }

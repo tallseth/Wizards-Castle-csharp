@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Constraints;
+using WizardsCastle.Logic.Combat;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
 
@@ -42,9 +44,14 @@ namespace WizardsCastle.Logic.Tests
             {
                 Player = Player(),
                 TurnCounter = Number(),
-                CurrentLocation = Any.Location(),
-                Map = new Map(new GameConfig{ Floors = byte.MaxValue, FloorWidth = byte.MaxValue, FloorHeight = byte.MaxValue})
+                CurrentLocation = Location(),
+                Map = Map()
             };
+        }
+
+        public static Map Map()
+        {
+            return new Map(new GameConfig{ Floors = byte.MaxValue, FloorWidth = byte.MaxValue, FloorHeight = byte.MaxValue});
         }
 
         public static Player Player()
@@ -55,8 +62,20 @@ namespace WizardsCastle.Logic.Tests
                 Intelligence = Number(),
                 Strength = Number(),
                 Dexterity = Number(),
-                UnallocatedStats = Number()
+                UnallocatedStats = Number(),
+                Weapon = Weapon(),
+                Armor = Armor()
             };
+        }
+
+        private static Armor Armor()
+        {
+            return new Armor(String(), Number(), Number());
+        }
+
+        private static Weapon Weapon()
+        {
+            return new Weapon(String(),Number());
         }
 
         public static UserOption[] UserOptions()
@@ -71,7 +90,7 @@ namespace WizardsCastle.Logic.Tests
 
         public static Move InsideMove()
         {
-            return Of(Enum.GetValues(typeof(Move)).Cast<Move>().Where(m => m != Move.Exit));
+            return Of(Enum.GetValues(typeof(Move)).Cast<Move>().Where(m => m != Move.Exit && m != Move.ShowMap));
         }
 
         public static UserOption UserOptionWithValue(object obj)
@@ -87,6 +106,16 @@ namespace WizardsCastle.Logic.Tests
         public static byte Byte()
         {
             return (byte) _random.Next(byte.MaxValue);
+        }
+
+        public static Enemy Monster()
+        {
+            return Enemy.CreateMonster(EnumValue<Monster>());
+        }
+
+        public static bool Bool()
+        {
+            return _random.Next(0, 2) == 1;
         }
     }
 }

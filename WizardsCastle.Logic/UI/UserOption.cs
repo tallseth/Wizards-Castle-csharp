@@ -47,4 +47,12 @@ namespace WizardsCastle.Logic.UI
         public static UserOption[] Standard => new[] {Map, Up, Down, Left, Right};
         public static UserOption[] Entrance => new[] {Map, Exit, Down, Left, Right};
     }
+
+    internal static class CombatOptions
+    {
+        public static readonly UserOption Attack = new UserOption("(A)ttack", ConsoleKey.A, 'A');
+        public static readonly UserOption Retreat = new UserOption("(R)etreat", ConsoleKey.R, 'R');
+
+        public static UserOption[] All => new[] {Attack, Retreat};
+    }
 }

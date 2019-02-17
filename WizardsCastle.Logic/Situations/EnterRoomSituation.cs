@@ -15,8 +15,13 @@ namespace WizardsCastle.Logic.Situations
 
         public ISituation PlayThrough(GameData data, GameTools tools)
         {
+            tools.UI.ClearActionLog();
+
             data.TurnCounter++;
             data.CurrentLocation = _location;
+
+            tools.UI.DisplayMessage(data.ToString());
+
             var roomInfo = data.Map.GetLocationInfo(data.CurrentLocation);
 
             if (roomInfo[0] == MapCodes.UnexploredPrefix)
@@ -42,6 +47,11 @@ namespace WizardsCastle.Logic.Situations
                 case MapCodes.StairsDown:
                     tools.UI.DisplayMessage(Messages.StairsDown);
                     return tools.SituationBuilder.LeaveRoom();
+                case MapCodes.MonsterPrefix:
+                    var enemy = tools.EnemyProvider.GetEnemy(data.Map, data.CurrentLocation);
+                    tools.UI.ClearActionLog();
+                    tools.UI.DisplayMessage($"You have encountered a {enemy.Name}");
+                    return tools.SituationBuilder.EnterCombat();
             }
 
             throw new ArgumentException($"Unknown room code: {roomInfo}");

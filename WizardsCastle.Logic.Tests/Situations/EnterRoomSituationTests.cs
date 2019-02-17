@@ -26,14 +26,23 @@ namespace WizardsCastle.Logic.Tests.Situations
         }
 
         [Test]
-        public void SetsLocationAndIncrementsTurnCounter()
+        public void UpdatesGameDataAndDisplaysStatus()
         {
+            _data.Map.SetLocationInfo(_location, MapCodes.Unexplored(MapCodes.EmptyRoom));
+
             var expectedCounter = _data.TurnCounter + 1;
-            _data.Map.SetLocationInfo(_location, MapCodes.Entrance);
+            _tools.UIMock.Setup(ui=>ui.DisplayMessage(It.IsAny<string>()))
+                .Callback(() =>
+                {
+                    Assert.That(_data.TurnCounter, Is.EqualTo(expectedCounter));
+                    Assert.That(_data.CurrentLocation, Is.EqualTo(_location));
+
+                    _tools.UIMock.Verify(ui=>ui.ClearActionLog());
+                });
 
             _situation.PlayThrough(_data, _tools);
 
-            Assert.That(_data.TurnCounter, Is.EqualTo(expectedCounter));
+            _tools.UIMock.Verify(ui=>ui.DisplayMessage(_data.ToString()));
         }
 
         [Test]
@@ -77,6 +86,20 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void StairsUpMessageThenNavigation()
         {
             TestDescribeAndLeaveRoom(MapCodes.StairsUp, Messages.StairsUp);
+        }
+
+        [Test]
+        public void MonsterRoomEntersCombat()
+        {
+            _data.CurrentLocation = _location;
+            var enemy = _tools.SetupEnemyAtCurrentLocation(_data);
+            var next = _tools.SetupNextSituation(sb => sb.EnterCombat());
+            _data.Map.SetLocationInfo(_location, MapCodes.MonsterPrefix + Any.String());
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+            _tools.UIMock.Verify(ui => ui.DisplayMessage("You have encountered a " + enemy.Name));
         }
 
         private void TestDescribeAndLeaveRoom(char roomCode, string expectedDescription)
