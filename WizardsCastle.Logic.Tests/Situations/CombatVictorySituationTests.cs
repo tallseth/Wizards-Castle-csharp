@@ -1,5 +1,4 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.Situations;
 using WizardsCastle.Logic.Tests.Helpers;
@@ -23,12 +22,28 @@ namespace WizardsCastle.Logic.Tests.Situations
         }
 
         [Test]
-        public void VictorGathersRewardAndLeavesTheRoom()
+        public void VictorGathersRewardAndLeavesTheRoomWhenDefeatingMonster()
         {
             var enemy = _tools.SetupEnemyAtCurrentLocation(_data);
+            enemy.IsMonster = true;
             var next = _tools.SetupNextSituation(sb => sb.LeaveRoom());
             var lootMessage = Any.String();
             _tools.LootCollectorMock.Setup(lc => lc.CollectMonsterLoot(_data.Player)).Returns(lootMessage);
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+            _tools.UIMock.Verify(ui=>ui.DisplayMessage(lootMessage));
+        }
+
+        [Test]
+        public void VictorGathersRewardAndLeavesTheRoomWhenDefeatingVendor()
+        {
+            var angryVendor = _tools.SetupEnemyAtCurrentLocation(_data);
+            angryVendor.IsMonster = false;
+            var next = _tools.SetupNextSituation(sb => sb.LeaveRoom());
+            var lootMessage = Any.String();
+            _tools.LootCollectorMock.Setup(lc => lc.CollectVendorLoot(_data.Player)).Returns(lootMessage);
 
             var actual = _situation.PlayThrough(_data, _tools);
 
