@@ -6,10 +6,8 @@ namespace WizardsCastle.Logic.Situations
     {
         public ISituation PlayThrough(GameData data, GameTools tools)
         {
-            tools.UI.ClearActionLog();
-            tools.UI.DisplayMessage("Imagine teleporting now... not implemented");
-            tools.UI.PromptUserAcknowledgement();
-            return tools.SituationBuilder.EnterRoom(data.CurrentLocation);
+            var location = tools.TeleportUI.GetTeleportationTarget();
+            return tools.SituationBuilder.EnterRoom(location);
         }
     }
 }

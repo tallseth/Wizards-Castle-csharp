@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using WizardsCastle.Logic.Combat;
-using WizardsCastle.Logic.Data;
+﻿using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.Services;
 using WizardsCastle.Logic.Situations;
 using WizardsCastle.Logic.UI;
@@ -11,6 +8,7 @@ namespace WizardsCastle.Logic
     internal class GameTools
     {
         internal IGameUI UI { get;set; }
+        internal ITeleportUI TeleportUI { get; set; }
         internal IGameDataBuilder DataBuilder { get; set; }
         internal ISituationBuilder SituationBuilder { get; set; }
         internal IMoveInterpreter MoveInterpreter { get; set; }

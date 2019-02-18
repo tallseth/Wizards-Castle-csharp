@@ -22,6 +22,7 @@ namespace WizardsCastle.Logic.Tests.Helpers
         public Mock<ICombatDice> CombatDiceMock { get; }
         public Mock<IRoomEnumerator> RoomEnumeratorMock { get; }
         public Mock<ILootCollector> LootCollectorMock { get; }
+        public Mock<ITeleportUI> TeleportUIMock { get; }
 
         public MockGameTools()
         {
@@ -57,6 +58,9 @@ namespace WizardsCastle.Logic.Tests.Helpers
 
             LootCollectorMock = new Mock<ILootCollector>();
             LootCollector = LootCollector = LootCollectorMock.Object;
+
+            TeleportUIMock = new Mock<ITeleportUI>();
+            TeleportUI = TeleportUIMock.Object;
         }
 
         public ISituation SetupNextSituation(Expression<Func<ISituationBuilder, ISituation>> expression)
