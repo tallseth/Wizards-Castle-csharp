@@ -26,7 +26,7 @@ namespace WizardsCastle.Logic.Tests.Situations
             _data = Any.GameData();
 
             _enemy = _tools.SetupEnemyAtCurrentLocation(_data);
-            _tools.UIMock.Setup(ui => ui.PromptUserChoice(CombatOptions.All)).Returns(CombatOptions.Attack);
+            _tools.UIMock.Setup(ui => ui.PromptUserChoice(CombatOptions.All, true)).Returns(CombatOptions.Attack);
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void DisplaysStatusBeforeOptions()
         {
             _tools.UIMock.Setup(ui => ui.DisplayMessage(It.IsAny<string>()))
-                .Callback(() => { _tools.UIMock.Verify(ui => ui.PromptUserChoice(It.IsAny<IEnumerable<UserOption>>()),Times.Never()); });
+                .Callback(() => { _tools.UIMock.Verify(ui => ui.PromptUserChoice(It.IsAny<IEnumerable<UserOption>>(), true),Times.Never()); });
 
             _situation.PlayThrough(_data, _tools);
 
@@ -55,7 +55,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void ChoosingAttackGoesToPlayerAttack()
         {
             var next = _tools.SetupNextSituation(sb => sb.PlayerAttack());
-            _tools.UIMock.Setup(ui => ui.PromptUserChoice(CombatOptions.All)).Returns(CombatOptions.Attack);
+            _tools.UIMock.Setup(ui => ui.PromptUserChoice(CombatOptions.All, true)).Returns(CombatOptions.Attack);
 
             var actual = _situation.PlayThrough(_data, _tools);
 
@@ -66,7 +66,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void ChoosingRetreatLetsEnemyAttackOneLastTime()
         {
             var next = _tools.SetupNextSituation(sb => sb.EnemyAttack(true));
-            _tools.UIMock.Setup(ui => ui.PromptUserChoice(CombatOptions.All)).Returns(CombatOptions.Retreat);
+            _tools.UIMock.Setup(ui => ui.PromptUserChoice(CombatOptions.All, true)).Returns(CombatOptions.Retreat);
 
             var actual = _situation.PlayThrough(_data, _tools);
 
@@ -79,7 +79,7 @@ namespace WizardsCastle.Logic.Tests.Situations
             _tools.UIMock.Setup(ui => ui.ClearActionLog())
                 .Callback(() =>
                 {
-                    _tools.UIMock.Verify(ui=>ui.PromptUserChoice(CombatOptions.All), Times.Once());
+                    _tools.UIMock.Verify(ui=>ui.PromptUserChoice(CombatOptions.All, true), Times.Once());
                 });
         }
     }

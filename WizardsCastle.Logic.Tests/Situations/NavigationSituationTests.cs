@@ -69,7 +69,7 @@ namespace WizardsCastle.Logic.Tests.Situations
 
         private void SetupMove(Move move)
         {
-            _tools.UIMock.Setup(ui => ui.PromptUserChoice(_movementOptions)).Returns(Any.UserOptionWithValue(move));
+            _tools.UIMock.Setup(ui => ui.PromptUserChoice(_movementOptions, true)).Returns(Any.UserOptionWithValue(move));
         }
     }
 }

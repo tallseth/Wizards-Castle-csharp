@@ -1,4 +1,5 @@
-﻿using WizardsCastle.Logic.Data;
+﻿using System.Collections.Generic;
+using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
 
 namespace WizardsCastle.Logic.Situations
@@ -10,7 +11,7 @@ namespace WizardsCastle.Logic.Situations
             //todo: real implementation of this
             tools.UI.ClearActionLog();
             tools.UI.DisplayMessage("Choose a Race");
-            var chosenRace = tools.UI.PromptUserChoice(RaceOptions.All);
+            var chosenRace = tools.UI.PromptUserChoice(RaceOptions.All, true);
 
             data.Player = new Player(chosenRace.GetData<Race>());
             data.Player.Weapon = new Weapon("Mace", 2);

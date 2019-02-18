@@ -1,4 +1,5 @@
-﻿using WizardsCastle.Logic.Data;
+﻿using System.Collections.Generic;
+using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
 
 namespace WizardsCastle.Logic.Situations
@@ -14,7 +15,7 @@ namespace WizardsCastle.Logic.Situations
 
         public ISituation PlayThrough(GameData data, GameTools tools)
         {
-            var move = tools.UI.PromptUserChoice(_movementOptions).GetData<Move>();
+            var move = tools.UI.PromptUserChoice(_movementOptions, true).GetData<Move>();
 
             switch (move)
             {

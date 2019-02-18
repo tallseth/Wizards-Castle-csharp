@@ -9,6 +9,7 @@ namespace WizardsCastle.Logic.Situations
         {
             var roomInfo = data.Map.GetLocationInfo(data.CurrentLocation);
 
+            var navOptions = GetNavigationOptions(roomInfo);
 
             switch (roomInfo[0])
             {
@@ -20,7 +21,26 @@ namespace WizardsCastle.Logic.Situations
                     return tools.SituationBuilder.Navigate(NavigationOptions.Standard.Add(NavigationOptions.StairsDown));
             }
 
-            return tools.SituationBuilder.Navigate(NavigationOptions.Standard);
+            return tools.SituationBuilder.Navigate(navOptions);
+        }
+
+        private UserOption[] GetNavigationOptions(string roomInfo)
+        {
+            var options = NavigationOptions.Standard;
+            switch (roomInfo[0])
+            {
+                case MapCodes.Entrance:
+                    options = NavigationOptions.Entrance;
+                    break;
+                case MapCodes.StairsUp:
+                    options = options.Add(NavigationOptions.StairsUp);
+                    break;
+                case MapCodes.StairsDown:
+                    options = options.Add(NavigationOptions.StairsUp);
+                    break;
+            }
+
+            return options;
         }
     }
 }
