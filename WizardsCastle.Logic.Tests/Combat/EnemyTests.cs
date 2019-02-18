@@ -27,6 +27,7 @@ namespace WizardsCastle.Logic.Tests.Combat
             Assert.That(monster.HitPoints, Is.EqualTo(expectedHP));
             Assert.That(monster.Damage, Is.EqualTo(expectedDmg));
             Assert.That(monster.StoneSkin, Is.EqualTo(stoneSkin));
+            Assert.That(monster.IsMonster, Is.True);
         }
 
         [Test]
@@ -38,6 +39,7 @@ namespace WizardsCastle.Logic.Tests.Combat
             Assert.That(vendor.HitPoints, Is.EqualTo(15));
             Assert.That(vendor.Damage, Is.EqualTo(7));
             Assert.That(vendor.StoneSkin, Is.False);
+            Assert.That(vendor.IsMonster, Is.False);
         }
     }
 }
