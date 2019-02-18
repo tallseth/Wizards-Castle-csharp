@@ -13,6 +13,7 @@
         internal byte FloorHeight { get; set; }
         internal byte StairsPerFloor { get; set; }
         internal int MonstersPerFloor { get; set; }
+        internal int TotalMonsters => Floors * MonstersPerFloor;
 
         public static readonly GameConfig Standard = new GameConfig
         {

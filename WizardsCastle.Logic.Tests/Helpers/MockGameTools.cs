@@ -53,6 +53,8 @@ namespace WizardsCastle.Logic.Tests.Helpers
 
             RoomEnumeratorMock = new Mock<IRoomEnumerator>();
             RoomEnumerator = RoomEnumeratorMock.Object;
+
+            LootCollector = new LootCollector(this, new GameConfig());
         }
 
         public ISituation SetupNextSituation(Expression<Func<ISituationBuilder, ISituation>> expression)

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.Tests.Helpers;

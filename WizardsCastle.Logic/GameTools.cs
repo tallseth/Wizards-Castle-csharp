@@ -20,25 +20,27 @@ namespace WizardsCastle.Logic
         internal ICurseEvaluator CurseEvaluator { get; set; }
         internal ICombatDice CombatDice { get; set; }
         internal IRoomEnumerator RoomEnumerator { get; set; }
+        internal ILootCollector LootCollector { get; set; }
 
-        internal static GameTools Create(GameConfig gameConfig)
+        internal static GameTools Create(GameConfig config)
         {
-            var gameTools = new GameTools
+            var tools = new GameTools
             {
                 UI = new GameUI(),
-                Randomizer = new Randomizer(gameConfig),
+                Randomizer = new Randomizer(config),
                 CurseEvaluator = new CurseEvaluator()
             };
 
-            gameTools.DataBuilder = new GameDataBuilder(gameConfig, gameTools);
-            gameTools.SituationBuilder = new SituationBuilder();
-            gameTools.MoveInterpreter = new MoveInterpreter(gameConfig);
-            gameTools.CombatService = new CombatService(gameTools);
-            gameTools.EnemyProvider = new CachingEnemyProvider(new EnemyProvider());
-            gameTools.CombatDice = new CombatDice(gameTools.Randomizer);
-            gameTools.RoomEnumerator = new RoomEnumerator(gameConfig, gameTools);
+            tools.DataBuilder = new GameDataBuilder(config, tools);
+            tools.SituationBuilder = new SituationBuilder();
+            tools.MoveInterpreter = new MoveInterpreter(config);
+            tools.CombatService = new CombatService(tools);
+            tools.EnemyProvider = new CachingEnemyProvider(new EnemyProvider());
+            tools.CombatDice = new CombatDice(tools.Randomizer);
+            tools.RoomEnumerator = new RoomEnumerator(config, tools);
+            tools.LootCollector = new LootCollector(tools, config);
 
-            return gameTools;
+            return tools;
         }
     }
 }

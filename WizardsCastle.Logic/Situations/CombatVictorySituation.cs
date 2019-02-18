@@ -9,9 +9,8 @@ namespace WizardsCastle.Logic.Situations
             var enemy = tools.EnemyProvider.GetEnemy(data.Map, data.CurrentLocation);
             tools.UI.DisplayMessage($"You have defeated the {enemy.Name}.");
 
-            var reward = tools.Randomizer.RollDie(1000);
-            data.Player.GoldPieces += reward;
-            tools.UI.DisplayMessage($"You have collected {reward} gold pieces.");
+            var message = tools.LootCollector.CollectMonsterLoot(data.Player);
+            tools.UI.DisplayMessage(message);
 
             data.Map.SetLocationInfo(data.CurrentLocation, MapCodes.EmptyRoom);
 
