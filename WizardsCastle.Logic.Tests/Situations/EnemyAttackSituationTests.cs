@@ -26,11 +26,16 @@ namespace WizardsCastle.Logic.Tests.Situations
             _enemy = _tools.SetupEnemyAtCurrentLocation(_data);
         }
 
-        [Test]
-        public void EnemyMissesReportsMessageAndGoesToPlayersTurn()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void EnemyMissesReportsMessageAndGoesToNextSituation(bool retreating)
         {
+            _situation = new EnemyAttackSituation(retreating);
+            var next = retreating 
+                ? _tools.SetupNextSituation(sb=>sb.LeaveRoom()) 
+                : _tools.SetupNextSituation(sb => sb.CombatOptions());
+
             _tools.CombatServiceMock.Setup(c => c.EnemyAttacks(_data.Player, _enemy)).Returns(new CombatResult { AttackerMissed = true});
-            var next = _tools.SetupNextSituation(sb => sb.CombatOptions());
 
             var actual =_situation.PlayThrough(_data, _tools);
 

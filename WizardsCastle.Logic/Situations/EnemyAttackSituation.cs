@@ -23,7 +23,7 @@ namespace WizardsCastle.Logic.Situations
             {
                 tools.UI.DisplayMessage($"The {enemy.Name} misses!");
 
-                return tools.SituationBuilder.CombatOptions();
+                return GetNext(tools);
             }
 
             tools.UI.DisplayMessage($"The {enemy.Name} hit you for {result.DamageToDefender} damage!");
@@ -31,6 +31,11 @@ namespace WizardsCastle.Logic.Situations
             if (result.DefenderDied)
                 return tools.SituationBuilder.GameOver($"You have been defeated by the {enemy.Name}.");
 
+            return GetNext(tools);
+        }
+
+        private ISituation GetNext(GameTools tools)
+        {
             if (_playerRetreating)
                 return tools.SituationBuilder.LeaveRoom();
 
