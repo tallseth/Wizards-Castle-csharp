@@ -29,12 +29,11 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void NonExitMoveEntersDifferentRoom()
         {
             var move = Any.InsideMove();
-            var next = Mock.Of<ISituation>();
             var location = Any.Location();
 
             SetupMove(move);
             _tools.MoveInterpreterMock.Setup(m => m.GetTargetLocation(_data.CurrentLocation, move)).Returns(location);
-            _tools.SituationBuilderMock.Setup(b => b.EnterRoom(location)).Returns(next);
+            var next = _tools.SetupNextSituation(b => b.EnterRoom(location));
 
             var actual = _situation.PlayThrough(_data, _tools);
 
@@ -45,9 +44,8 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void ExitWithOrbWins()
         {
             _data.Player.HasOrbOfZot = true;
-            var next = Mock.Of<ISituation>();
             SetupMove(Move.Exit);
-            _tools.SituationBuilderMock.Setup(b => b.GameOver(Messages.WinTheGame)).Returns(next);
+            var next = _tools.SetupNextSituation(b => b.GameOver(Messages.WinTheGame));
 
             var actual = _situation.PlayThrough(_data, _tools);
 
@@ -58,13 +56,34 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void ExitWithoutOrbLoses()
         {
             _data.Player.HasOrbOfZot = false;
-            var next = Mock.Of<ISituation>();
             SetupMove(Move.Exit);
-            _tools.SituationBuilderMock.Setup(b => b.GameOver(Messages.LostByRetreat)).Returns(next);
+            var next = _tools.SetupNextSituation(b => b.GameOver(Messages.LostByRetreat));
 
             var actual = _situation.PlayThrough(_data, _tools);
 
             Assert.That(actual, Is.SameAs(next));
+        }
+
+        [Test]
+        public void ShowMapMoveShowsMap()
+        {
+            SetupMove(Move.ShowMap);
+            var next = _tools.SetupNextSituation(sb => sb.ShowMap());
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+        }
+
+        [Test]
+        public void TeleportMOveDoesThat()
+        {
+            SetupMove(Move.Teleport);
+            var next = _tools.SetupNextSituation(sb => sb.Teleport());
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));            
         }
 
         private void SetupMove(Move move)

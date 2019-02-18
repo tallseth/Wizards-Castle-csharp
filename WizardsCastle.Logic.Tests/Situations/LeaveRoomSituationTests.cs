@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Moq;
 using NUnit.Framework;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.Situations;
@@ -47,15 +49,36 @@ namespace WizardsCastle.Logic.Tests.Situations
             TestCorrectNavigationOptions(MapCodes.StairsUp, NavigationOptions.Standard.Add(NavigationOptions.StairsUp));
         }
 
-        private void TestCorrectNavigationOptions(char roomCode, UserOption[] options)
+        [Test]
+        public void TeleportIsNavigationOptionIfPlayerHasRunestaff()
+        {
+            _data.Player.HasRuneStaff = true;
+            Assert.That(GetActualOptionsUsed(MapCodes.EmptyRoom).Last(), Is.SameAs(NavigationOptions.Teleport));
+            Assert.That(GetActualOptionsUsed(MapCodes.Entrance).Last(), Is.SameAs(NavigationOptions.Teleport));
+            Assert.That(GetActualOptionsUsed(MapCodes.StairsUp).Last(), Is.SameAs(NavigationOptions.Teleport));
+            Assert.That(GetActualOptionsUsed(MapCodes.StairsDown).Last(), Is.SameAs(NavigationOptions.Teleport));
+        }
+
+        private void TestCorrectNavigationOptions(char roomCode, UserOption[] expectedOptions)
+        {
+            _data.Player.HasRuneStaff = false;
+            var actualOptions = GetActualOptionsUsed(roomCode);
+            Assert.That(actualOptions, Is.EqualTo(expectedOptions));
+        }
+
+        private UserOption[] GetActualOptionsUsed(char roomCode)
         {
             _data.Map.SetLocationInfo(_data.CurrentLocation, roomCode);
             var next = Mock.Of<ISituation>();
-            _tools.SituationBuilderMock.Setup(b => b.Navigate(options)).Returns(next);
+            var actualOptions = new UserOption[0];
+            _tools.SituationBuilderMock.Setup(b => b.Navigate(It.IsAny<UserOption[]>()))
+                .Callback((IEnumerable<UserOption> used) => actualOptions = (UserOption[]) used)
+                .Returns(next);
 
             var actual = _situation.PlayThrough(_data, _tools);
 
             Assert.That(actual, Is.SameAs(next));
+            return actualOptions;
         }
     }
 }

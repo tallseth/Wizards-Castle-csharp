@@ -21,6 +21,11 @@ namespace WizardsCastle.Logic.UI
         {
             return (T) _data;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     internal static class RaceOptions

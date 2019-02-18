@@ -10,16 +10,8 @@ namespace WizardsCastle.Logic.Situations
             var roomInfo = data.Map.GetLocationInfo(data.CurrentLocation);
 
             var navOptions = GetNavigationOptions(roomInfo);
-
-            switch (roomInfo[0])
-            {
-                case MapCodes.Entrance:
-                    return tools.SituationBuilder.Navigate(NavigationOptions.Entrance);
-                case MapCodes.StairsUp:
-                    return tools.SituationBuilder.Navigate(NavigationOptions.Standard.Add(NavigationOptions.StairsUp));
-                case MapCodes.StairsDown:
-                    return tools.SituationBuilder.Navigate(NavigationOptions.Standard.Add(NavigationOptions.StairsDown));
-            }
+            if (data.Player.HasRuneStaff)
+                navOptions = navOptions.Add(NavigationOptions.Teleport);
 
             return tools.SituationBuilder.Navigate(navOptions);
         }
@@ -36,7 +28,7 @@ namespace WizardsCastle.Logic.Situations
                     options = options.Add(NavigationOptions.StairsUp);
                     break;
                 case MapCodes.StairsDown:
-                    options = options.Add(NavigationOptions.StairsUp);
+                    options = options.Add(NavigationOptions.StairsDown);
                     break;
             }
 

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WizardsCastle.Logic.Data;
+﻿using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
 
 namespace WizardsCastle.Logic.Situations
@@ -26,6 +25,8 @@ namespace WizardsCastle.Logic.Situations
                     return tools.SituationBuilder.GameOver(exitMessage);
                 case Move.ShowMap:
                     return tools.SituationBuilder.ShowMap();
+                case Move.Teleport:
+                    return tools.SituationBuilder.Teleport();
             }
 
             var newLocation = tools.MoveInterpreter.GetTargetLocation(data.CurrentLocation, move);
