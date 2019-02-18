@@ -26,6 +26,7 @@ namespace WizardsCastle.Logic.UI
 
             while (true)
             {
+                Console.WriteLine();
                 var displayString = string.Join(", ", dictionary.Values.Select(option => option.Name));
                 Console.WriteLine(displayString);
 

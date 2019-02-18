@@ -9,5 +9,7 @@
         internal const string EmptyRoomDescription = "You are in an empty room";
         internal const string StairsDown = "Stairs down";
         internal const string StairsUp = "Stairs up";
+        internal const string SinkholeDescription = "You have entered a sinkhole.  You are falling to the floor below.";
+        internal const string WarpDescription = "You have entered a Warp. You will be moved to a random location in the Castle.";
     }
 }

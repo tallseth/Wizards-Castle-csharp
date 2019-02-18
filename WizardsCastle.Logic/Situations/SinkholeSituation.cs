@@ -6,7 +6,7 @@ namespace WizardsCastle.Logic.Situations
     {
         public ISituation PlayThrough(GameData data, GameTools tools)
         {
-            tools.UI.DisplayMessage("You have entered a sinkhole");
+            tools.UI.DisplayMessage(Messages.SinkholeDescription);
             tools.UI.PromptUserAcknowledgement();
             var newLocation = tools.MoveInterpreter.GetTargetLocation(data.CurrentLocation, Move.Downstairs);
 

@@ -11,6 +11,7 @@ namespace WizardsCastle.Logic.Situations
             var enemy = tools.EnemyProvider.GetEnemy(data.Map, data.CurrentLocation);
 
             data.TurnCounter++;
+            tools.UI.DisplayMessage(string.Empty);
             tools.UI.DisplayMessage(data.ToString());
             tools.UI.DisplayMessage(enemy.ToString());
 

@@ -1,5 +1,4 @@
-﻿using WizardsCastle.Logic.Combat;
-using WizardsCastle.Logic.Data;
+﻿using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
 
 namespace WizardsCastle.Logic.Situations

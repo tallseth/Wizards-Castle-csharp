@@ -40,7 +40,7 @@ namespace WizardsCastle.Logic.UI
         public static readonly UserOption Left = new UserOption("Left", ConsoleKey.LeftArrow, Move.Left);
         public static readonly UserOption Right = new UserOption("Right", ConsoleKey.RightArrow, Move.Right);
         public static readonly UserOption Exit = new UserOption("Up", ConsoleKey.UpArrow, Move.Exit);
-        public static readonly UserOption StairsDown = new UserOption("Stairs(D)own", ConsoleKey.D, Move.Downstairs);
+        public static readonly UserOption StairsDown = new UserOption("Stairs (D)own", ConsoleKey.D, Move.Downstairs);
         public static readonly UserOption StairsUp = new UserOption("Stairs (U)p", ConsoleKey.U, Move.Upstairs);
         public static readonly UserOption Map = new UserOption("Show (M)ap", ConsoleKey.M, Move.ShowMap);
 

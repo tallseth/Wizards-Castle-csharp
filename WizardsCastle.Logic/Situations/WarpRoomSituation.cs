@@ -9,7 +9,7 @@ namespace WizardsCastle.Logic.Situations
             var newLocation = tools.Randomizer.RandomLocation();
 
             tools.UI.ClearActionLog();
-            tools.UI.DisplayMessage("You have entered a Warp.");
+            tools.UI.DisplayMessage(Messages.WarpDescription);
             tools.UI.PromptUserAcknowledgement();
 
             return tools.SituationBuilder.EnterRoom(newLocation);

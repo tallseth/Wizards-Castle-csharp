@@ -47,3 +47,6 @@ Additional work to complete the game
 * Random messages
 * Spells
 * Bribery
+
+Other issues
+* Got a sinkhole loop in testing.  Probably only matters on the small loop, but maybe something to think about fixing.
