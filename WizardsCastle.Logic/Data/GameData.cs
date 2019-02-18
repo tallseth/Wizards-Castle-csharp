@@ -9,6 +9,8 @@ namespace WizardsCastle.Logic.Data
         internal Player Player { get; set; }
         internal Location CurrentLocation { get; set; }
 
+        internal bool RunestaffDiscovered { get; set; }
+
         public override string ToString()
         {
             return $"Turn: {TurnCounter} Location: {CurrentLocation}{Environment.NewLine}{Player}";

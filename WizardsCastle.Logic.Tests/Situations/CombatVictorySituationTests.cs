@@ -28,7 +28,7 @@ namespace WizardsCastle.Logic.Tests.Situations
             enemy.IsMonster = true;
             var next = _tools.SetupNextSituation(sb => sb.LeaveRoom());
             var lootMessage = Any.String();
-            _tools.LootCollectorMock.Setup(lc => lc.CollectMonsterLoot(_data.Player)).Returns(lootMessage);
+            _tools.LootCollectorMock.Setup(lc => lc.CollectMonsterLoot(_data)).Returns(lootMessage);
 
             var actual = _situation.PlayThrough(_data, _tools);
 
@@ -43,7 +43,7 @@ namespace WizardsCastle.Logic.Tests.Situations
             angryVendor.IsMonster = false;
             var next = _tools.SetupNextSituation(sb => sb.LeaveRoom());
             var lootMessage = Any.String();
-            _tools.LootCollectorMock.Setup(lc => lc.CollectVendorLoot(_data.Player)).Returns(lootMessage);
+            _tools.LootCollectorMock.Setup(lc => lc.CollectVendorLoot(_data)).Returns(lootMessage);
 
             var actual = _situation.PlayThrough(_data, _tools);
 

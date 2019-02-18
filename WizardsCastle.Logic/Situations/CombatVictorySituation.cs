@@ -10,8 +10,8 @@ namespace WizardsCastle.Logic.Situations
             tools.UI.DisplayMessage($"You have defeated the {enemy.Name}.");
 
             var message = enemy.IsMonster
-                ? tools.LootCollector.CollectMonsterLoot(data.Player)
-                : tools.LootCollector.CollectVendorLoot(data.Player);
+                ? tools.LootCollector.CollectMonsterLoot(data)
+                : tools.LootCollector.CollectVendorLoot(data);
 
             tools.UI.DisplayMessage(message);
 

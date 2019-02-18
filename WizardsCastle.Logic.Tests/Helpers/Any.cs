@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework.Constraints;
 using WizardsCastle.Logic.Combat;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
@@ -14,7 +13,7 @@ namespace WizardsCastle.Logic.Tests
 
         public static int Number()
         {
-            return _random.Next(0, 1000);
+            return _random.Next(0, 100);
         }
 
         public static string String()

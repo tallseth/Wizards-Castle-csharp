@@ -1,19 +1,19 @@
 ﻿using System;
+using System.Text;
 using WizardsCastle.Logic.Data;
 
 namespace WizardsCastle.Logic
 {
     internal interface ILootCollector
     {
-        string CollectVendorLoot(Player player);
-        string CollectMonsterLoot(Player player);
+        string CollectVendorLoot(GameData data);
+        string CollectMonsterLoot(GameData data);
     }
 
     internal class LootCollector : ILootCollector
     {
         private readonly GameTools _tools;
         private readonly GameConfig _config;
-        private int _monstersDefeated;
 
         public LootCollector(GameTools tools, GameConfig config)
         {
@@ -21,17 +21,30 @@ namespace WizardsCastle.Logic
             _config = config;
         }
 
-        public string CollectVendorLoot(Player player)
+        public string CollectVendorLoot(GameData data)
         {
             throw new NotImplementedException();
         }
 
-        public string CollectMonsterLoot(Player player)
+        public string CollectMonsterLoot(GameData data)
         {
-            _monstersDefeated++;
+            var player = data.Player;
+            var sb = new StringBuilder();
+
             var reward = _tools.Randomizer.RollDie(1000);
             player.GoldPieces += reward;
-            return $"You have collected {reward} gold pieces.";
+            sb.Append($"You have collected {reward} gold pieces.");
+
+            if (!data.RunestaffDiscovered && _tools.Randomizer.OneChanceIn(_config.TotalMonsters - player.MonstersDefeated))
+            {
+                player.HasRuneStaff = true;
+                data.RunestaffDiscovered = true;
+                sb.AppendLine().Append(Messages.RunestaffAcquired);
+            }
+
+            player.MonstersDefeated++;
+
+            return sb.ToString();
         }
     }
 }
