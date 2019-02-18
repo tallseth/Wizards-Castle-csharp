@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WizardsCastle.Logic.Data;
+﻿using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
 
 namespace WizardsCastle.Logic.Situations
@@ -17,7 +16,7 @@ namespace WizardsCastle.Logic.Situations
             data.Player.Weapon = new Weapon("Mace", 2);
             data.Player.Armor = new Armor("Chainmail", 2, 14);
             tools.UI.DisplayMessage(data.Player.ToString());
-
+            
             return tools.SituationBuilder.AllocateStats();
         }
     }

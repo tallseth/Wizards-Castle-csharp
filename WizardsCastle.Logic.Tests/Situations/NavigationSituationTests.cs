@@ -1,5 +1,4 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.Situations;
 using WizardsCastle.Logic.Tests.Helpers;

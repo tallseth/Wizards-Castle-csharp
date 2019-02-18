@@ -37,6 +37,7 @@ namespace WizardsCastle.Logic
             tools.CombatDice = new CombatDice(tools.Randomizer);
             tools.RoomEnumerator = new RoomEnumerator(config, tools);
             tools.LootCollector = new LootCollector(tools, config);
+            tools.TeleportUI = new TeleportUI(config, tools);
 
             return tools;
         }
