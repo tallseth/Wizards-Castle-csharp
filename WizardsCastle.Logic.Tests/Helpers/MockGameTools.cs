@@ -21,6 +21,7 @@ namespace WizardsCastle.Logic.Tests.Helpers
         public Mock<ICurseEvaluator> CurseEvaluatorMock { get; }
         public Mock<ICombatDice> CombatDiceMock { get; }
         public Mock<IRoomEnumerator> RoomEnumeratorMock { get; }
+        public Mock<ILootCollector> LootCollectorMock { get; }
 
         public MockGameTools()
         {
@@ -54,7 +55,8 @@ namespace WizardsCastle.Logic.Tests.Helpers
             RoomEnumeratorMock = new Mock<IRoomEnumerator>();
             RoomEnumerator = RoomEnumeratorMock.Object;
 
-            LootCollector = new LootCollector(this, new GameConfig());
+            LootCollectorMock = new Mock<ILootCollector>();
+            LootCollector = LootCollector = LootCollectorMock.Object;
         }
 
         public ISituation SetupNextSituation(Expression<Func<ISituationBuilder, ISituation>> expression)
