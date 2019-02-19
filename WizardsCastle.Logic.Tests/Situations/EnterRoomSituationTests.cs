@@ -107,7 +107,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         {
             _data.Map.SetLocationInfo(_location, MapCodes.Warp);
             var next = Mock.Of<ISituation>();
-            _tools.SituationBuilderMock.Setup(b => b.WarpRoom()).Returns(next);
+            _tools.SituationBuilderMock.Setup(b => b.WarpRoom(false)).Returns(next);
 
             var actual = _situation.PlayThrough(_data, _tools);
 

@@ -14,20 +14,31 @@ namespace WizardsCastle.Logic
     {
         private readonly GameConfig _config;
         private readonly GameTools _tools;
+        private readonly byte _orbFloor;
 
         public RoomEnumerator(GameConfig config, GameTools tools)
         {
             _config = config;
             _tools = tools;
+            _orbFloor = tools.Randomizer.RandomFloor();
         }
         public IEnumerable<string> GetRoomContents(byte floor)
         {
             foreach (var room in GetMonsters())
                 yield return room;
 
+
+            yield return floor == _orbFloor 
+                ? MapCodes.WarpOfZot 
+                : MapCodes.Warp.ToString();
+            yield return MapCodes.Warp.ToString();
             yield return MapCodes.Warp.ToString();
 
-            yield return MapCodes.Sinkhole.ToString();
+
+            for (int i = 0; i < 3; i++)
+            {
+                yield return MapCodes.Sinkhole.ToString();
+            }
         }
 
         private IEnumerable<string> GetMonsters()

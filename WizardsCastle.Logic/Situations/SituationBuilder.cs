@@ -18,7 +18,7 @@ namespace WizardsCastle.Logic.Situations
         ISituation CombatVictory();
         ISituation PlayerAttack();
         ISituation AllocateStats();
-        ISituation WarpRoom();
+        ISituation WarpRoom(bool warpOfZot);
         ISituation Sinkhole();
         ISituation Teleport();
     }
@@ -90,9 +90,9 @@ namespace WizardsCastle.Logic.Situations
             return new AllocatePlayerStatsSituation();
         }
 
-        public ISituation WarpRoom()
+        public ISituation WarpRoom(bool warpOfZot)
         {
-            return new WarpRoomSituation();
+            return new WarpRoomSituation(warpOfZot);
         }
 
         public ISituation Sinkhole()

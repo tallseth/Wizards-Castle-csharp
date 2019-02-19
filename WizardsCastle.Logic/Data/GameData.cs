@@ -10,6 +10,7 @@ namespace WizardsCastle.Logic.Data
         internal Location CurrentLocation { get; set; }
 
         internal bool RunestaffDiscovered { get; set; }
+        internal Move LastMove { get; set; }
 
         public override string ToString()
         {

@@ -12,5 +12,6 @@
         internal const string SinkholeDescription = "You have entered a sinkhole.  You are falling to the floor below.";
         internal const string WarpDescription = "You have entered a Warp. You will be moved to a random location in the Castle.";
         internal const string RunestaffAcquired = "You have found the fabled Runestaff!  With it, you can teleport to any location you choose.";
+        internal const string OrbOfZotAcquired = "You have found the Orb of Zot!  Your Runsetaff disappears, but you can now leave the Castle victorious!";
     }
 }

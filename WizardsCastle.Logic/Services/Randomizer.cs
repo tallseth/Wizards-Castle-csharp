@@ -12,6 +12,7 @@ namespace WizardsCastle.Logic.Services
         int RollDice(int numDice, int numSides);
         int RollDie(int numSides);
         Location RandomLocation();
+        byte RandomFloor();
     }
 
     internal class Randomizer : IRandomizer
@@ -50,7 +51,12 @@ namespace WizardsCastle.Logic.Services
 
         public Location RandomLocation()
         {
-            return new Location(RandomByte(_config.FloorWidth), RandomByte(_config.FloorHeight), RandomByte(_config.Floors));
+            return new Location(RandomByte(_config.FloorWidth), RandomByte(_config.FloorHeight), RandomFloor());
+        }
+
+        public byte RandomFloor()
+        {
+            return RandomByte(_config.Floors);
         }
 
         private byte RandomByte(byte max)

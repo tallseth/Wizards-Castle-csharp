@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.Situations;
 using WizardsCastle.Logic.Tests.Helpers;
@@ -7,7 +10,7 @@ using WizardsCastle.Logic.UI;
 namespace WizardsCastle.Logic.Tests.Situations
 {
     [TestFixture]
-    public class NavigationSituationTests
+    internal class NavigationSituationTests
     {
         private ISituation _situation;
         private MockGameTools _tools;
@@ -27,7 +30,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [Test]
         public void NonExitMoveEntersDifferentRoom()
         {
-            var move = Any.InsideMove();
+            var move = Any.RegularMove();
             var location = Any.Location();
 
             SetupMove(move);
@@ -75,7 +78,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         }
 
         [Test]
-        public void TeleportMOveDoesThat()
+        public void TeleportMoveDoesThat()
         {
             SetupMove(Move.Teleport);
             var next = _tools.SetupNextSituation(sb => sb.Teleport());
@@ -83,6 +86,18 @@ namespace WizardsCastle.Logic.Tests.Situations
             var actual = _situation.PlayThrough(_data, _tools);
 
             Assert.That(actual, Is.SameAs(next));            
+        }
+
+        [Test]
+        public void UpdatesLastMoveOnGameData()
+        {
+            var move = Any.RegularMove();
+            SetupMove(move);
+            _data.LastMove = Move.Exit;
+
+            _situation.PlayThrough(_data, _tools);
+
+            Assert.That(_data.LastMove, Is.EqualTo(move));
         }
 
         private void SetupMove(Move move)

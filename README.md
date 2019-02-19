@@ -19,16 +19,20 @@ For Example:
 - `dotnet run` (from the WizardsCastle project folder)
 
 # To Do
-These things are all pretty easy to find on the [spec page](https://github.com/beejjorgensen/Wizards-Castle-Info/blob/master/doc/wizards_castle_spec.md).
+MVP of the game is complete.  The Player can navigate the Castle, fight monsters, find the Runestaff and use it to acquire the Orb of Zot, and acheive victory by escaping the Castle.
 
-MVP of the game
-* Orb of Zot
+The most complicated remaining additions are Trade, Lamps/Flares and Blindness.  Trade is the most important addition to make gameplay more enjoyable.
+
+These things are all pretty easy to find on the [spec page](https://github.com/beejjorgensen/Wizards-Castle-Info/blob/master/doc/wizards_castle_spec.md).
 
 Additional work to complete the game
 * Complete player creation impl
   * Buy Weapon and armor on player creation
   * Option to Buy lamp
   * Choose Gender
+* Vendors
+  * Trade
+  * Combat
 * Populate map and handle room effects for the following
   * Pool
   * Chest
@@ -38,9 +42,6 @@ Additional work to complete the game
   * Treasure
 * Lamp effects
 * Flare effects, place them on the map
-* Vendors
-  * Trade
-  * Combat
 * Curses
 * Recipes
 * Random messages

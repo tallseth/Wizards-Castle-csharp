@@ -87,7 +87,7 @@ namespace WizardsCastle.Logic.Tests
             };
         }
 
-        public static Move InsideMove()
+        public static Move RegularMove()
         {
             return Of(Enum.GetValues(typeof(Move)).Cast<Move>().Where(m => m != Move.Exit && m != Move.ShowMap && m != Move.Teleport));
         }

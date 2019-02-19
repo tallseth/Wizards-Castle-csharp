@@ -16,6 +16,8 @@ namespace WizardsCastle.Logic.Situations
         {
             var move = tools.UI.PromptUserChoice(_movementOptions, true).GetData<Move>();
 
+            data.LastMove = move;
+
             switch (move)
             {
                 case Move.Exit:
