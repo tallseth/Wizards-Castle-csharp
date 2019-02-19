@@ -9,6 +9,7 @@
         Upstairs,
         Downstairs,
         Exit,
-        ShowMap
+        ShowMap,
+        Teleport
     }
 }

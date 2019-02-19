@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
 
@@ -15,7 +16,7 @@ namespace WizardsCastle.Logic.Situations
             tools.UI.DisplayMessage(data.ToString());
             tools.UI.DisplayMessage(enemy.ToString());
 
-            var choice = tools.UI.PromptUserChoice(CombatOptions.All).GetData<char>();
+            var choice = tools.UI.PromptUserChoice(CombatOptions.All, true).GetData<char>();
 
             tools.UI.ClearActionLog();
 

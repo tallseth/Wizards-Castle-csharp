@@ -1,4 +1,5 @@
-﻿using WizardsCastle.Logic.Data;
+﻿using System.Collections.Generic;
+using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
 
 namespace WizardsCastle.Logic.Situations
@@ -11,7 +12,7 @@ namespace WizardsCastle.Logic.Situations
             tools.UI.DisplayMessage($"You have {data.Player.UnallocatedStats} points to allocate.");
             tools.UI.DisplayMessage(data.Player.ToString());
             
-            var choice = tools.UI.PromptUserChoice(StatsOptions.All).GetData<char>();
+            var choice = tools.UI.PromptUserChoice(StatsOptions.All, true).GetData<char>();
 
             switch (choice)
             {

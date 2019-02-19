@@ -14,7 +14,7 @@ namespace WizardsCastle.Logic.Situations
 
         public ISituation PlayThrough(GameData data, GameTools tools)
         {
-            var move = tools.UI.PromptUserChoice(_movementOptions).GetData<Move>();
+            var move = tools.UI.PromptUserChoice(_movementOptions, true).GetData<Move>();
 
             switch (move)
             {
@@ -25,6 +25,8 @@ namespace WizardsCastle.Logic.Situations
                     return tools.SituationBuilder.GameOver(exitMessage);
                 case Move.ShowMap:
                     return tools.SituationBuilder.ShowMap();
+                case Move.Teleport:
+                    return tools.SituationBuilder.Teleport();
             }
 
             var newLocation = tools.MoveInterpreter.GetTargetLocation(data.CurrentLocation, move);

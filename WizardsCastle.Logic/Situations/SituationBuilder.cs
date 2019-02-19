@@ -20,6 +20,7 @@ namespace WizardsCastle.Logic.Situations
         ISituation AllocateStats();
         ISituation WarpRoom();
         ISituation Sinkhole();
+        ISituation Teleport();
     }
 
     internal class SituationBuilder : ISituationBuilder
@@ -97,6 +98,11 @@ namespace WizardsCastle.Logic.Situations
         public ISituation Sinkhole()
         {
             return new SinkholeSituation();
+        }
+
+        public ISituation Teleport()
+        {
+            return new TeleportSituation();
         }
     }
 }

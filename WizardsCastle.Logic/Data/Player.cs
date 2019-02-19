@@ -26,9 +26,10 @@
         internal Weapon Weapon { get; set; }
         internal Armor Armor { get; set; }
 
+        internal int MonstersDefeated { get; set; }
+
         internal bool IsBlind { get; set; }
         internal Curses Curses { get; set; }
-
 
         internal bool HasOrbOfZot { get; set; }
         internal bool HasRuneStaff { get; set; }

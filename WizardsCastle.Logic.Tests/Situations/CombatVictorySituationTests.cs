@@ -1,5 +1,4 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.Situations;
 using WizardsCastle.Logic.Tests.Helpers;
@@ -23,22 +22,33 @@ namespace WizardsCastle.Logic.Tests.Situations
         }
 
         [Test]
-        public void VictorGathersRewardAndLeavesTheRoom()
+        public void VictorGathersRewardAndLeavesTheRoomWhenDefeatingMonster()
         {
-            var enemy = Any.Monster();
-            var reward = Any.Number();
-            _data.Player.GoldPieces = Any.Number();
-            var expectedGold = reward + _data.Player.GoldPieces;
-            var next = Mock.Of<ISituation>();
-
-            _tools.EnemyProviderMock.Setup(e => e.GetEnemy(_data.Map, _data.CurrentLocation)).Returns(enemy);
-            _tools.RandomizerMock.Setup(r => r.RollDie(1000)).Returns(reward);
-            _tools.SituationBuilderMock.Setup(sb => sb.LeaveRoom()).Returns(next);
+            var enemy = _tools.SetupEnemyAtCurrentLocation(_data);
+            enemy.IsMonster = true;
+            var next = _tools.SetupNextSituation(sb => sb.LeaveRoom());
+            var lootMessage = Any.String();
+            _tools.LootCollectorMock.Setup(lc => lc.CollectMonsterLoot(_data)).Returns(lootMessage);
 
             var actual = _situation.PlayThrough(_data, _tools);
 
             Assert.That(actual, Is.SameAs(next));
-            Assert.That(_data.Player.GoldPieces, Is.EqualTo(expectedGold));
+            _tools.UIMock.Verify(ui=>ui.DisplayMessage(lootMessage));
+        }
+
+        [Test]
+        public void VictorGathersRewardAndLeavesTheRoomWhenDefeatingVendor()
+        {
+            var angryVendor = _tools.SetupEnemyAtCurrentLocation(_data);
+            angryVendor.IsMonster = false;
+            var next = _tools.SetupNextSituation(sb => sb.LeaveRoom());
+            var lootMessage = Any.String();
+            _tools.LootCollectorMock.Setup(lc => lc.CollectVendorLoot(_data)).Returns(lootMessage);
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+            _tools.UIMock.Verify(ui=>ui.DisplayMessage(lootMessage));
         }
     }
 }

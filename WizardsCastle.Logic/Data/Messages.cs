@@ -11,5 +11,6 @@
         internal const string StairsUp = "Stairs up";
         internal const string SinkholeDescription = "You have entered a sinkhole.  You are falling to the floor below.";
         internal const string WarpDescription = "You have entered a Warp. You will be moved to a random location in the Castle.";
+        internal const string RunestaffAcquired = "You have found the fabled Runestaff!  With it, you can teleport to any location you choose.";
     }
 }

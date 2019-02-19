@@ -3,7 +3,6 @@ using WizardsCastle.Logic.Data;
 
 namespace WizardsCastle.Logic.Services
 {
-    
     internal interface ICombatDice
     {
         bool RollToGoFirst(Player player);

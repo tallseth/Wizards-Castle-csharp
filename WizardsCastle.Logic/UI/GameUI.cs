@@ -8,9 +8,13 @@ namespace WizardsCastle.Logic.UI
     internal interface IGameUI
     {
         void DisplayMessage(string toDisplay);
-        UserOption PromptUserChoice(IEnumerable<UserOption> choices);
+        UserOption PromptUserChoice(IEnumerable<UserOption> choices, bool displayChoices);
         void PromptUserAcknowledgement();
         void ClearActionLog();
+    }
+
+    internal static class Temp
+    {
     }
 
     internal class GameUI : IGameUI
@@ -20,15 +24,18 @@ namespace WizardsCastle.Logic.UI
             Console.WriteLine(toDisplay);
         }
 
-        public UserOption PromptUserChoice(IEnumerable<UserOption> choices)
+        public UserOption PromptUserChoice(IEnumerable<UserOption> choices, bool displayChoices)
         {
             var dictionary = choices.ToDictionary(c => c.Key);
 
             while (true)
             {
-                Console.WriteLine();
-                var displayString = string.Join(", ", dictionary.Values.Select(option => option.Name));
-                Console.WriteLine(displayString);
+                if (displayChoices)
+                {
+                    Console.WriteLine();
+                    var displayString = string.Join(", ", dictionary.Values.Select(option => option.Name));
+                    Console.WriteLine(displayString);
+                }
 
                 var result = Console.ReadKey(true);
 

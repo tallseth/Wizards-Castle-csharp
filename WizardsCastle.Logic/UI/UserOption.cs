@@ -21,6 +21,11 @@ namespace WizardsCastle.Logic.UI
         {
             return (T) _data;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     internal static class RaceOptions
@@ -43,6 +48,7 @@ namespace WizardsCastle.Logic.UI
         public static readonly UserOption StairsDown = new UserOption("Stairs (D)own", ConsoleKey.D, Move.Downstairs);
         public static readonly UserOption StairsUp = new UserOption("Stairs (U)p", ConsoleKey.U, Move.Upstairs);
         public static readonly UserOption Map = new UserOption("Show (M)ap", ConsoleKey.M, Move.ShowMap);
+        public static readonly UserOption Teleport = new UserOption("(T)eleport", ConsoleKey.T, Move.Teleport);
 
         public static UserOption[] Standard => new[] {Map, Up, Down, Left, Right};
         public static UserOption[] Entrance => new[] {Map, Exit, Down, Left, Right};
