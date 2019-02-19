@@ -22,7 +22,6 @@ For Example:
 These things are all pretty easy to find on the [spec page](https://github.com/beejjorgensen/Wizards-Castle-Info/blob/master/doc/wizards_castle_spec.md).
 
 MVP of the game
-* Runestaff
 * Orb of Zot
 
 Additional work to complete the game
