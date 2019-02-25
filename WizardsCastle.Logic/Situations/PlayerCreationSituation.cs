@@ -10,11 +10,11 @@ namespace WizardsCastle.Logic.Situations
             //todo: real implementation of this
             tools.UI.ClearActionLog();
             tools.UI.DisplayMessage("Choose a Race");
-            var chosenRace = tools.UI.PromptUserChoice(RaceOptions.All, true);
+            var chosenRace = tools.UI.PromptUserChoice(RaceOptions.All, true).GetData<Race>();
 
-            data.Player = new Player(chosenRace.GetData<Race>());
-            data.Player.Weapon = new Weapon("Mace", 2);
-            data.Player.Armor = new Armor("Chainmail", 2, 14);
+            data.Player = new Player(chosenRace);
+            data.Player.Weapon = Weapon.Mace;
+            data.Player.Armor = Armor.Chainmail;
             tools.UI.DisplayMessage(data.Player.ToString());
             
             return tools.SituationBuilder.AllocateStats();

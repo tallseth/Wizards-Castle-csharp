@@ -15,5 +15,10 @@
         {
             return $"{Name} [Damage: {Damage}]";
         }
+
+
+        public static readonly Weapon Dagger = new Weapon("Dagger", 1);
+        public static readonly Weapon Mace = new Weapon("Mace", 2);
+        public static readonly Weapon Sword = new Weapon("Sword", 3);
     }
 }

@@ -17,5 +17,9 @@
         {
             return $"{Name} [Protection: {Protection} Durability: {Durability}]";
         }
+
+        public static readonly Armor Leather = new Armor("Leather", 1, 7);
+        public static readonly Armor Chainmail = new Armor("Chainmail", 2, 14);
+        public static readonly Armor Plate = new Armor("Plate", 3, 21);
     }
 }
