@@ -70,4 +70,20 @@ namespace WizardsCastle.Logic.UI
 
         public static UserOption[] All => new[] {Strength, Dexterity, Intelligence};
     }
+
+    internal static class NumberOptions
+    {
+        public static readonly UserOption Zero = new UserOption("0", ConsoleKey.D0, 0);
+        public static readonly UserOption One = new UserOption("1", ConsoleKey.D1, 1);
+        public static readonly UserOption Two = new UserOption("2", ConsoleKey.D2, 2);
+        public static readonly UserOption Three = new UserOption("3", ConsoleKey.D3, 3);
+        public static readonly UserOption Four = new UserOption("4", ConsoleKey.D4, 4);
+        public static readonly UserOption Five = new UserOption("5", ConsoleKey.D5, 5);
+        public static readonly UserOption Six = new UserOption("6", ConsoleKey.D6, 6);
+        public static readonly UserOption Seven = new UserOption("7", ConsoleKey.D7, 7);
+        public static readonly UserOption Eight = new UserOption("8", ConsoleKey.D8, 8);
+        public static readonly UserOption Nine = new UserOption("9", ConsoleKey.D9, 9);
+
+        public static UserOption[] All => new[] {Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine};
+    }
 }

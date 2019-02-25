@@ -1,5 +1,4 @@
 ﻿using WizardsCastle.Logic.Data;
-using WizardsCastle.Logic.Purchases;
 using WizardsCastle.Logic.Services;
 using WizardsCastle.Logic.Situations;
 using WizardsCastle.Logic.UI;
@@ -40,14 +39,9 @@ namespace WizardsCastle.Logic
             tools.RoomEnumerator = new RoomEnumerator(config, tools);
             tools.LootCollector = new LootCollector(tools, config);
             tools.TeleportUI = new TeleportUI(config, tools);
+            tools.PurchaseUI = new PurchaseUI(tools.UI);
 
             return tools;
         }
-    }
-
-    internal interface IPurchaseUI
-    {
-        bool OfferPurchaseOptions(IPurchaseChoice[] choices, out IPurchaseChoice selection);
-        void NotifyInsufficientFunds();
     }
 }
