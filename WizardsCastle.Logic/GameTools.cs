@@ -1,4 +1,5 @@
 ﻿using WizardsCastle.Logic.Data;
+using WizardsCastle.Logic.Purchases;
 using WizardsCastle.Logic.Services;
 using WizardsCastle.Logic.Situations;
 using WizardsCastle.Logic.UI;
@@ -19,6 +20,7 @@ namespace WizardsCastle.Logic
         internal ICombatDice CombatDice { get; set; }
         internal IRoomEnumerator RoomEnumerator { get; set; }
         internal ILootCollector LootCollector { get; set; }
+        internal IPurchaseUI PurchaseUI { get; set; }
 
         internal static GameTools Create(GameConfig config)
         {
@@ -41,5 +43,11 @@ namespace WizardsCastle.Logic
 
             return tools;
         }
+    }
+
+    internal interface IPurchaseUI
+    {
+        bool OfferPurchaseOptions(IPurchaseChoice[] choices, out IPurchaseChoice selection);
+        void NotifyInsufficientFunds();
     }
 }

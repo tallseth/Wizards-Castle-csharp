@@ -1,4 +1,5 @@
 ﻿using WizardsCastle.Logic.Data;
+using WizardsCastle.Logic.Purchases;
 using WizardsCastle.Logic.UI;
 
 namespace WizardsCastle.Logic.Situations
@@ -21,6 +22,7 @@ namespace WizardsCastle.Logic.Situations
         ISituation WarpRoom(bool warpOfZot);
         ISituation Sinkhole();
         ISituation Teleport();
+        ISituation Purchase(IPurchaseChoice[] choices, ISituation nextSituation);
     }
 
     internal class SituationBuilder : ISituationBuilder
@@ -103,6 +105,11 @@ namespace WizardsCastle.Logic.Situations
         public ISituation Teleport()
         {
             return new TeleportSituation();
+        }
+
+        public ISituation Purchase(IPurchaseChoice[] choices, ISituation nextSituation)
+        {
+            return new PurchaseSituation(choices, nextSituation);
         }
     }
 }
