@@ -42,7 +42,7 @@ namespace WizardsCastle.Logic
             tools.LootCollector = new LootCollector(tools, config);
             tools.TeleportUI = new TeleportUI(config, tools);
             tools.PurchaseUI = new PurchaseUI(tools.UI);
-            tools.InventoryProvider = new InventoryProvider();
+            tools.InventoryProvider = new InventoryProvider(tools.Randomizer);
 
             return tools;
         }
