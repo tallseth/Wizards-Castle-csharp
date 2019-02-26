@@ -27,7 +27,6 @@ These things are all pretty easy to find on the [spec page](https://github.com/b
 
 Additional work to complete the game
 * Complete player creation impl
-  * Buy Weapon and armor on player creation
   * Option to Buy lamp
   * Choose Gender
 * Vendors
@@ -50,3 +49,4 @@ Additional work to complete the game
 
 Other issues
 * Got a sinkhole loop in testing.  Probably only matters on the small loop, but maybe something to think about fixing.
+* NullReference in PLayerAttackSituation if atteack causes weapon to break.
