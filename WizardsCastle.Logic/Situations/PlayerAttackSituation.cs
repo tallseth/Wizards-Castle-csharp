@@ -17,7 +17,10 @@ namespace WizardsCastle.Logic.Situations
                 return tools.SituationBuilder.EnemyAttack(false);
             }
 
-            tools.UI.DisplayMessage($"You hit the {enemy.Name} with your {data.Player.Weapon.Name} for {result.DamageToDefender}!");
+            if(!result.WeaponBroke)
+                tools.UI.DisplayMessage($"You hit the {enemy.Name} with your {data.Player.Weapon.Name} for {result.DamageToDefender}!");
+            else
+                tools.UI.DisplayMessage($"You hit the {enemy.Name} for {result.DamageToDefender}, but your weapon broke!");
 
             return result.DefenderDied
                 ? tools.SituationBuilder.CombatVictory() 

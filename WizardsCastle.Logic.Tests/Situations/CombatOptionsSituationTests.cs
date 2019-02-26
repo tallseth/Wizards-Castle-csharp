@@ -82,5 +82,19 @@ namespace WizardsCastle.Logic.Tests.Situations
                     _tools.UIMock.Verify(ui=>ui.PromptUserChoice(CombatOptions.All, true), Times.Once());
                 });
         }
+
+        [Test]
+        public void PlayerCannotChooseAttackIfNoWeapon()
+        {
+            _data.Player.Weapon = null;
+            var next = _tools.SetupNextSituation(sb => sb.EnemyAttack(true));
+            _tools.UIMock.Setup(ui => ui.PromptUserChoice(new[]{ CombatOptions.Retreat}, true)).Returns(CombatOptions.Retreat);
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+
+            _tools.UIMock.Verify(ui => ui.PromptUserChoice(CombatOptions.All, It.IsAny<bool>()), Times.Never());
+        }
     }
 }

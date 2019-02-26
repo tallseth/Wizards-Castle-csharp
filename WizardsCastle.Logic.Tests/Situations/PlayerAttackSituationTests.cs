@@ -64,5 +64,18 @@ namespace WizardsCastle.Logic.Tests.Situations
             Assert.That(actual, Is.SameAs(next));
             _tools.UIMock.Verify(ui=>ui.DisplayMessage("You hit the " + _enemy.Name + " with your " + _data.Player.Weapon.Name + " for " + combatResult.DamageToDefender + "!"));
         }
+
+        [Test]
+        public void PlayerHitsAndBreaksWeaponAppliesDamageAndGoesToMonsterTurn()
+        {
+            var next = _tools.SetupNextSituation(sb => sb.EnemyAttack(false));
+            var combatResult = new CombatResult { DamageToDefender = Any.Number(), WeaponBroke = true};
+            _tools.CombatServiceMock.Setup(c => c.PlayerAttacks(_data.Player, _enemy)).Returns(combatResult);
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+            _tools.UIMock.Verify(ui=>ui.DisplayMessage("You hit the " + _enemy.Name + " for " + combatResult.DamageToDefender  + ", but your weapon broke!"));
+        }
     }
 }

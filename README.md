@@ -49,4 +49,3 @@ Additional work to complete the game
 
 Other issues
 * Got a sinkhole loop in testing.  Probably only matters on the small loop, but maybe something to think about fixing.
-* NullReference in PLayerAttackSituation if atteack causes weapon to break.

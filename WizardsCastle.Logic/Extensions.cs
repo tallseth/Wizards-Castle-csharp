@@ -8,5 +8,10 @@ namespace WizardsCastle.Logic
         {
             return current.Union(toAdd).ToArray();
         }
+
+        public static T[] Without<T>(this T[] current, params T[] toRemove)
+        {
+            return current.Except(toRemove).ToArray();
+        }
     }
 }
