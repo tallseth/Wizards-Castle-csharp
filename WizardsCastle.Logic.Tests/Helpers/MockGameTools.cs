@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using Moq;
 using WizardsCastle.Logic.Combat;
 using WizardsCastle.Logic.Data;
+using WizardsCastle.Logic.Purchases;
 using WizardsCastle.Logic.Services;
 using WizardsCastle.Logic.Situations;
 using WizardsCastle.Logic.UI;
@@ -24,6 +25,7 @@ namespace WizardsCastle.Logic.Tests.Helpers
         public Mock<ILootCollector> LootCollectorMock { get; }
         public Mock<ITeleportUI> TeleportUIMock { get; }
         public Mock<IPurchaseUI> PurchaseUIMock { get; }
+        public Mock<IInventoryProvider> InventoryProviderMock { get; }
 
         public MockGameTools()
         {
@@ -65,6 +67,9 @@ namespace WizardsCastle.Logic.Tests.Helpers
 
             PurchaseUIMock = new Mock<IPurchaseUI>();
             PurchaseUI = PurchaseUIMock.Object;
+
+            InventoryProviderMock = new Mock<IInventoryProvider>();
+            InventoryProvider = InventoryProviderMock.Object;
         }
 
         public ISituation SetupNextSituation(Expression<Func<ISituationBuilder, ISituation>> expression)

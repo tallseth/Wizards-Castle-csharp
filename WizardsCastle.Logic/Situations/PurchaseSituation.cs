@@ -16,13 +16,18 @@ namespace WizardsCastle.Logic.Situations
 
         public ISituation PlayThrough(GameData data, GameTools tools)
         {
-            if (!tools.PurchaseUI.OfferPurchaseOptions(_choices, out var result))
+            if (!tools.PurchaseUI.OfferPurchaseOptions(_choices, data.Player.GoldPieces, out var result))
                 return _nextSituation;
 
             if (result.Cost > data.Player.GoldPieces)
+            {
                 tools.PurchaseUI.NotifyInsufficientFunds();
+            }
             else
+            {
                 result.Apply(data.Player);
+                data.Player.GoldPieces -= result.Cost;
+            }
 
             return this;
         }

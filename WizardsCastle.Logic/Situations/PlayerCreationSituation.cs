@@ -13,9 +13,6 @@ namespace WizardsCastle.Logic.Situations
             var chosenRace = tools.UI.PromptUserChoice(RaceOptions.All, true).GetData<Race>();
 
             data.Player = new Player(chosenRace);
-            data.Player.Weapon = Weapon.Mace;
-            data.Player.Armor = Armor.Chainmail;
-            tools.UI.DisplayMessage(data.Player.ToString());
             
             return tools.SituationBuilder.AllocateStats();
         }

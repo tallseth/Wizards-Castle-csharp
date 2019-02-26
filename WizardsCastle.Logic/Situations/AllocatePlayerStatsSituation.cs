@@ -32,7 +32,8 @@ namespace WizardsCastle.Logic.Situations
             if (data.Player.UnallocatedStats > 0)
                 return tools.SituationBuilder.AllocateStats();
 
-            return tools.SituationBuilder.EnterRoom(data.CurrentLocation);
+            var enterDungeon = tools.SituationBuilder.EnterRoom(data.CurrentLocation);
+            return tools.SituationBuilder.Purchase(tools.InventoryProvider.GetPlayerCreationInventory(), enterDungeon);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace WizardsCastle.Logic.UI
 {
     internal interface IPurchaseUI
     {
-        bool OfferPurchaseOptions(IPurchaseChoice[] choices, out IPurchaseChoice selection);
+        bool OfferPurchaseOptions(IPurchaseChoice[] choices, int availableGold, out IPurchaseChoice selection);
         void NotifyInsufficientFunds();
     }
 
@@ -20,15 +20,14 @@ namespace WizardsCastle.Logic.UI
             _mainUI = mainUI;
         }
 
-        public bool OfferPurchaseOptions(IPurchaseChoice[] choices, out IPurchaseChoice selection)
+        public bool OfferPurchaseOptions(IPurchaseChoice[] choices, int availableGold, out IPurchaseChoice selection)
         {
-            _mainUI.DisplayMessage(GetHeader());
+            _mainUI.ClearActionLog();
+
+            _mainUI.DisplayMessage(GetHeader(availableGold));
             for (int i = 0; i < choices.Length; i++)
             {
-
-                _mainUI.DisplayMessage(GetSeparator());
                 _mainUI.DisplayMessage(GetChoiceDisplay(choices[i], i));
-                _mainUI.DisplayMessage(GetSeparator());
             }
             _mainUI.DisplayMessage(GetFooter());
             var chosen = _mainUI.PromptUserChoice(GetNumberedChoices(choices.Length), false).GetData<int>();
@@ -55,12 +54,12 @@ namespace WizardsCastle.Logic.UI
 
         private string GetFooter()
         {
-            return "Footer";
+            return "\n\rChoose an item, or (L)eave.";
         }
 
         private string GetChoiceDisplay(IPurchaseChoice purchaseChoice, int i)
         {
-            return $"{i}  {purchaseChoice.Name}   {purchaseChoice.Cost}";
+            return $"| {i} | {purchaseChoice.Name.PadRight(24)}| {purchaseChoice.Cost.ToString().PadRight(6)}|";
         }
 
         private string GetSeparator()
@@ -68,9 +67,13 @@ namespace WizardsCastle.Logic.UI
             return "";
         }
 
-        private string GetHeader()
+        private string GetHeader(int gold)
         {
-            return "Header";
+            return $@"
+You have {gold} gold pieces.
+
+| # | Item                    | Price |
+|:-:|:-----------------------:|:-----:|";
         }
 
         public void NotifyInsufficientFunds()

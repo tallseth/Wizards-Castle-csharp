@@ -1,4 +1,5 @@
 ﻿using WizardsCastle.Logic.Data;
+using WizardsCastle.Logic.Purchases;
 using WizardsCastle.Logic.Services;
 using WizardsCastle.Logic.Situations;
 using WizardsCastle.Logic.UI;
@@ -20,6 +21,7 @@ namespace WizardsCastle.Logic
         internal IRoomEnumerator RoomEnumerator { get; set; }
         internal ILootCollector LootCollector { get; set; }
         internal IPurchaseUI PurchaseUI { get; set; }
+        internal IInventoryProvider InventoryProvider { get; set; }
 
         internal static GameTools Create(GameConfig config)
         {
@@ -40,6 +42,7 @@ namespace WizardsCastle.Logic
             tools.LootCollector = new LootCollector(tools, config);
             tools.TeleportUI = new TeleportUI(config, tools);
             tools.PurchaseUI = new PurchaseUI(tools.UI);
+            tools.InventoryProvider = new InventoryProvider();
 
             return tools;
         }
