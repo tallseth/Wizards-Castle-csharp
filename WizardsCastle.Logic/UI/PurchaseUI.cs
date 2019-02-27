@@ -7,7 +7,7 @@ namespace WizardsCastle.Logic.UI
 {
     internal interface IPurchaseUI
     {
-        bool OfferPurchaseOptions(IPurchaseChoice[] choices, int availableGold, out IPurchaseChoice selection);
+        bool OfferPurchaseOptions(IPurchaseChoice[] choices, out IPurchaseChoice selection);
         void NotifyInsufficientFunds();
     }
 
@@ -20,11 +20,9 @@ namespace WizardsCastle.Logic.UI
             _mainUI = mainUI;
         }
 
-        public bool OfferPurchaseOptions(IPurchaseChoice[] choices, int availableGold, out IPurchaseChoice selection)
+        public bool OfferPurchaseOptions(IPurchaseChoice[] choices, out IPurchaseChoice selection)
         {
-            _mainUI.ClearActionLog();
-
-            _mainUI.DisplayMessage(GetHeader(availableGold));
+            _mainUI.DisplayMessage(GetHeader());
             for (int i = 0; i < choices.Length; i++)
             {
                 _mainUI.DisplayMessage(GetChoiceDisplay(choices[i], i));
@@ -62,16 +60,9 @@ namespace WizardsCastle.Logic.UI
             return $"| {i} | {purchaseChoice.Name.PadRight(24)}| {purchaseChoice.Cost.ToString().PadRight(6)}|";
         }
 
-        private string GetSeparator()
-        {
-            return "";
-        }
-
-        private string GetHeader(int gold)
+        private string GetHeader()
         {
             return $@"
-You have {gold} gold pieces.
-
 | # | Item                    | Price |
 |:-:|:-----------------------:|:-----:|";
         }

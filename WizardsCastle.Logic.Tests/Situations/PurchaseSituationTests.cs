@@ -34,7 +34,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void ReturnNextSituationIfPlayerMakesNoPurchase()
         {
             IPurchaseChoice empty = null;
-            _tools.PurchaseUIMock.Setup(p => p.OfferPurchaseOptions(_availableOptions, _data.Player.GoldPieces, out empty)).Returns(false);
+            _tools.PurchaseUIMock.Setup(p => p.OfferPurchaseOptions(_availableOptions, out empty)).Returns(false);
 
             var actual = _situation.PlayThrough(_data, _tools);
 
@@ -45,7 +45,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void NotifiesInsufficientFundsIfPlayerChoosesExpensiveOption()
         {
             IPurchaseChoice chosen = _purchaseChoice.Object;
-            _tools.PurchaseUIMock.Setup(p => p.OfferPurchaseOptions(_availableOptions,_data.Player.GoldPieces, out chosen)).Returns(true);
+            _tools.PurchaseUIMock.Setup(p => p.OfferPurchaseOptions(_availableOptions, out chosen)).Returns(true);
             _purchaseChoice.Setup(c => c.Cost).Returns(_data.Player.GoldPieces + Any.Number());
 
             var actual = _situation.PlayThrough(_data, _tools);
@@ -58,7 +58,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void ExecutesChosenPurchase()
         {
             IPurchaseChoice chosen = _purchaseChoice.Object;
-            _tools.PurchaseUIMock.Setup(p => p.OfferPurchaseOptions(_availableOptions,_data.Player.GoldPieces, out chosen)).Returns(true);
+            _tools.PurchaseUIMock.Setup(p => p.OfferPurchaseOptions(_availableOptions, out chosen)).Returns(true);
             _purchaseChoice.Setup(c => c.Cost).Returns(_data.Player.GoldPieces);
 
             var actual = _situation.PlayThrough(_data, _tools);
