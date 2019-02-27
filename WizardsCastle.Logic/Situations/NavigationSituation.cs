@@ -29,6 +29,8 @@ namespace WizardsCastle.Logic.Situations
                     return tools.SituationBuilder.ShowMap();
                 case Move.Teleport:
                     return tools.SituationBuilder.Teleport();
+                case Move.ShineLamp:
+                    return tools.SituationBuilder.ShineLamp();
             }
 
             var newLocation = tools.MoveInterpreter.GetTargetLocation(data.CurrentLocation, move);

@@ -10,6 +10,16 @@ namespace WizardsCastle.Logic.Situations
             var roomInfo = data.Map.GetLocationInfo(data.CurrentLocation);
 
             var navOptions = GetNavigationOptions(roomInfo);
+
+            if (!data.Player.IsBlind)
+            {
+                navOptions = navOptions.Add(NavigationOptions.Map);
+                if (data.Player.HasLamp)
+                {
+                    navOptions = navOptions.Add(NavigationOptions.ShineLamp);
+                }
+            }
+
             if (data.Player.HasRuneStaff)
                 navOptions = navOptions.Add(NavigationOptions.Teleport);
 

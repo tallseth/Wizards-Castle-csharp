@@ -10,6 +10,7 @@
         Downstairs,
         Exit,
         ShowMap,
-        Teleport
+        Teleport,
+        ShineLamp
     }
 }

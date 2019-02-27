@@ -78,6 +78,17 @@ namespace WizardsCastle.Logic.Tests.Situations
         }
 
         [Test]
+        public void ShineLampDoesThat()
+        {
+            SetupMove(Move.ShineLamp);
+            var next = _tools.SetupNextSituation(sb => sb.ShineLamp());
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+        }
+
+        [Test]
         public void TeleportMoveDoesThat()
         {
             SetupMove(Move.Teleport);

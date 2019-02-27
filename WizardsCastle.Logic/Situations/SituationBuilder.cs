@@ -24,6 +24,7 @@ namespace WizardsCastle.Logic.Situations
         ISituation Teleport();
         ISituation Purchase(IPurchaseChoice[] choices, ISituation nextSituation);
         ISituation MeetVendor();
+        ISituation ShineLamp();
     }
 
     internal class SituationBuilder : ISituationBuilder
@@ -116,6 +117,11 @@ namespace WizardsCastle.Logic.Situations
         public ISituation MeetVendor()
         {
             return new MeetVendorSituation();
+        }
+
+        public ISituation ShineLamp()
+        {
+            return new ShineLampSituation();
         }
     }
 }

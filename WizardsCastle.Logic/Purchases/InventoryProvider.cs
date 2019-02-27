@@ -29,6 +29,7 @@ namespace WizardsCastle.Logic.Purchases
                 new ArmorPurchase(Armor.Leather, 10),
                 new ArmorPurchase(Armor.Chainmail, 20),
                 new ArmorPurchase(Armor.Plate, 30),
+                new GenericPurchase("Lamp", 20, p=>p.HasLamp = true)
             };
         }
 
@@ -42,6 +43,7 @@ namespace WizardsCastle.Logic.Purchases
                 new ArmorPurchase(Armor.Leather, 1250),
                 new ArmorPurchase(Armor.Chainmail, 1500),
                 new ArmorPurchase(Armor.Plate, 2000),
+                new GenericPurchase("Lamp", 1000, p=>p.HasLamp = true),
                 new PotionPurchase("Strength", IncreaseStrength), 
                 new PotionPurchase("Dexterity", IncreaseDexterity), 
                 new PotionPurchase("Intelligence", IncreaseIntelligence), 
@@ -108,6 +110,25 @@ namespace WizardsCastle.Logic.Purchases
                 _effect = effect;
                 Name = "Potion of " + attribute;
                 Cost = 1000;
+            }
+
+            public string Name { get; }
+            public int Cost { get; }
+            public void Apply(Player player)
+            {
+                _effect(player);
+            }
+        }
+
+        private class GenericPurchase : IPurchaseChoice
+        {
+            private readonly Action<Player> _effect;
+
+            public GenericPurchase(string name, int cost, Action<Player> effect)
+            {
+                _effect = effect;
+                Name = name;
+                Cost = cost;
             }
 
             public string Name { get; }

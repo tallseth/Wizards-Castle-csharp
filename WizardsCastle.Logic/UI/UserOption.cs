@@ -49,9 +49,10 @@ namespace WizardsCastle.Logic.UI
         public static readonly UserOption StairsUp = new UserOption("Stairs (U)p", ConsoleKey.U, Move.Upstairs);
         public static readonly UserOption Map = new UserOption("Show (M)ap", ConsoleKey.M, Move.ShowMap);
         public static readonly UserOption Teleport = new UserOption("(T)eleport", ConsoleKey.T, Move.Teleport);
+        public static readonly UserOption ShineLamp = new UserOption("Shine (L)amp", ConsoleKey.L, Move.ShineLamp);
 
-        public static UserOption[] Standard => new[] {Map, Up, Down, Left, Right};
-        public static UserOption[] Entrance => new[] {Map, Exit, Down, Left, Right};
+        public static UserOption[] Standard => new[] {Up, Down, Left, Right};
+        public static UserOption[] Entrance => new[] {Exit, Down, Left, Right};
     }
 
     internal static class CombatOptions

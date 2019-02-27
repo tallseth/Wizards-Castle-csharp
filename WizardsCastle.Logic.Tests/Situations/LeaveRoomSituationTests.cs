@@ -28,25 +28,25 @@ namespace WizardsCastle.Logic.Tests.Situations
         [Test]
         public void EmptyRoomMessageThenNavigation()
         {
-            TestCorrectNavigationOptions(MapCodes.EmptyRoom, NavigationOptions.Standard);
+            TestCorrectNavigationOptions(MapCodes.EmptyRoom, NavigationOptions.Standard.Add(NavigationOptions.Map));
         }
 
         [Test]
         public void EntranceMessageThenNavigation()
         {
-            TestCorrectNavigationOptions(MapCodes.Entrance, NavigationOptions.Entrance);
+            TestCorrectNavigationOptions(MapCodes.Entrance, NavigationOptions.Entrance.Add(NavigationOptions.Map));
         }
 
         [Test]
         public void StairsDownMessageThenNavigation()
         {
-            TestCorrectNavigationOptions(MapCodes.StairsDown,  NavigationOptions.Standard.Add(NavigationOptions.StairsDown));
+            TestCorrectNavigationOptions(MapCodes.StairsDown,  NavigationOptions.Standard.Add(NavigationOptions.StairsDown, NavigationOptions.Map));
         }
 
         [Test]
         public void StairsUpMessageThenNavigation()
         {
-            TestCorrectNavigationOptions(MapCodes.StairsUp, NavigationOptions.Standard.Add(NavigationOptions.StairsUp));
+            TestCorrectNavigationOptions(MapCodes.StairsUp, NavigationOptions.Standard.Add(NavigationOptions.StairsUp, NavigationOptions.Map));
         }
 
         [Test]
@@ -57,6 +57,28 @@ namespace WizardsCastle.Logic.Tests.Situations
             Assert.That(GetActualOptionsUsed(MapCodes.Entrance).Last(), Is.SameAs(NavigationOptions.Teleport));
             Assert.That(GetActualOptionsUsed(MapCodes.StairsUp).Last(), Is.SameAs(NavigationOptions.Teleport));
             Assert.That(GetActualOptionsUsed(MapCodes.StairsDown).Last(), Is.SameAs(NavigationOptions.Teleport));
+        }
+
+        [Test]
+        public void ShineLampIsOptionIfPlayerHasLamp()
+        {
+            _data.Player.HasLamp = true;
+            Assert.That(GetActualOptionsUsed(MapCodes.EmptyRoom), Contains.Item(NavigationOptions.ShineLamp));
+            Assert.That(GetActualOptionsUsed(MapCodes.Entrance), Contains.Item(NavigationOptions.ShineLamp));
+            Assert.That(GetActualOptionsUsed(MapCodes.StairsUp), Contains.Item(NavigationOptions.ShineLamp));
+            Assert.That(GetActualOptionsUsed(MapCodes.StairsDown), Contains.Item(NavigationOptions.ShineLamp));
+        }
+
+        
+        [Test]
+        public void CannotShineLampIfBlind()
+        {
+            _data.Player.HasLamp = true;
+            _data.Player.IsBlind = true;
+            Assert.That(GetActualOptionsUsed(MapCodes.EmptyRoom), Does.Not.Contain(NavigationOptions.ShineLamp));
+            Assert.That(GetActualOptionsUsed(MapCodes.Entrance), Does.Not.Contain(NavigationOptions.ShineLamp));
+            Assert.That(GetActualOptionsUsed(MapCodes.StairsUp), Does.Not.Contain(NavigationOptions.ShineLamp));
+            Assert.That(GetActualOptionsUsed(MapCodes.StairsDown), Does.Not.Contain(NavigationOptions.ShineLamp));
         }
 
         private void TestCorrectNavigationOptions(char roomCode, UserOption[] expectedOptions)

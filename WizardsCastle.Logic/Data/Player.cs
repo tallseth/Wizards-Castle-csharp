@@ -33,6 +33,7 @@
 
         internal bool HasOrbOfZot { get; set; }
         internal bool HasRuneStaff { get; set; }
+        internal bool HasLamp { get; set; }
 
         public override string ToString()
         {
