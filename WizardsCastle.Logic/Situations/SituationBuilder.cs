@@ -23,6 +23,7 @@ namespace WizardsCastle.Logic.Situations
         ISituation Sinkhole();
         ISituation Teleport();
         ISituation Purchase(IPurchaseChoice[] choices, ISituation nextSituation);
+        ISituation MeetVendor();
     }
 
     internal class SituationBuilder : ISituationBuilder
@@ -110,6 +111,11 @@ namespace WizardsCastle.Logic.Situations
         public ISituation Purchase(IPurchaseChoice[] choices, ISituation nextSituation)
         {
             return new PurchaseSituation(choices, nextSituation);
+        }
+
+        public ISituation MeetVendor()
+        {
+            return new MeetVendorSituation();
         }
     }
 }

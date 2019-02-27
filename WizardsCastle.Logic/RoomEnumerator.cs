@@ -13,13 +13,11 @@ namespace WizardsCastle.Logic
     internal class RoomEnumerator : IRoomEnumerator
     {
         private readonly GameConfig _config;
-        private readonly GameTools _tools;
         private readonly byte _orbFloor;
 
         public RoomEnumerator(GameConfig config, GameTools tools)
         {
             _config = config;
-            _tools = tools;
             _orbFloor = tools.Randomizer.RandomFloor();
         }
         public IEnumerable<string> GetRoomContents(byte floor)
@@ -35,9 +33,10 @@ namespace WizardsCastle.Logic
             yield return MapCodes.Warp.ToString();
 
 
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
                 yield return MapCodes.Sinkhole.ToString();
+                yield return MapCodes.Vendor.ToString();
             }
         }
 

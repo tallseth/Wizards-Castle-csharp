@@ -126,6 +126,17 @@ namespace WizardsCastle.Logic.Tests.Situations
             Assert.That(actual, Is.SameAs(next));
         }
 
+        [Test]
+        public void VendorRoomMeetsVendor()
+        {
+            _data.Map.SetLocationInfo(_location, MapCodes.Vendor);
+            var next = _tools.SetupNextSituation(sb => sb.MeetVendor());
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+        }
+
         private void TestDescribeAndLeaveRoom(char roomCode, string expectedDescription)
         {
             _data.Map.SetLocationInfo(_location, roomCode);

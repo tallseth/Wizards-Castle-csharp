@@ -30,7 +30,7 @@ Additional work to complete the game
   * Option to Buy lamp
   * Choose Gender
 * Vendors
-  * Trade
+  * Sell Treasure
   * Combat
 * Populate map and handle room effects for the following
   * Pool

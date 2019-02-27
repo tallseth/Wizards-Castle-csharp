@@ -50,17 +50,17 @@ namespace WizardsCastle.Logic.Purchases
 
         private void IncreaseStrength(Player player)
         {
-            player.Strength = Math.Max(_randomizer.RollDie(6) + player.Strength, 18);
+            player.Strength = Math.Min(_randomizer.RollDie(6) + player.Strength, 18);
         }
 
         private void IncreaseDexterity(Player player)
         {
-            player.Dexterity = Math.Max(_randomizer.RollDie(6) + player.Dexterity, 18);
+            player.Dexterity = Math.Min(_randomizer.RollDie(6) + player.Dexterity, 18);
         }
 
         private void IncreaseIntelligence(Player player)
         {
-            player.Intelligence = Math.Max(_randomizer.RollDie(6) + player.Intelligence, 18);
+            player.Intelligence = Math.Min(_randomizer.RollDie(6) + player.Intelligence, 18);
         }
 
         private class WeaponPurchase : IPurchaseChoice
