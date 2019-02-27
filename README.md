@@ -39,7 +39,6 @@ Additional work to complete the game
   * Crystal Orb
   * Books
   * Treasure
-* Lamp effects
 * Flare effects, place them on the map
 * Curses
 * Recipes
