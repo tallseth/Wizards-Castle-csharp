@@ -19,7 +19,7 @@ namespace WizardsCastle.Logic.Tests.Services
             _randomizer = new Mock<IRandomizer>();
             _pool = new Pool(_randomizer.Object);
 
-            _player = Any.Player();
+            _player = new Player(Any.EnumValue<Race>());
         }
 
         [Test]
@@ -77,6 +77,37 @@ namespace WizardsCastle.Logic.Tests.Services
             AssertPoolEffect(p => p.Dexterity, Messages.Clumsier, impact);
         }
 
+        [Test]
+        public void NoStrongerThanEighteen()
+        {
+            SetupEffectRoll(1);
+            SetupImpactRoll();
+            _player.Strength = 18;
+
+            AssertPoolEffect(p => p.Strength, Messages.Stronger, 0);
+        }
+
+        
+        [Test]
+        public void NoMoreDexterityThanEighteen()
+        {
+            SetupEffectRoll(5);
+            SetupImpactRoll();
+            _player.Dexterity = 18;
+
+            AssertPoolEffect(p => p.Dexterity, Messages.Nimbler, 0);
+        }
+
+        [Test]
+        public void NoMoreIntelligenceThanEighteen()
+        {
+            SetupEffectRoll(3);
+            SetupImpactRoll();
+            _player.Intelligence = 18;
+
+            AssertPoolEffect(p => p.Intelligence, Messages.Smarter, 0);
+        }
+
         private void AssertPoolEffect(Func<Player, int> getter, string expectedMessage, int impact)
         {
             var original = getter(_player);
@@ -90,7 +121,7 @@ namespace WizardsCastle.Logic.Tests.Services
 
         private int SetupImpactRoll()
         {
-            var roll = Any.Number();
+            var roll = Any.Of(1,2,3);
             _randomizer.Setup(r => r.RollDie(3)).Returns(roll);
             return roll;
         }

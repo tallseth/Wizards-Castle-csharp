@@ -26,19 +26,19 @@ namespace WizardsCastle.Logic.Services
             switch (_randomizer.RollDie(6))
             {
                 case 1:
-                    player.Strength += impact;
+                    player.Strength = Math.Min(18, player.Strength + impact);
                     return Messages.Stronger;
                 case 2:
                     player.Strength -= impact;
                     return Messages.Weaker;
                 case 3:
-                    player.Intelligence += impact;
+                    player.Intelligence = Math.Min(18, player.Intelligence + impact);
                     return Messages.Smarter;
                 case 4:
                     player.Intelligence -= impact;
                     return Messages.Dumber;
                 case 5:
-                    player.Dexterity += impact;
+                    player.Dexterity = Math.Min(18, player.Dexterity + impact);;
                     return Messages.Nimbler;
                 case 6:
                     player.Dexterity -= impact;
