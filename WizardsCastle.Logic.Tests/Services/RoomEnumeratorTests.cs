@@ -43,7 +43,7 @@ namespace WizardsCastle.Logic.Tests.Services
         [Test]
         public void EnumeratesWarp()
         {
-            var result = _enumerator.GetRoomContents(_standardFloor).Count(r => r == MapCodes.Warp.ToString());
+            var result = _enumerator.GetRoomContents(_standardFloor).Count(r => r == MapCodes.Warp);
 
             Assert.That(result, Is.EqualTo(3));
         }
@@ -62,7 +62,7 @@ namespace WizardsCastle.Logic.Tests.Services
         [Test]
         public void EnumeratesSinkholes()
         {
-            var result = _enumerator.GetRoomContents(_standardFloor).Count(r => r == MapCodes.Sinkhole.ToString());
+            var result = _enumerator.GetRoomContents(_standardFloor).Count(r => r == MapCodes.Sinkhole);
 
             Assert.That(result, Is.EqualTo(3));
         }
@@ -70,7 +70,7 @@ namespace WizardsCastle.Logic.Tests.Services
         [Test]
         public void EnumeratesVendors()
         {
-            var result = _enumerator.GetRoomContents(_standardFloor).Count(r => r == MapCodes.Vendor.ToString());
+            var result = _enumerator.GetRoomContents(_standardFloor).Count(r => r == MapCodes.Vendor);
 
             Assert.That(result, Is.EqualTo(3));
         }
@@ -79,7 +79,15 @@ namespace WizardsCastle.Logic.Tests.Services
         [Test]
         public void EnumeratesGold()
         {
-            var result = _enumerator.GetRoomContents(_standardFloor).Count(r => r == MapCodes.Gold.ToString());
+            var result = _enumerator.GetRoomContents(_standardFloor).Count(r => r == MapCodes.Gold);
+
+            Assert.That(result, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void EnumeratesChests()
+        {
+            var result = _enumerator.GetRoomContents(_standardFloor).Count(r => r == MapCodes.Chest);
 
             Assert.That(result, Is.EqualTo(3));
         }

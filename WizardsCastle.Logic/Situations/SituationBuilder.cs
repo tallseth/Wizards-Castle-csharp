@@ -26,6 +26,8 @@ namespace WizardsCastle.Logic.Situations
         ISituation MeetVendor();
         ISituation ShineLamp();
         ISituation CollectGold();
+        ISituation OpenChest();
+        ISituation YesOrNo(string message, ISituation yesSituation);
     }
 
     internal class SituationBuilder : ISituationBuilder
@@ -130,6 +132,18 @@ namespace WizardsCastle.Logic.Situations
             return new CollectGoldSituation();
         }
 
+        public ISituation OpenChest()
+        {
+            return new OpenChestSituation();
+        }
+
+        public ISituation YesOrNo(string message, ISituation yesSituation)
+        {
+            return new YesOrNoSituation(message, yesSituation);
+        }
+
+
+
         private class CollectGoldSituation : ISituation
         {
             public ISituation PlayThrough(GameData data, GameTools tools)
@@ -145,7 +159,61 @@ namespace WizardsCastle.Logic.Situations
                 return tools.SituationBuilder.LeaveRoom();
             }
         }
+
+        private class OpenChestSituation : ISituation
+        {
+            public ISituation PlayThrough(GameData data, GameTools tools)
+            {
+                tools.UI.ClearActionLog();
+
+                switch (tools.Randomizer.RollDie(4))
+                {
+                    case 1:
+                        tools.UI.DisplayMessage(Messages.PoisonChestOpens);
+                        tools.UI.PromptUserAcknowledgement();
+                        tools.UI.DisplayMessage(Messages.PoisonChestAwaken);
+                        
+                        data.TurnCounter += 20;
+                        break;
+                    case 2:
+                        var result = tools.CombatService.ChestExplodes(data.Player);
+                        if (result.DefenderDied)
+                            return tools.SituationBuilder.GameOver(Messages.KilledByExplodingChest);
+                        tools.UI.DisplayMessage($"The chest explodes as you open it, deal {result.DamageToDefender} damage.");
+                        break;
+                    default:
+                        var gold = tools.Randomizer.RollDice(5, 200);
+                        data.Player.GoldPieces += gold;
+                        tools.UI.DisplayMessage($"You open the chest and find {gold} gold pieces.");
+                        break;
+                }
+
+                tools.UI.PromptUserAcknowledgement();
+                data.Map.SetLocationInfo(data.CurrentLocation, MapCodes.EmptyRoom);
+                return tools.SituationBuilder.LeaveRoom();
+            }
+        }
+
+        private class YesOrNoSituation : ISituation
+        {
+            private readonly string _message;
+            private readonly ISituation _yesSituation;
+
+            public YesOrNoSituation(string message, ISituation yesSituation)
+            {
+                _message = message;
+                _yesSituation = yesSituation;
+            }
+
+            public ISituation PlayThrough(GameData data, GameTools tools)
+            {
+                tools.UI.ClearActionLog();
+                tools.UI.DisplayMessage(_message);
+                if(tools.UI.PromptUserChoice(YesNoOptions.All, true).GetData<bool>())
+                    return _yesSituation;
+
+                return tools.SituationBuilder.LeaveRoom();
+            }
+        }
     }
-
-
 }

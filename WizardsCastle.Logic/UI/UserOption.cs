@@ -87,4 +87,12 @@ namespace WizardsCastle.Logic.UI
 
         public static UserOption[] All => new[] {Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine};
     }
+
+    internal static class YesNoOptions
+    {
+        public static readonly UserOption Yes = new UserOption("(Y)es", ConsoleKey.Y, true);
+        public static readonly UserOption No = new UserOption("(N)o", ConsoleKey.N, false);
+
+        public static UserOption[] All => new[] {Yes, No};
+    }
 }

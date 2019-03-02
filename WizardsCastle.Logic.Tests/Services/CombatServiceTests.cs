@@ -221,5 +221,95 @@ namespace WizardsCastle.Logic.Tests.Services
             Assert.That(result.DamageToDefender, Is.EqualTo(expectedDamage));
             Assert.That(_player.Weapon, Is.Null);
         }
+
+        [Test]
+        public void ChestExplodingAbsorbedByArmor()
+        {
+            var damage = Any.Number();
+            _tools.RandomizerMock.Setup(r => r.RollDie(6)).Returns(damage);
+            var originalStrength = _player.Strength;
+            var originalDurability = damage + 1;
+            _player.Armor = new Armor(Any.String(), damage * 2, originalDurability);
+
+            var result = _service.ChestExplodes(_player);
+
+            Assert.That(result.AttackerMissed, Is.False);
+            Assert.That(result.DefenderDied, Is.False);
+            Assert.That(result.DamageToDefender, Is.EqualTo(0));
+            Assert.That(_player.Strength, Is.EqualTo(originalStrength));
+            Assert.That(_player.Armor.Durability, Is.EqualTo(originalDurability - damage));
+        }
+
+        [Test]
+        public void ChestExplodingDamagesPlayer()
+        {
+            var damage = Any.Number();
+            _tools.RandomizerMock.Setup(r => r.RollDie(6)).Returns(damage);
+            _player.Strength = damage + 1;
+            var originalStrength = _player.Strength;
+            var originalDurability = damage + 1;
+            
+            _player.Armor = new Armor(Any.String(), damage - 3, originalDurability);
+
+            var result = _service.ChestExplodes(_player);
+
+            Assert.That(result.AttackerMissed, Is.False);
+            Assert.That(result.DefenderDied, Is.False);
+            var expectedDamageDealt = damage - _player.Armor.Protection;
+            Assert.That(result.DamageToDefender, Is.EqualTo(expectedDamageDealt));
+            Assert.That(_player.Strength, Is.EqualTo(originalStrength - expectedDamageDealt));
+            Assert.That(_player.Armor.Durability, Is.EqualTo(originalDurability - _player.Armor.Protection));
+        }
+
+        [Test]
+        public void ChestExplodingKillsPlayerIfHitHardEnough()
+        {
+            var damage = Any.Number();
+            _tools.RandomizerMock.Setup(r => r.RollDie(6)).Returns(damage);
+            _player.Strength = damage - 1;
+            
+            _player.Armor = new Armor(Any.String(), 1, Any.Number());
+
+            var result = _service.ChestExplodes(_player);
+
+            Assert.That(result.DefenderDied);
+            Assert.That(_player.Strength, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void ChestExplodingDestroysArmorIfDurabilityGoesToZero()
+        {
+            var damage = Any.Number();
+            _tools.RandomizerMock.Setup(r => r.RollDie(6)).Returns(damage);
+            var originalDurability = damage;
+            
+            _player.Armor = new Armor(Any.String(), damage, originalDurability);
+            _tools.CombatDiceMock.Setup(d => d.RollToDodge(_player)).Returns(false);
+
+            var result = _service.ChestExplodes(_player);
+
+            Assert.That(result.ArmorDestroyed);
+            Assert.That(_player.Armor, Is.Null);
+        }
+
+        [Test]
+        public void ChestExplodesOnPlayerWithoutArmor()
+        {
+            var damage = Any.Number();
+            _tools.RandomizerMock.Setup(r => r.RollDie(6)).Returns(damage);
+            _player.Strength = damage + 1;
+            var originalStrength = _player.Strength;
+            _player.Armor = null;
+            _tools.CombatDiceMock.Setup(d => d.RollToDodge(_player)).Returns(false);
+
+            var result = _service.ChestExplodes(_player);
+
+            Assert.That(result.AttackerMissed, Is.False);
+            Assert.That(result.DefenderDied, Is.False);
+            Assert.That(result.ArmorDestroyed, Is.False);
+            Assert.That(result.DamageToDefender, Is.EqualTo(damage));
+            Assert.That(_player.Strength, Is.EqualTo(originalStrength - damage));
+            Assert.That(_player.Armor, Is.EqualTo(null));
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace WizardsCastle.Logic.Services
         bool PlayerGoesFirst(Player player);
         CombatResult PlayerAttacks(Player player, Enemy enemy);
         CombatResult EnemyAttacks(Player player, Enemy enemy);
+        CombatResult ChestExplodes(Player player);
     }
 
     internal class CombatResult
@@ -63,11 +64,21 @@ namespace WizardsCastle.Logic.Services
             if(_tools.CombatDice.RollToDodge(player))
                 return new CombatResult { AttackerMissed = true};
 
+            return ApplyDamage(player, enemy.Damage);
+        }
+
+        public CombatResult ChestExplodes(Player player)
+        {
+            return ApplyDamage(player, _tools.Randomizer.RollDie(6));
+        }
+
+        private static CombatResult ApplyDamage(Player player, int damage)
+        {
             var armorDestroyed = false;
 
             var armor = player.Armor ?? new Armor("fake", 0, int.MaxValue);
-            var damageToPlayer = Math.Max(0, enemy.Damage - armor.Protection);
-            var damageToArmor = Math.Min(enemy.Damage, armor.Protection);
+            var damageToPlayer = Math.Max(0, damage - armor.Protection);
+            var damageToArmor = Math.Min(damage, armor.Protection);
 
             player.Strength -= damageToPlayer;
             armor.Durability -= damageToArmor;

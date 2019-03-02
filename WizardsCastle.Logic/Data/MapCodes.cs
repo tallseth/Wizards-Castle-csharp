@@ -8,6 +8,7 @@
         public const string StairsDown = "D";
         public const string UnexploredPrefix = "?";
         public const string Gold = "G";
+        public const string Chest = "C";
         public const string Vendor = "V";
         public const string MonsterPrefix = "M";
         public const string Warp = "W";
