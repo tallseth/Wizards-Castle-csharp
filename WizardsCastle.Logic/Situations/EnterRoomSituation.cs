@@ -57,6 +57,8 @@ namespace WizardsCastle.Logic.Situations
                     return tools.SituationBuilder.Sinkhole();
                 case MapCodes.Vendor:
                     return tools.SituationBuilder.MeetVendor();
+                case MapCodes.Gold:
+                    return tools.SituationBuilder.CollectGold();
             }
 
             throw new ArgumentException($"Unknown room code: {roomInfo}");

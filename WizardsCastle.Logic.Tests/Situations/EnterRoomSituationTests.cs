@@ -137,6 +137,17 @@ namespace WizardsCastle.Logic.Tests.Situations
             Assert.That(actual, Is.SameAs(next));
         }
 
+        [Test]
+        public void GoldRoomCollectsGold()
+        {
+            _data.Map.SetLocationInfo(_location, MapCodes.Gold);
+            var next = _tools.SetupNextSituation(sb => sb.CollectGold());
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+        }
+
         private void TestDescribeAndLeaveRoom(char roomCode, string expectedDescription)
         {
             _data.Map.SetLocationInfo(_location, roomCode);
