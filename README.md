@@ -34,8 +34,6 @@ Additional work to complete the game
   * Combat
 * Populate map and handle room effects for the following
   * Pool
-  * Chest
-  * Gold Pieces
   * Crystal Orb
   * Books
   * Treasure
