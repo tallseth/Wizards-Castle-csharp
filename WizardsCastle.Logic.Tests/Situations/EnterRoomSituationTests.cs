@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using Moq;
 using NUnit.Framework;
 using WizardsCastle.Logic.Data;
@@ -152,8 +153,22 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void ChestRoomGivesOptionToOpenChest()
         {
             _data.Map.SetLocationInfo(_location, MapCodes.Chest);
-            var openChest = _tools.SetupNextSituation(sb => sb.OpenChest());
-            var next = _tools.SetupNextSituation(sb => sb.YesOrNo(Messages.FoundChest, openChest));
+
+            TestOptionRoom(Messages.FoundChest, sb => sb.OpenChest());
+        }
+
+        [Test]
+        public void PoolGivesOptionToDrink()
+        {
+            _data.Map.SetLocationInfo(_location, MapCodes.Pool);
+
+            TestOptionRoom(Messages.FoundPool, sb => sb.DrinkFromPool());
+        }
+
+        private void TestOptionRoom(string message, Expression<Func<ISituationBuilder, ISituation>> expression)
+        {
+            var openChest = _tools.SetupNextSituation(expression);
+            var next = _tools.SetupNextSituation(sb => sb.YesOrNo(message, openChest));
 
             var actual = _situation.PlayThrough(_data, _tools);
 

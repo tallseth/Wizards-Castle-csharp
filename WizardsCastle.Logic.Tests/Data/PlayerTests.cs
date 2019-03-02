@@ -39,5 +39,50 @@ namespace WizardsCastle.Logic.Tests.Data
 
             Assert.That(player.ToString().Trim(), Does.StartWith("ST: " + player.Strength + " DE: " + player.Dexterity + " IQ: " + player.Intelligence + " GP: " + player.GoldPieces));
         }
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void IsDeadIfStrengthBelowOne(int belowOne)
+        {
+            var player = Any.Player();
+
+            player.Strength = belowOne;
+
+            Assert.That(player.IsDead);
+        }
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void IsDeadIfDexBelowOne(int belowOne)
+        {
+            var player = Any.Player();
+
+            player.Dexterity = belowOne;
+
+            Assert.That(player.IsDead);
+        }
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void IsDeadIfIntelligenceBelowOne(int belowOne)
+        {
+            var player = Any.Player();
+
+            player.Intelligence = belowOne;
+
+            Assert.That(player.IsDead);
+        }
+
+        [Test]
+        public void PlayerIsAliveIfAllStatsPositive()
+        {
+            var player = Any.Player();
+
+            player.Strength = 1;
+            player.Dexterity = 1;
+            player.Intelligence = 1;
+
+            Assert.That(!player.IsDead);
+        }
     }
 }

@@ -28,6 +28,7 @@ namespace WizardsCastle.Logic.Situations
         ISituation CollectGold();
         ISituation OpenChest();
         ISituation YesOrNo(string message, ISituation yesSituation);
+        ISituation DrinkFromPool();
     }
 
     internal class SituationBuilder : ISituationBuilder
@@ -142,6 +143,29 @@ namespace WizardsCastle.Logic.Situations
             return new YesOrNoSituation(message, yesSituation);
         }
 
+        public ISituation DrinkFromPool()
+        {
+            return new DrinkFromPoolSituation();
+        }
+
+        private class DrinkFromPoolSituation : ISituation
+        {
+            public ISituation PlayThrough(GameData data, GameTools tools)
+            {
+                tools.UI.ClearActionLog();
+                tools.UI.DisplayMessage(Messages.DrinkFromPool);
+                tools.UI.PromptUserAcknowledgement();
+
+                var message = tools.Pool.DrinkFrom(data.Player);
+
+                if (data.Player.IsDead)
+                    return tools.SituationBuilder.GameOver(Messages.DieFromPool);
+
+                tools.UI.DisplayMessage(message);
+                tools.UI.PromptUserAcknowledgement();
+                return tools.SituationBuilder.LeaveRoom();
+            }
+        }
 
 
         private class CollectGoldSituation : ISituation

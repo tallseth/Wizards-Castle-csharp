@@ -18,5 +18,16 @@
         internal const string PoisonChestOpens = "The chest opens and a noxious green gas pours out.  You try to run, but you cannot breathe.  You gasp and fall...";
         internal const string PoisonChestAwaken = "...You awaken on the floor.  You are hungry and sore, in an empty room.  The chest is gone.";
         internal const string KilledByExplodingChest = "As you open it the chest explodes, killing you before you can wonder what happenned.";
+
+        internal const string FoundPool = "You found a deep pool, glowing slightly.  Will you drink from it?";
+        internal const string DrinkFromPool = "You drink from the pool";
+        internal const string DieFromPool = "...and it burns your throat, as you die in screaming agony...";
+
+        internal const string Stronger = "You feel stronger.";
+        internal const string Weaker = "You feel weaker.";
+        internal const string Smarter = "You feel smarter.";
+        internal const string Dumber = "You feel dumber.";
+        internal const string Nimbler = "You feel nimbler.";
+        internal const string Clumsier = "You feel clumsier.";
     }
 }

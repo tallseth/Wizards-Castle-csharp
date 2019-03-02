@@ -61,6 +61,8 @@ namespace WizardsCastle.Logic.Situations
                     return tools.SituationBuilder.CollectGold();
                 case MapCodes.Chest:
                     return tools.SituationBuilder.YesOrNo(Messages.FoundChest, tools.SituationBuilder.OpenChest());
+                case MapCodes.Pool:
+                    return tools.SituationBuilder.YesOrNo(Messages.FoundPool, tools.SituationBuilder.DrinkFromPool());
             }
 
             throw new ArgumentException($"Unknown room code: {roomInfo}");

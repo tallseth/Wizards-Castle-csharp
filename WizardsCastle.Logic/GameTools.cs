@@ -22,6 +22,7 @@ namespace WizardsCastle.Logic
         internal ILootCollector LootCollector { get; set; }
         internal IPurchaseUI PurchaseUI { get; set; }
         internal IInventoryProvider InventoryProvider { get; set; }
+        internal IPool Pool { get; set; }
 
         internal static GameTools Create(GameConfig config)
         {
@@ -43,6 +44,7 @@ namespace WizardsCastle.Logic
             tools.TeleportUI = new TeleportUI(config, tools);
             tools.PurchaseUI = new PurchaseUI(tools.UI);
             tools.InventoryProvider = new InventoryProvider(tools.Randomizer);
+            tools.Pool = new Pool(tools.Randomizer);
 
             return tools;
         }

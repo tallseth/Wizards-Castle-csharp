@@ -39,6 +39,7 @@ namespace WizardsCastle.Logic
                 yield return MapCodes.Vendor;
                 yield return MapCodes.Gold;
                 yield return MapCodes.Chest;
+                yield return MapCodes.Pool;
             }
         }
 

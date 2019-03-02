@@ -55,4 +55,59 @@ namespace WizardsCastle.Logic.Tests.Situations
             Assert.That(_data.Map.GetLocationInfo(_data.CurrentLocation), Is.EqualTo(MapCodes.EmptyRoom.ToString()));
         }
     }
+
+    [TestFixture]
+    public class DrinkFromPoolSituationTests
+    {
+        private ISituation _situation;
+        private MockGameTools _tools;
+        private GameData _data;
+        private Location _location;
+
+        [SetUp]
+        public void Setup()
+        {
+            _location = Any.Location();
+            _situation = new SituationBuilder().DrinkFromPool();
+
+            _tools = new MockGameTools();
+            _data = Any.GameData();
+        }
+
+        [Test]
+        public void PlayerLeavesRoomNext()
+        {
+            var next = _tools.SetupNextSituation(sb => sb.LeaveRoom());
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+        }
+
+        [Test]
+        public void DisplaysMessageFromDrinking()
+        {
+            var message = Any.String();
+            _tools.PoolMock.Setup(p => p.DrinkFrom(_data.Player)).Returns(message);
+
+            _situation.PlayThrough(_data, _tools);
+
+            _tools.UIMock.Verify(ui=>ui.DisplayMessage(message));
+            _tools.UIMock.Verify(ui=>ui.PromptUserAcknowledgement());
+        }
+
+        [Test]
+        public void GameOverIfPlayerDiesFromDrinking()
+        {
+            _tools.PoolMock.Setup(p => p.DrinkFrom(_data.Player))
+                .Callback((Player p) => p.Strength = 0);
+
+            var next = _tools.SetupNextSituation(sb => sb.GameOver(Messages.DieFromPool));
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+
+        }
+    }
 }

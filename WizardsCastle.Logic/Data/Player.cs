@@ -35,6 +35,8 @@
         internal bool HasRuneStaff { get; set; }
         internal bool HasLamp { get; set; }
 
+        public bool IsDead => Strength < 1 || Dexterity < 1 || Intelligence < 1;
+
         public override string ToString()
         {
             return $"ST: {Strength} DE: {Dexterity} IQ: {Intelligence} GP: {GoldPieces} {Weapon?.ToString() ?? "[No Weapon]"} {Armor?.ToString() ?? "[No Armor]"}";

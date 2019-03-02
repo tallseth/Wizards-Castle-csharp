@@ -91,5 +91,13 @@ namespace WizardsCastle.Logic.Tests.Services
 
             Assert.That(result, Is.EqualTo(3));
         }
+
+        [Test]
+        public void EnumeratesPools()
+        {
+            var result = _enumerator.GetRoomContents(_standardFloor).Count(r => r == MapCodes.Pool);
+
+            Assert.That(result, Is.EqualTo(3));
+        }
     }
 }

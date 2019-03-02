@@ -26,6 +26,8 @@ namespace WizardsCastle.Logic.Tests.Helpers
         public Mock<ITeleportUI> TeleportUIMock { get; }
         public Mock<IPurchaseUI> PurchaseUIMock { get; }
         public Mock<IInventoryProvider> InventoryProviderMock { get; }
+        public Mock<IPool> PoolMock { get; }
+
 
         public MockGameTools()
         {
@@ -70,6 +72,9 @@ namespace WizardsCastle.Logic.Tests.Helpers
 
             InventoryProviderMock = new Mock<IInventoryProvider>();
             InventoryProvider = InventoryProviderMock.Object;
+
+            PoolMock = new Mock<IPool>();
+            Pool = PoolMock.Object;
         }
 
         public ISituation SetupNextSituation(Expression<Func<ISituationBuilder, ISituation>> expression)

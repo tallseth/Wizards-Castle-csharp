@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Runtime.InteropServices.ComTypes;
+using NUnit.Framework;
 using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.Tests.Helpers;
 
@@ -99,6 +100,5 @@ namespace WizardsCastle.Logic.Tests.Services
 
             _tools.RandomizerMock.Verify(r => r.OneChanceIn(1));
         }
-
     }
 }

@@ -234,7 +234,7 @@ namespace WizardsCastle.Logic.Tests.Services
             var result = _service.ChestExplodes(_player);
 
             Assert.That(result.AttackerMissed, Is.False);
-            Assert.That(result.DefenderDied, Is.False);
+            Assert.That(result.DefenderDied, Is.False, damage.ToString());
             Assert.That(result.DamageToDefender, Is.EqualTo(0));
             Assert.That(_player.Strength, Is.EqualTo(originalStrength));
             Assert.That(_player.Armor.Durability, Is.EqualTo(originalDurability - damage));

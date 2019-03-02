@@ -13,6 +13,7 @@
         public const string MonsterPrefix = "M";
         public const string Warp = "W";
         public const string Sinkhole = "S";
+        public const string Pool = "P";
         public const string WarpOfZot = "WZ";
 
         public static string Unexplored(string roomCode)

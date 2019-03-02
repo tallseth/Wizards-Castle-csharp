@@ -13,7 +13,7 @@ namespace WizardsCastle.Logic.Tests
 
         public static int Number()
         {
-            return _random.Next(0, 100);
+            return _random.Next(1, 100);
         }
 
         public static string String()
