@@ -37,6 +37,7 @@ namespace WizardsCastle.Logic
             {
                 yield return MapCodes.Sinkhole.ToString();
                 yield return MapCodes.Vendor.ToString();
+                yield return MapCodes.Gold.ToString();
             }
         }
 

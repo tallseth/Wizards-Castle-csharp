@@ -74,5 +74,14 @@ namespace WizardsCastle.Logic.Tests.Services
 
             Assert.That(result, Is.EqualTo(3));
         }
+
+        
+        [Test]
+        public void EnumeratesGold()
+        {
+            var result = _enumerator.GetRoomContents(_standardFloor).Count(r => r == MapCodes.Gold.ToString());
+
+            Assert.That(result, Is.EqualTo(3));
+        }
     }
 }
