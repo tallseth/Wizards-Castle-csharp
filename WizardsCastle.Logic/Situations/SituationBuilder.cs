@@ -154,7 +154,6 @@ namespace WizardsCastle.Logic.Situations
             {
                 tools.UI.ClearActionLog();
                 tools.UI.DisplayMessage(Messages.DrinkFromPool);
-                tools.UI.PromptUserAcknowledgement();
 
                 var message = tools.Pool.DrinkFrom(data.Player);
 
@@ -162,7 +161,6 @@ namespace WizardsCastle.Logic.Situations
                     return tools.SituationBuilder.GameOver(Messages.DieFromPool);
 
                 tools.UI.DisplayMessage(message);
-                tools.UI.PromptUserAcknowledgement();
                 return tools.SituationBuilder.LeaveRoom();
             }
         }
@@ -177,7 +175,6 @@ namespace WizardsCastle.Logic.Situations
 
                 tools.UI.ClearActionLog();
                 tools.UI.DisplayMessage($"You found {foundGold} Gold.");
-                tools.UI.PromptUserAcknowledgement();
 
                 data.Map.SetLocationInfo(data.CurrentLocation, MapCodes.EmptyRoom);
                 return tools.SituationBuilder.LeaveRoom();
@@ -203,7 +200,7 @@ namespace WizardsCastle.Logic.Situations
                         var result = tools.CombatService.ChestExplodes(data.Player);
                         if (result.DefenderDied)
                             return tools.SituationBuilder.GameOver(Messages.KilledByExplodingChest);
-                        tools.UI.DisplayMessage($"The chest explodes as you open it, deal {result.DamageToDefender} damage.");
+                        tools.UI.DisplayMessage($"The chest explodes as you open it, dealing {result.DamageToDefender} damage.");
                         break;
                     default:
                         var gold = tools.Randomizer.RollDice(5, 200);
@@ -212,7 +209,6 @@ namespace WizardsCastle.Logic.Situations
                         break;
                 }
 
-                tools.UI.PromptUserAcknowledgement();
                 data.Map.SetLocationInfo(data.CurrentLocation, MapCodes.EmptyRoom);
                 return tools.SituationBuilder.LeaveRoom();
             }

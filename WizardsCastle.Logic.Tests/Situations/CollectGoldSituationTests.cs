@@ -93,7 +93,6 @@ namespace WizardsCastle.Logic.Tests.Situations
             _situation.PlayThrough(_data, _tools);
 
             _tools.UIMock.Verify(ui=>ui.DisplayMessage(message));
-            _tools.UIMock.Verify(ui=>ui.PromptUserAcknowledgement());
         }
 
         [Test]
