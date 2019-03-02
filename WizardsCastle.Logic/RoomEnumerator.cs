@@ -28,16 +28,16 @@ namespace WizardsCastle.Logic
 
             yield return floor == _orbFloor 
                 ? MapCodes.WarpOfZot 
-                : MapCodes.Warp.ToString();
-            yield return MapCodes.Warp.ToString();
-            yield return MapCodes.Warp.ToString();
+                : MapCodes.Warp;
+            yield return MapCodes.Warp;
+            yield return MapCodes.Warp;
 
 
             for (var i = 0; i < 3; i++)
             {
-                yield return MapCodes.Sinkhole.ToString();
-                yield return MapCodes.Vendor.ToString();
-                yield return MapCodes.Gold.ToString();
+                yield return MapCodes.Sinkhole;
+                yield return MapCodes.Vendor;
+                yield return MapCodes.Gold;
             }
         }
 

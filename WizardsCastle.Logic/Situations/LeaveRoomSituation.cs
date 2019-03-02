@@ -29,7 +29,7 @@ namespace WizardsCastle.Logic.Situations
         private UserOption[] GetNavigationOptions(string roomInfo)
         {
             var options = NavigationOptions.Standard;
-            switch (roomInfo[0])
+            switch (roomInfo.Substring(0,1))
             {
                 case MapCodes.Entrance:
                     options = NavigationOptions.Entrance;

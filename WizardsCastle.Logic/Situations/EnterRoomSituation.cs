@@ -23,16 +23,16 @@ namespace WizardsCastle.Logic.Situations
 
             var roomInfo = data.Map.GetLocationInfo(data.CurrentLocation);
 
-            if (roomInfo[0] == MapCodes.UnexploredPrefix)
+            if (roomInfo.Substring(0,1) == MapCodes.UnexploredPrefix)
             {
-                roomInfo = roomInfo.TrimStart(MapCodes.UnexploredPrefix);
+                roomInfo = roomInfo.Substring(1);
                 data.Map.SetLocationInfo(data.CurrentLocation, roomInfo);
             }
 
             //todo: occasional spooky message here
             //todo: other turn operations, like curses etc?
 
-            switch (roomInfo[0])
+            switch (roomInfo.Substring(0,1))
             {
                 case MapCodes.Entrance:
                     tools.UI.DisplayMessage(Messages.EntranceDescription);

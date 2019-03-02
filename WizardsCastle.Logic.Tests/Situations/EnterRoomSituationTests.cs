@@ -148,7 +148,7 @@ namespace WizardsCastle.Logic.Tests.Situations
             Assert.That(actual, Is.SameAs(next));
         }
 
-        private void TestDescribeAndLeaveRoom(char roomCode, string expectedDescription)
+        private void TestDescribeAndLeaveRoom(string roomCode, string expectedDescription)
         {
             _data.Map.SetLocationInfo(_location, roomCode);
             var next = Mock.Of<ISituation>();

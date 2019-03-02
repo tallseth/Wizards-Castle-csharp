@@ -89,7 +89,7 @@ namespace WizardsCastle.Logic.Tests
 
         public static Move RegularMove()
         {
-            return Of(Enum.GetValues(typeof(Move)).Cast<Move>().Where(m => m != Move.Exit && m != Move.ShowMap && m != Move.Teleport));
+            return Of(Move.Up, Move.Down, Move.Left, Move.Right);
         }
 
         public static UserOption UserOptionWithValue(object obj)

@@ -17,10 +17,10 @@ namespace WizardsCastle.Logic.Services
         {
             var info = map.GetLocationInfo(location);
 
-            if(info.First() == MapCodes.Vendor)
+            if(info.StartsWith(MapCodes.Vendor))
                 return Enemy.CreateVendorCombatant();
 
-            if(info.First() != MapCodes.MonsterPrefix)
+            if(!info.StartsWith(MapCodes.MonsterPrefix))
                 throw new InvalidOperationException($"No enemy at {location}.  Actual value: {info}");
 
             var type = (Monster) Convert.ToInt32(info.Substring(1));

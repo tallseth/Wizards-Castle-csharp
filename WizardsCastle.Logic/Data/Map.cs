@@ -31,11 +31,6 @@ namespace WizardsCastle.Logic.Data
             _map[location.Floor][location.X, location.Y] = info;
         }
 
-        public void SetLocationInfo(Location location, char code)
-        {
-            SetLocationInfo(location, code.ToString());
-        }
-
         public IEnumerable<Location> GetEmptyRooms(byte floorNumber)
         {
             var floor = _map[floorNumber];

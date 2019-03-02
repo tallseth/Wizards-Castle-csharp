@@ -81,14 +81,14 @@ namespace WizardsCastle.Logic.Tests.Situations
             Assert.That(GetActualOptionsUsed(MapCodes.StairsDown), Does.Not.Contain(NavigationOptions.ShineLamp));
         }
 
-        private void TestCorrectNavigationOptions(char roomCode, UserOption[] expectedOptions)
+        private void TestCorrectNavigationOptions(string roomCode, UserOption[] expectedOptions)
         {
             _data.Player.HasRuneStaff = false;
             var actualOptions = GetActualOptionsUsed(roomCode);
             Assert.That(actualOptions, Is.EqualTo(expectedOptions));
         }
 
-        private UserOption[] GetActualOptionsUsed(char roomCode)
+        private UserOption[] GetActualOptionsUsed(string roomCode)
         {
             _data.Map.SetLocationInfo(_data.CurrentLocation, roomCode);
             var next = Mock.Of<ISituation>();
