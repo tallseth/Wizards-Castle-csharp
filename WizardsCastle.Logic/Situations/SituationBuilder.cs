@@ -127,7 +127,25 @@ namespace WizardsCastle.Logic.Situations
 
         public ISituation CollectGold()
         {
-            return null;
+            return new CollectGoldSituation();
+        }
+
+        private class CollectGoldSituation : ISituation
+        {
+            public ISituation PlayThrough(GameData data, GameTools tools)
+            {
+                var foundGold = tools.Randomizer.RollDie(10);
+                data.Player.GoldPieces += foundGold;
+
+                tools.UI.ClearActionLog();
+                tools.UI.DisplayMessage($"You found {foundGold} Gold.");
+                tools.UI.PromptUserAcknowledgement();
+
+                data.Map.SetLocationInfo(data.CurrentLocation, MapCodes.EmptyRoom);
+                return tools.SituationBuilder.LeaveRoom();
+            }
         }
     }
+
+
 }
