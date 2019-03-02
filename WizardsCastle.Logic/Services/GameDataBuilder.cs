@@ -70,17 +70,4 @@ namespace WizardsCastle.Logic.Services
             }
         }
     }
-
-    internal interface IFloorContentGenerator
-    {
-        IEnumerable<string> GetContentsForFloor(GameConfig config);
-    }
-
-    internal class FloorContentGenerator : IFloorContentGenerator
-    {
-        public IEnumerable<string> GetContentsForFloor(GameConfig config)
-        {
-            yield break;
-        }
-    }
 }

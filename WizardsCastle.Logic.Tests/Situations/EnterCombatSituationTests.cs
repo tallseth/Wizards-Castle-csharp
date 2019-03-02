@@ -16,7 +16,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [SetUp]
         public void Setup()
         {
-            _situation = new EnterCombatSituation();
+            _situation = new SituationBuilder().EnterCombat();
 
             _tools = new MockGameTools();
             _data = Any.GameData();
@@ -38,8 +38,8 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void GoesToEnemyAttackIfPlayerDoesNotGoFirst()
         {
             var expected = Mock.Of<ISituation>();
-            _tools.CombatServiceMock.Setup(cs => cs.PlayerGoesFirst(_data.Player)).Returns(true);
-            _tools.SituationBuilderMock.Setup(sb => sb.CombatOptions()).Returns(expected);
+            _tools.CombatServiceMock.Setup(cs => cs.PlayerGoesFirst(_data.Player)).Returns(false);
+            _tools.SituationBuilderMock.Setup(sb => sb.EnemyAttack(false)).Returns(expected);
 
             var actual = _situation.PlayThrough(_data, _tools);
 

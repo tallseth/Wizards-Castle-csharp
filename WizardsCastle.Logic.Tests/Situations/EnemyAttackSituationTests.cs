@@ -18,7 +18,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [SetUp]
         public void Setup()
         {
-            _situation = new EnemyAttackSituation(Any.Bool());
+            _situation = new SituationBuilder().EnemyAttack(Any.Bool());
 
             _tools = new MockGameTools();
             _data = Any.GameData();
@@ -30,7 +30,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [TestCase(false)]
         public void EnemyMissesReportsMessageAndGoesToNextSituation(bool retreating)
         {
-            _situation = new EnemyAttackSituation(retreating);
+            _situation = new SituationBuilder().EnemyAttack(retreating);
             var next = retreating 
                 ? _tools.SetupNextSituation(sb=>sb.LeaveRoom()) 
                 : _tools.SetupNextSituation(sb => sb.CombatOptions());
@@ -61,7 +61,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [TestCase(false)]
         public void EnemyHitsReportsDamageAndGoesToNextSituation(bool retreating)
         {
-            _situation = new EnemyAttackSituation(retreating);
+            _situation = new SituationBuilder().EnemyAttack(retreating);
             var next = retreating 
                 ? _tools.SetupNextSituation(sb=>sb.LeaveRoom()) 
                 : _tools.SetupNextSituation(sb => sb.CombatOptions());

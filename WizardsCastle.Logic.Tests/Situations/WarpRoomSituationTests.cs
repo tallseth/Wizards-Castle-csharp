@@ -21,7 +21,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [Test]
         public void StandardWarpMovesToRandomRoom()
         {
-            var situation = new WarpRoomSituation(false);
+            var situation = GetSituation(false);
 
             var warpTarget = Any.Location();
             _tools.RandomizerMock.Setup(r => r.RandomLocation()).Returns(warpTarget);
@@ -33,7 +33,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [Test]
         public void WalkingIntoWarpOfZotWithoutRunestaffWalksOutTheOtherSide()
         {
-            var situation = new WarpRoomSituation(true);
+            var situation = GetSituation(true);
             _data.Player.HasRuneStaff = false;
             _data.LastMove = Any.RegularMove();
 
@@ -47,7 +47,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [Test]
         public void TeleportingIntoWarpOfZotWithRunestaffGetsOrbOfZotAndClearsRoom()
         {
-            var situation = new WarpRoomSituation(true);
+            var situation = GetSituation(true);
             _data.Map.SetLocationInfo(_data.CurrentLocation, MapCodes.WarpOfZot);
             _data.Player.HasRuneStaff = true;
             _data.LastMove = Move.Teleport;
@@ -58,6 +58,11 @@ namespace WizardsCastle.Logic.Tests.Situations
             Assert.That(_data.Player.HasRuneStaff, Is.False);
             Assert.That(_data.Player.HasOrbOfZot, Is.True);
             Assert.That(_data.Map.GetLocationInfo(_data.CurrentLocation), Is.EqualTo(MapCodes.EmptyRoom.ToString()));
+        }
+
+        private static ISituation GetSituation(bool warpOfZot)
+        {
+            return new SituationBuilder().WarpRoom(warpOfZot);
         }
     }
 }

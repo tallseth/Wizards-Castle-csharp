@@ -17,7 +17,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void Setup()
         {
             _exitMessage = Any.String();
-            _situation = new GameOverSituation(_exitMessage);
+            _situation = new SituationBuilder().GameOver(_exitMessage);
 
             _tools = new MockGameTools();
             _data = Any.GameData();

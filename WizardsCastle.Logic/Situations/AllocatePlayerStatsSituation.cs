@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WizardsCastle.Logic.Data;
+﻿using WizardsCastle.Logic.Data;
 using WizardsCastle.Logic.UI;
 
 namespace WizardsCastle.Logic.Situations

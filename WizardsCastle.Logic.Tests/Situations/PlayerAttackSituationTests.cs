@@ -18,7 +18,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [SetUp]
         public void Setup()
         {
-            _situation = new PlayerAttackSituation();
+            _situation = new SituationBuilder().PlayerAttack();
 
             _tools = new MockGameTools();
             _data = Any.GameData();

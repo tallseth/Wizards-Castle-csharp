@@ -47,4 +47,5 @@ Additional work to complete the game
 * Bribery
 
 Other issues
-* Got a sinkhole loop in testing.  Probably only matters on the small loop, but maybe something to think about fixing.
+* Got a sinkhole loop in testing.  Probably only matters on the small map, but maybe something to think about fixing.
+* It would be nice to see your numerical position when you see the map.

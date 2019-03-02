@@ -21,7 +21,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void Setup()
         {
             _movementOptions = Any.UserOptions();
-            _situation = new NavigationSituation(_movementOptions);
+            _situation = new SituationBuilder().Navigate(_movementOptions);
 
             _tools = new MockGameTools();
             _data = Any.GameData();

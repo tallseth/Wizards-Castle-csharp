@@ -9,14 +9,14 @@ namespace WizardsCastle.Logic.Tests.Situations
     [TestFixture]
     public class StartSituationTests
     {
-        private StartSituation _situation;
+        private ISituation _situation;
         private MockGameTools _tools;
         private GameData _data;
 
         [SetUp]
         public void Setup()
         {
-            _situation = new StartSituation();
+            _situation = new SituationBuilder().Start();
 
             _tools = new MockGameTools();
             _data = Any.GameData();

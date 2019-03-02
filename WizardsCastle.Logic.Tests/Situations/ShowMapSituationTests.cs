@@ -13,7 +13,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         {
             var data = Any.GameData();
             var tools = new MockGameTools();
-            var situation = new ShowMapSituation();
+            var situation = new SituationBuilder().ShowMap();
 
             var sequence = new MoqSequence();
             sequence.InSequence(tools.UIMock.Setup(ui => ui.ClearActionLog()));

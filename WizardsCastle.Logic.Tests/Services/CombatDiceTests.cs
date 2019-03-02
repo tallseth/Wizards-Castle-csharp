@@ -101,5 +101,35 @@ namespace WizardsCastle.Logic.Tests.Services
 
             Assert.That(_dice.RollToGoFirst(_player), Is.False);
         }
+
+        [Test]
+        public void RollForWeaponBreakageSucceedsForUnluckyRollAgainstStoneskinMonster()
+        {
+            var enemy = Any.Monster();
+            enemy.StoneSkin = true;
+            _randomizer.Setup(r => r.OneChanceIn(8)).Returns(true);
+
+            Assert.That(_dice.RollForWeaponBreakage(enemy), Is.True);
+        }
+
+        [Test]
+        public void RollForWeaponBreakageFailsForLuckyRollAgainstStoneskinMonster()
+        {
+            var enemy = Any.Monster();
+            enemy.StoneSkin = true;
+            _randomizer.Setup(r => r.OneChanceIn(8)).Returns(false);
+
+            Assert.That(_dice.RollForWeaponBreakage(enemy), Is.False);
+        }
+
+        [Test]
+        public void RollForWeaponBreakageFailsAgainstRegularMonster()
+        {
+            var enemy = Any.Monster();
+            enemy.StoneSkin = false;
+            _randomizer.Setup(r => r.OneChanceIn(8)).Returns(true);
+
+            Assert.That(_dice.RollForWeaponBreakage(enemy), Is.False);
+        }
     }
 }

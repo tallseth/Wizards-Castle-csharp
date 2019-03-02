@@ -20,7 +20,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [SetUp]
         public void Setup()
         {
-            _situation = new CombatOptionsSituation();
+            _situation = new SituationBuilder().CombatOptions();
 
             _tools = new MockGameTools();
             _data = Any.GameData();

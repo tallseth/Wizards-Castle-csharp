@@ -17,21 +17,4 @@ namespace WizardsCastle.Logic.Data
         Balrog = 11,
         Dragon = 12
     }
-
-    internal static class MonsterHelpers
-    {
-        public static string GetLocationCode(this Monster monster)
-        {
-            var num = (int) monster;
-            return "M" + num;
-        }
-
-        public static Monster ParseLocationCode(string code)
-        {
-            if(!code.StartsWith("M"))
-                throw new ArgumentException($"Invalid string to parse as monster: {code}");
-
-            return (Monster) Convert.ToInt32(code.Substring(1));
-        }
-    }
 }

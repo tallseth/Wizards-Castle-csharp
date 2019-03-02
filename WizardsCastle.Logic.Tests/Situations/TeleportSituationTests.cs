@@ -15,7 +15,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         [SetUp]
         public void Setup()
         {
-            _situation = new TeleportSituation();
+            _situation = new SituationBuilder().Teleport();
 
             _tools = new MockGameTools();
             _data = Any.GameData();

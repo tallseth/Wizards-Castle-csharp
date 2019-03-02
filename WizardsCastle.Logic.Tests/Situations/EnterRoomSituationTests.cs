@@ -19,7 +19,7 @@ namespace WizardsCastle.Logic.Tests.Situations
         public void Setup()
         {
             _location = Any.Location();
-            _situation = new EnterRoomSituation(_location);
+            _situation = new SituationBuilder().EnterRoom(_location);
 
             _tools = new MockGameTools();
             _data = Any.GameData();
