@@ -52,7 +52,7 @@ namespace WizardsCastle.Logic.Situations
                     tools.UI.DisplayMessage($"You have encountered a {enemy.Name}");
                     return tools.SituationBuilder.EnterCombat();
                 case MapCodes.Warp:
-                    return tools.SituationBuilder.WarpRoom(false);
+                    return tools.SituationBuilder.WarpRoom(roomInfo == MapCodes.WarpOfZot);
                 case MapCodes.Sinkhole:
                     return tools.SituationBuilder.Sinkhole();
                 case MapCodes.Vendor:

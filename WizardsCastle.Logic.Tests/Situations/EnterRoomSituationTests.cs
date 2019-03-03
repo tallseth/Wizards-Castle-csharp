@@ -116,6 +116,18 @@ namespace WizardsCastle.Logic.Tests.Situations
         }
 
         [Test]
+        public void WarpOfZotRoomEntersWarpOfZot()
+        {
+            _data.Map.SetLocationInfo(_location, MapCodes.WarpOfZot);
+            var next = Mock.Of<ISituation>();
+            _tools.SituationBuilderMock.Setup(b => b.WarpRoom(true)).Returns(next);
+
+            var actual = _situation.PlayThrough(_data, _tools);
+
+            Assert.That(actual, Is.SameAs(next));
+        }
+
+        [Test]
         public void SinkholeRoomEntersSinkhole()
         {
             _data.Map.SetLocationInfo(_location, MapCodes.Sinkhole);

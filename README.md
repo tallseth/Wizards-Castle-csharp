@@ -33,7 +33,6 @@ Additional work to complete the game
   * Sell Treasure
   * Combat
 * Populate map and handle room effects for the following
-  * Pool
   * Crystal Orb
   * Books
   * Treasure
