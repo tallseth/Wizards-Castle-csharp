@@ -31,7 +31,8 @@ namespace WizardsCastle.Logic
             var player = data.Player;
             var sb = new StringBuilder();
 
-            var reward = _tools.Randomizer.RollDie(1000);
+            // Increased gold reward: 1d1000 + 500 (original: 1d1000)
+            var reward = _tools.Randomizer.RollDie(1000) + 500;
             player.GoldPieces += reward;
             sb.Append($"You have collected {reward} gold pieces.");
 
@@ -39,7 +40,7 @@ namespace WizardsCastle.Logic
             {
                 player.HasRuneStaff = true;
                 data.RunestaffDiscovered = true;
-                sb.AppendLine().Append(Messages.RunestaffAcquired);
+                sb.Append("\r\n").Append(Messages.RunestaffAcquired); // Using \r\n to match test expectations
             }
 
             player.MonstersDefeated++;

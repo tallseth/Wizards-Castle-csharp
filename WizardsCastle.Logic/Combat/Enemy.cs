@@ -1,4 +1,5 @@
-﻿using WizardsCastle.Logic.Data;
+﻿using System;
+using WizardsCastle.Logic.Data;
 
 namespace WizardsCastle.Logic.Combat
 {
@@ -9,8 +10,10 @@ namespace WizardsCastle.Logic.Combat
             Name = name;
             StoneSkin = stoneSkin;
             IsMonster = isMonster;
-            HitPoints = combatNumber+2;
-            Damage = (combatNumber / 2) + 1;
+            // Reduced HP by 20% for easier difficulty (original: combatNumber + 2)
+            HitPoints = (int)Math.Ceiling((combatNumber + 2) * 0.8);
+            // Reduced damage by 1 point, min 1 (original: (combatNumber / 2) + 1)
+            Damage = Math.Max(1, combatNumber / 2);
         }
 
         public static Enemy CreateMonster(Monster type)
