@@ -23,7 +23,9 @@ namespace WizardsCastle.Logic.Services
         {
             var impact = _randomizer.RollDie(3);
 
-            switch (_randomizer.RollDie(6))
+            var roll = _randomizer.RollDie(8); // Changed from 1d6 to 1d8 to add healing outcomes
+            
+            switch (roll)
             {
                 case 1:
                     player.Strength = Math.Min(18, player.Strength + impact);
@@ -43,6 +45,17 @@ namespace WizardsCastle.Logic.Services
                 case 6:
                     player.Dexterity -= impact;
                     return Messages.Clumsier;
+                case 7:
+                    // Healing pool: restore random stat
+                    player.Strength = Math.Min(18, player.Strength + impact);
+                    player.Intelligence = Math.Min(18, player.Intelligence + impact);
+                    return "You feel refreshed! All stats increased.";
+                case 8:
+                    // Super healing: restore all stats
+                    player.Strength = Math.Min(18, player.Strength + impact + 2);
+                    player.Intelligence = Math.Min(18, player.Intelligence + impact + 2);
+                    player.Dexterity = Math.Min(18, player.Dexterity + impact + 2);
+                    return "This pool's waters are blessed! You feel greatly invigorated!";
             }
 
             throw new InvalidOperationException();

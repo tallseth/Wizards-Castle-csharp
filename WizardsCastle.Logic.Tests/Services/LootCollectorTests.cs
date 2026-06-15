@@ -28,13 +28,13 @@ namespace WizardsCastle.Logic.Tests.Services
         {
             var reward = Any.Number();
             _data.Player.GoldPieces = Any.Number();
-            var expectedGold = reward + _data.Player.GoldPieces;
+            var expectedGold = reward + 500 + _data.Player.GoldPieces; // Updated for +500 bonus
 
             _tools.RandomizerMock.Setup(r => r.RollDie(1000)).Returns(reward);
 
             var actual = _collector.CollectMonsterLoot(_data);
 
-            Assert.That(actual, Is.EqualTo(string.Format("You have collected {0} gold pieces.", reward)));
+            Assert.That(actual, Is.EqualTo(string.Format("You have collected {0} gold pieces.", reward + 500))); // Updated
             Assert.That(_data.Player.GoldPieces, Is.EqualTo(expectedGold));            
         }
 
@@ -64,7 +64,7 @@ namespace WizardsCastle.Logic.Tests.Services
 
             var actual = _collector.CollectMonsterLoot(_data);
 
-            Assert.That(actual, Is.EqualTo(string.Format("You have collected {0} gold pieces.\r\n{1}", reward, Messages.RunestaffAcquired)));
+            Assert.That(actual, Is.EqualTo(string.Format("You have collected {0} gold pieces.\r\n{1}", reward + 500, Messages.RunestaffAcquired))); // Updated
             Assert.That(_data.Player.HasRuneStaff, Is.True);
             Assert.That(_data.RunestaffDiscovered, Is.True);
         }
@@ -84,7 +84,7 @@ namespace WizardsCastle.Logic.Tests.Services
 
             var actual = _collector.CollectMonsterLoot(_data);
 
-            Assert.That(actual, Is.EqualTo(string.Format("You have collected {0} gold pieces.", reward)));
+            Assert.That(actual, Is.EqualTo(string.Format("You have collected {0} gold pieces.", reward + 500))); // Updated
             Assert.That(_data.Player.HasRuneStaff, Is.False);
             Assert.That(_data.RunestaffDiscovered, Is.True);
         }

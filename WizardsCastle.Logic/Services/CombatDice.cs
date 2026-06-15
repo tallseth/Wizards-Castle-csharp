@@ -27,7 +27,8 @@ namespace WizardsCastle.Logic.Services
 
         public bool RollToHit(Player player)
         {
-            return player.Dexterity >= _randomizer.RollDie(20) + GetBlindnessOffset(player);
+            // Changed from 1d20 to 1d15 for better hit chance
+            return player.Dexterity >= _randomizer.RollDie(15) + GetBlindnessOffset(player);
         }
 
         public bool RollToDodge(Player player)
@@ -37,12 +38,14 @@ namespace WizardsCastle.Logic.Services
 
         public bool RollForWeaponBreakage(Enemy enemy)
         {
-            return enemy.StoneSkin && _randomizer.OneChanceIn(8);
+            // Reduced from 1/8 to 1/12 for less frequent breakage
+            return enemy.StoneSkin && _randomizer.OneChanceIn(12);
         }
 
         private static int GetBlindnessOffset(Player player)
         {
-            return player.IsBlind ? 3 : 0;
+            // Reduced from +3 to +2 for less punishing blindness
+            return player.IsBlind ? 2 : 0;
         }
     }
 }

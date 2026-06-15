@@ -128,7 +128,8 @@ namespace WizardsCastle.Logic.Tests.Services
 
         private void SetupEffectRoll(int i)
         {
-            _randomizer.Setup(r => r.RollDie(6)).Returns(i);
+            // Changed from RollDie(6) to RollDie(8) to match Pool.cs changes
+            _randomizer.Setup(r => r.RollDie(8)).Returns(i);
         }
     }
 }
